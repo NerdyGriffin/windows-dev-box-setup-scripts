@@ -32,6 +32,9 @@ Function New-SymbolicLink {
 	} elseif ((Test-Path $Path -ErrorAction SilentlyContinue) -and (Get-Item $Path -ErrorAction SilentlyContinue | Where-Object Attributes -Match ReparsePoint)) {
 		Write-Warning "'$Path' is already a reparse point." | Write-Host
 		Return $false
+	} elseif ("$Path" | Select-String -SimpleMatch "OneDrive") {
+		Write-Warning "'$Path' is within a OneDrive directory. This link will be skipped to avoid accidentally syncing large server shares." | Write-Host
+		Return $false
 	} else {
 		if (Test-Path "$Path\*") {
 			# $MoveResult = (Move-Item -Path $Path\* -Destination $Value -Force -PassThru -Verbose)

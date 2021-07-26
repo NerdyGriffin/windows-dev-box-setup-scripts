@@ -85,7 +85,7 @@ Start-Sleep -Seconds 1;
 #--- Web Dev Tools ---
 executeScript 'HyperV.ps1';
 # executeScript "Docker.ps1";
-# executeScript 'WSL.ps1';
+executeScript 'WSL.ps1';
 executeScript 'Browsers.ps1';
 
 #--- Web Dev Tools ---
@@ -115,19 +115,19 @@ Start-Sleep -Seconds 1;
 executeScript 'GetMLIDEAndTooling.ps1';
 executeScript 'PythonMLTools.ps1';
 
-# try {
-# 	Write-Host 'Installing tools inside the WSL distro...'
-# 	Ubuntu1804 run apt install ansible -y
-# 	Ubuntu1804 run apt install git-core -y
-# 	Ubuntu1804 run apt install git-extras -y
-# 	Ubuntu1804 run apt install neofetch -y
-# 	Ubuntu1804 run apt install nodejs -y
-# 	Ubuntu1804 run apt install python-numpy python-scipy -y
-# 	Ubuntu1804 run apt install python2.7 python-pip -y
-# 	Ubuntu1804 run pip install pandas
-# } catch {
-# 	# Skip for now
-# }
+try {
+	Write-Host 'Installing tools inside the WSL distro...'
+	Ubuntu1804 run apt install ansible -y
+	Ubuntu1804 run apt install git-core -y
+	Ubuntu1804 run apt install git-extras -y
+	Ubuntu1804 run apt install neofetch -y
+	Ubuntu1804 run apt install nodejs -y
+	Ubuntu1804 run apt install python-numpy python-scipy -y
+	Ubuntu1804 run apt install python2.7 python-pip -y
+	Ubuntu1804 run pip install pandas
+} catch {
+	# Skip for now
+}
 
 # #--- DevOps Azure Tools ---
 # choco install -y powershell-core
