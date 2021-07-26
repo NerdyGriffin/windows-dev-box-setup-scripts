@@ -39,6 +39,6 @@ $SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File
 }
-Add-Content -Path $SimpleLog -Value 'openssh'
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_openssh'
 
 Write-Output 'Please restart your computer after exiting this script'
