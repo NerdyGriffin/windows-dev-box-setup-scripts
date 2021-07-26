@@ -67,4 +67,4 @@ $SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
-Add-Content -Path $SimpleLog -Value 'nerdygriffin_privacy'
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_privacy' | Out-Null

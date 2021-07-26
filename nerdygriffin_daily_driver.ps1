@@ -84,4 +84,4 @@ $SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
 If (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
-Add-Content -Path $SimpleLog -Value 'nerdygriffin_daily_driver'
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_daily_driver' | Out-Null
