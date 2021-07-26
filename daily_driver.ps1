@@ -31,14 +31,16 @@ executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
 # executeScript 'TaskbarSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
-executeScript 'WindowsPersonalization.ps1';
-executeScript 'WindowsPowerUser.ps1';
 executeScript 'CommonDevTools.ps1';
-executeScript 'ConfigurePowerShell.ps1';
+
 executeScript 'ConfigureGit.ps1';
+
+#--- Configure Powershell Profile for Powerline and PSReadline ---
+executeScript 'ConfigurePowerShell.ps1';
+
+#--- Assorted PowerShellTools ---
 executeScript 'PowerShellTools.ps1';
 executeScript 'GNU.ps1';
-executeScript 'CustomBackup.ps1';
 
 #--- Graphics Driver Support
 executeScript 'NvidiaGraphics.ps1';
@@ -48,6 +50,8 @@ executeScript 'ChocolateyExtensions.ps1';
 executeScript 'ChocolateyGUI.ps1';
 
 #--- Setting up programs for typical every-day use
+executeScript 'WindowsPersonalization.ps1';
+executeScript 'WindowsPowerUser.ps1';
 executeScript 'PasswordManager.ps1';
 executeScript 'NordVPN.ps1';
 executeScript 'Browsers.ps1';
@@ -56,6 +60,8 @@ executeScript 'CommunicationApps.ps1';
 executeScript 'OfficeTools.ps1';
 executeScript 'CloudStorage.ps1';
 executeScript 'Scientific.ps1';
+
+executeScript 'CustomBackup.ps1';
 
 #--- Windows Settings ---
 Disable-BingSearch
