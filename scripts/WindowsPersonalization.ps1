@@ -9,3 +9,13 @@ If (-not(Test-Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAc
 	New-Item -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' -Force | Out-Null
 }
 Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' -Name 'GlobalUserDisabled ' -Type DWord -Value 0
+
+#--- Create custom folders on the desktop
+If (-not(Test-Path 'C:\Users\Public\Desktop\Public')) {
+	New-Item -Path 'C:\Users\Public\Desktop\Public' -ItemType Directory -Verbose -ErrorAction SilentlyContinue
+}
+
+$LocalDesktopPath = (Join-Path ((Get-LibraryNames).Desktop) '\Local')
+If (-not(Test-Path "$LocalDesktopPath")) {
+	New-Item -Path "$LocalDesktopPath" -ItemType Directory -Verbose -ErrorAction SilentlyContinue
+}

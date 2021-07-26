@@ -15,13 +15,3 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
 #taskbar where window is open for multi-monitor
 # Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarMode -Value 2
-
-#--- Create custom folders on the desktop
-If (-not(Test-Path 'C:\Users\Public\Desktop\Public')) {
-	New-Item -Path 'C:\Users\Public\Desktop\Public' -ItemType Directory -Verbose -ErrorAction SilentlyContinue
-}
-
-$LocalDesktopPath = (Join-Path ((Get-LibraryNames).Desktop) '\Local')
-If (-not(Test-Path "$LocalDesktopPath")) {
-	New-Item -Path "$LocalDesktopPath" -ItemType Directory -Verbose -ErrorAction SilentlyContinue
-}
