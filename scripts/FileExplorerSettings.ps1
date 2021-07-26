@@ -1,6 +1,6 @@
 #--- Configuring Windows properties ---
 #--- Windows Features ---
-# Show hidden files, Show protected OS files, Show file extensions,
+# Show hidden files, Show protected OS files, Show file extensions
 Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtensions
 
 # Show full path in title bar, Hide recent files in quick access, hide frequent folders in quick access

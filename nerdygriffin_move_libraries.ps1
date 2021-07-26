@@ -47,7 +47,7 @@ Function New-SymbolicLink {
 			Remove-Item $Path -Recurse -Force;
 		}
 		if (-not(Test-Path $Value)) {
-			New-Item -Path $Value -ItemType Directory;
+			New-Item -Path $Value -ItemType Directory | Write-Verbose
 		}
 		$Result = New-Item -Path $Path -ItemType SymbolicLink -Value $Value -Force -Verbose;
 		if ($Result) {
@@ -103,7 +103,7 @@ Function New-LibraryLinks {
 			Write-Host "Path already exists: $LinkPath"
 		} elseif (("$_" | Select-String -SimpleMatch 'OneDrive' -NotMatch) -and ("$_" | Select-String -SimpleMatch "$DocumentsPath" -NotMatch) -and ("$_" | Select-String -SimpleMatch "$DownloadsPath" -NotMatch)) {
 			Write-Host "Creating new SymLink: '$LinkPath' --> '$Value'"
-			New-Item -Path $_ -Name $Name -ItemType SymbolicLink -Value $Value -Verbose -ErrorAction SilentlyContinue;
+			New-Item -Path $_ -Name $Name -ItemType SymbolicLink -Value $Value -Verbose -ErrorAction SilentlyContinue | Write-Verbose
 		}
 	}
 }

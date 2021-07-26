@@ -39,7 +39,7 @@ Function New-SymbolicLink {
 		Remove-Item $Path -Recurse -Force
 	}
 	if (-not(Test-Path $Value)) {
-		New-Item -Path $Value -ItemType Directory
+		New-Item -Path $Value -ItemType Directory | Write-Verbose
 	}
 	$Result = New-Item -Path $Path -ItemType SymbolicLink -Value $Value -Force -Verbose
 	if ($Result) {

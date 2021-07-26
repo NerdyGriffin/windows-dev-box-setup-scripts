@@ -12,10 +12,10 @@ Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Backgrou
 
 #--- Create custom folders on the desktop
 If (-not(Test-Path 'C:\Users\Public\Desktop\Public')) {
-	New-Item -Path 'C:\Users\Public\Desktop\Public' -ItemType Directory -Verbose -ErrorAction SilentlyContinue
+	New-Item -Path 'C:\Users\Public\Desktop\Public' -ItemType Directory -Verbose -ErrorAction SilentlyContinue | Write-Verbose
 }
 
 $LocalDesktopPath = (Join-Path ((Get-LibraryNames).Desktop) '\Local')
 If (-not(Test-Path "$LocalDesktopPath")) {
-	New-Item -Path "$LocalDesktopPath" -ItemType Directory -Verbose -ErrorAction SilentlyContinue
+	New-Item -Path "$LocalDesktopPath" -ItemType Directory -Verbose -ErrorAction SilentlyContinue | Write-Verbose
 }
