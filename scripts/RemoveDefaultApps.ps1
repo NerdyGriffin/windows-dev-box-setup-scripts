@@ -64,6 +64,7 @@ foreach ($app in $applicationList) {
 }
 
 # McAfee Security
+Write-Output 'Trying to remove *McAfee*'
 Get-AppxPackage *McAfee* | Remove-AppxPackage
 
 # Uninstall McAfee Security App
