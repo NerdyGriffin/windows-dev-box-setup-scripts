@@ -1,3 +1,7 @@
+# Description: Boxstarter Script
+# Author: Christian Kunis (NerdyGriffin)
+# Install OpenSSH Server
+
 If ($Boxstarter.StopOnPackageFailure) { $Boxstarter.StopOnPackageFailure = $false }
 
 Disable-UAC
@@ -13,32 +17,22 @@ $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf('/'))
 $helperUri += '/scripts'
 Write-Host "helper script base URI is $helperUri"
 
-function drawLine { Write-Host '------------------------------' }
-
 function executeScript {
 	Param ([string]$script)
-	drawLine;
 	Write-Host "executing $helperUri/$script ..."
-	Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script")) -ErrorAction Continue
-	drawLine;
-	RefreshEnv;
-	Start-Sleep -Seconds 1;
+	Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script"))
 }
+
+#--- Setting up Windows ---
+executeScript 'SystemConfiguration.ps1';
+executeScript 'FileExplorerSettings.ps1';
+executeScript 'RemoveDefaultApps.ps1';
+executeScript 'CommonDevTools.ps1';
 
 #--- SSH Server ---
 executeScript 'OpenSSHServer.ps1';
-
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE '\Desktop\boxstarter-failures.log')
 
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
-
-$SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
-if (-not(Test-Path $SimpleLog)) {
-	New-Item -Path $SimpleLog -ItemType File
-}
-Add-Content -Path $SimpleLog -Value 'nerdygriffin_openssh'
-
-Write-Output 'Please restart your computer after exiting this script'
