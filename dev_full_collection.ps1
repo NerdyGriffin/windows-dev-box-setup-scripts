@@ -98,13 +98,13 @@ choco install -y visualstudio2017-workload-nativedesktop
 RefreshEnv;
 Start-Sleep -Seconds 1;
 
-#--- Column UI Workload ---
-choco install -y visualstudio2019community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
-choco install -y visualstudio2019-workload-nativedesktop
-choco install -y visualstudio2019-workload-vctools
+# #--- Column UI Workload ---
+# choco install -y visualstudio2019community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
+# choco install -y visualstudio2019-workload-nativedesktop
+# choco install -y visualstudio2019-workload-vctools
 
-RefreshEnv;
-Start-Sleep -Seconds 1;
+# RefreshEnv;
+# Start-Sleep -Seconds 1;
 
 #--- Assorted Dev Tools and Dependencies ---
 executeScript 'MiscDevTools.ps1';
