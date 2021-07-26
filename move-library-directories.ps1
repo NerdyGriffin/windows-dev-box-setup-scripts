@@ -94,13 +94,14 @@ Function New-LibraryLinks {
 
 	# TODO: Add a check that (Split-Path -Path "$Path" -Qualifier) is not a mapped network drive
 
+	$DocumentsPath = ((Get-LibraryNames).Personal);
 	$DownloadsPath = ((Get-LibraryNames).'{374DE290-123F-4565-9164-39C4925E467B}');
 
 	@( ($env:USERPROFILE), (Split-Path -Path $Path -Parent), ($Path) ) | ForEach-Object {
 		$LinkPath = (Join-Path $_ $Name);
 		if (Test-Path $LinkPath) {
 			Write-Host "Path already exists: $LinkPath"
-		} elseif ("$_" | Select-String -SimpleMatch "$DownloadsPath" -NotMatch) {
+		} elseif (("$_" | Select-String -SimpleMatch 'OneDrive' -NotMatch) -and ("$_" | Select-String -SimpleMatch "$DocumentsPath" -NotMatch) -and ("$_" | Select-String -SimpleMatch "$DownloadsPath" -NotMatch)) {
 			Write-Host "Creating new SymLink: '$LinkPath' --> '$Value'"
 			New-Item -Path $_ -Name $Name -ItemType SymbolicLink -Value $Value -Verbose -ErrorAction SilentlyContinue;
 		}
@@ -126,7 +127,7 @@ if ("$env:Username" -like '*Public*') {
 		Invoke-Expression $MapNetworkDriveScript -ErrorAction Continue
 	}
 
-	$LibrariesToMove = @('My Music', 'My Pictures', 'My Video')
+	$LibrariesToMove = @('My Music', 'My Video')
 
 	$NewDrive = 'D:'
 	if (Test-Path "$NewDrive") {
@@ -135,7 +136,6 @@ if ("$env:Username" -like '*Public*') {
 		$PSBootDrive = Get-PSDrive C
 		# Only move the documents folder if the boot drive of this computer is smaller than the given threshold
 		if (($PSBootDrive.Used + $PSBootDrive.Free) -lt (0.5TB)) {
-			# $LibrariesToMove += 'Documents'
 			$LibrariesToMove += 'Downloads'
 			$LibrariesToMove += '{374DE290-123F-4565-9164-39C4925E467B}' # This is a name for the downloads library... I have no idea why it does not use an alias
 		}
@@ -145,8 +145,6 @@ if ("$env:Username" -like '*Public*') {
 			$PrevLibraryPath = (Get-LibraryNames).$_
 			if (($PrevLibraryPath) -and (Split-Path -Path "$PrevLibraryPath" -Qualifier | Select-String -NotMatch "$NewDrive")) {
 				$NewLibraryPath = (Join-Path "$NewDrive" (Split-Path -Path $PrevLibraryPath -NoQualifier)) # Convert all the existing library paths from 'C:\' to 'D:\'
-				# $FolderName = (Split-Path -Path $PrevLibraryPath -Leaf -Resolve)
-				# $LinkPath = (Join-Path "$env:USERPROFILE" "$FolderName")
 				Write-Host "Moving library ""$_"" from ""$PrevLibraryPath"" to ""$NewLibraryPath""...";
 				Move-LibraryDirectory -libraryName $_ -newPath $NewLibraryPath -ErrorAction Continue;
 				Write-Host "Attempting to create SymLink '$PrevLibraryPath' --> '$NewLibraryPath'...";
