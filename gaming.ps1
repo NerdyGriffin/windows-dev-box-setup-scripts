@@ -17,10 +17,10 @@ function drawLine { Write-Host '------------------------------' }
 
 function executeScript {
 	Param ([string]$script)
-	drawLine 30
+	drawLine;
 	Write-Host "executing $helperUri/$script ..."
 	Invoke-Expression ((New-Object net.webclient).DownloadString("$helperUri/$script")) -ErrorAction Continue
-	drawLine 30
+	drawLine;
 	RefreshEnv;
 	Start-Sleep -Seconds 1;
 }
