@@ -56,6 +56,11 @@ executeScript 'ConfigurePowerShell.ps1';
 executeScript 'PowerShellTools.ps1';
 executeScript 'GNU.ps1';
 
+#--- Assorted Dev Tools and Dependencies ---
+executeScript 'MiscDevTools.ps1';
+# executeScript 'Matlab.ps1';
+executeScript 'OpenJDK.ps1';
+
 #--- Tools ---
 #--- Installing VS and VS Code with Git
 # See this for install args: https://chocolatey.org/packages/VisualStudio2017Community
@@ -68,27 +73,6 @@ executeScript 'GNU.ps1';
 choco install -y visualstudio2017community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
 Update-SessionEnvironment #refreshing env due to Git install
 
-#--- Web Dev Tools ---
-code --install-extension msjsdiag.debugger-for-chrome
-code --install-extension msjsdiag.debugger-for-edge
-
-#--- Web Dev Tools ---
-choco install -y nodejs-lts # Node.js LTS, Recommended for most users
-# choco install -y nodejs # Node.js Current, Latest features
-choco install -y visualstudio2017buildtools
-choco install -y visualstudio2017-workload-vctools
-# choco install -y python2 # Node.js requires Python 2 to build native modules
-
-RefreshEnv;
-Start-Sleep -Seconds 1;
-
-#--- Gordon 360 Api Workload ---
-choco install -y nuget.commandline
-choco install -y visualstudio2017-workload-netweb
-
-RefreshEnv;
-Start-Sleep -Seconds 1;
-
 #--- UWP Workload and installing Windows Template Studio ---
 choco install -y visualstudio2017-workload-azure
 choco install -y visualstudio2017-workload-universal
@@ -98,6 +82,70 @@ choco install -y visualstudio2017-workload-nativedesktop
 RefreshEnv;
 Start-Sleep -Seconds 1;
 
+#--- Web Dev Tools ---
+executeScript 'HyperV.ps1';
+# executeScript "Docker.ps1";
+executeScript 'WSL.ps1';
+executeScript 'Browsers.ps1';
+
+#--- Web Dev Tools ---
+code --install-extension msjsdiag.debugger-for-chrome
+code --install-extension msjsdiag.debugger-for-edge
+
+RefreshEnv;
+Start-Sleep -Seconds 1;
+
+#--- Microsoft WebDriver ---
+choco install -y microsoftwebdriver
+
+RefreshEnv;
+Start-Sleep -Seconds 1;
+
+#--- Web NodeJS Tools ---
+choco install -y nodejs-lts # Node.js LTS, Recommended for most users
+# choco install -y nodejs # Node.js Current, Latest features
+choco install -y visualstudio2017buildtools
+choco install -y visualstudio2017-workload-vctools
+choco install -y python2 # Node.js requires Python 2 to build native modules
+
+RefreshEnv;
+Start-Sleep -Seconds 1;
+
+#--- Machine Learning Tools ---
+executeScript 'GetMLIDEAndTooling.ps1';
+executeScript 'PythonMLTools.ps1';
+
+try {
+	Write-Host 'Installing tools inside the WSL distro...'
+	Ubuntu1804 run apt install ansible -y
+	Ubuntu1804 run apt install git-core -y
+	Ubuntu1804 run apt install git-extras -y
+	Ubuntu1804 run apt install neofetch -y
+	Ubuntu1804 run apt install nodejs -y
+	Ubuntu1804 run apt install python-numpy python-scipy -y
+	Ubuntu1804 run apt install python2.7 python-pip -y
+	Ubuntu1804 run pip install pandas
+} catch {
+	# Skip for now
+}
+
+# #--- DevOps Azure Tools ---
+# choco install -y powershell-core
+# choco install -y azure-cli
+# Install-Module -Force Az
+# choco install -y microsoftazurestorageexplorer
+# choco install -y terraform
+
+# RefreshEnv;
+# Start-Sleep -Seconds 1;
+
+# #--- Gordon 360 Api Workload ---
+# choco install -y nuget.commandline
+# choco install -y visualstudio2017-workload-netweb
+
+# RefreshEnv;
+# Start-Sleep -Seconds 1;
+
 # #--- Column UI Workload ---
 # choco install -y visualstudio2019community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
 # choco install -y visualstudio2019-workload-nativedesktop
@@ -106,36 +154,11 @@ Start-Sleep -Seconds 1;
 # RefreshEnv;
 # Start-Sleep -Seconds 1;
 
-#--- Assorted Dev Tools and Dependencies ---
-executeScript 'MiscDevTools.ps1';
-# executeScript 'Matlab.ps1';
-executeScript 'OpenJDK.ps1';
-
-#--- Machine Learning Tools ---
-executeScript 'GetMLIDEAndTooling.ps1';
-executeScript 'PythonMLTools.ps1';
-
-# executeScript 'HyperV.ps1';
-# executeScript 'WSL.ps1';
-
-# try {
-# 	Write-Host 'Installing tools inside the WSL distro...'
-# 	Ubuntu1804 run apt install neofetch -y
-# 	Ubuntu1804 run apt install nodejs -y
-# 	Ubuntu1804 run apt install git-core -y
-# 	Ubuntu1804 run apt install git-extras -y
-# 	Ubuntu1804 run apt install python2.7 python-pip -y
-# 	Ubuntu1804 run apt install python-numpy python-scipy -y
-# 	Ubuntu1804 run pip install pandas
-# } catch {
-# 	# Skip for now
-# }
-
 # checkout recent projects
 executeScript 'GetFavoriteProjects.ps1'
 
-# executeScript 'GetUwpSamplesOffGithub.ps1';
-# executeScript 'WindowsTemplateStudio.ps1';
+executeScript 'WindowsTemplateStudio.ps1';
+executeScript 'GetUwpSamplesOffGithub.ps1';
 
 Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE '\Desktop\boxstarter-failures.log')
 
@@ -148,4 +171,4 @@ $SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File
 }
-Add-Content -Path $SimpleLog -Value 'dev_full_collection'
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_dev_all'
