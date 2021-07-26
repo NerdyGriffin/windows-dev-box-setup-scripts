@@ -1,3 +1,7 @@
+# Description: Boxstarter Script
+# Author: Christian Kunis (NerdyGriffin)
+# Common settings for multi-purpose development
+
 If ($Boxstarter.StopOnPackageFailure) { $Boxstarter.StopOnPackageFailure = $false }
 
 Disable-UAC
