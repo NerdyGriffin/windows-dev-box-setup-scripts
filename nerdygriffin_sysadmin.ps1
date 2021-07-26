@@ -1,12 +1,5 @@
 If ($Boxstarter.StopOnPackageFailure) { $Boxstarter.StopOnPackageFailure = $false }
 
-# Prompt user whether to install SSH Server
-if (-not$InstallSSHServer) {
-	$InstallSSHServer = Read-Host -Prompt 'Would you like to install and configure OpenSSH Server? (This is not recommended on laptops/mobile devices) [y/n] (default: no)'
-}
-# Set a default if not passed
-if (-not$InstallSSHServer) { $InstallSSHServer = 'n' }
-
 Disable-UAC
 
 # Get the base URI path from the ScriptToCall value
@@ -56,11 +49,6 @@ executeScript 'SQLServerManagementStudio.ps1'
 executeScript 'NetworkTools.ps1';
 executeScript 'RemoteAndLocalFileSystem.ps1';
 
-#--- SSH Server ---
-if ($InstallSSHServer | Select-String 'y') {
-	executeScript 'OpenSSHServer.ps1';
-}
-
 executeScript 'UnofficialChocolateyTools.ps1';
 
 Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE '\Desktop\boxstarter-failures.log')
@@ -74,4 +62,4 @@ $SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File
 }
-Add-Content -Path $SimpleLog -Value 'sysadmin'
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_sysadmin'
