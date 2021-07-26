@@ -61,7 +61,7 @@ executeScript 'Scientific.ps1';
 Disable-BingSearch
 # Disable-GameBarTips
 
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE 'Desktop\boxstarter-failures.log')
+Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE '\Desktop\boxstarter-failures.log')
 
 #--- reenabling critial items ---
 Enable-UAC
@@ -74,7 +74,7 @@ If (Test-Path $MackieDriverSetupExe) {
 	Invoke-Expression $MackieDriverSetupExe
 }
 
-$SimpleLog = (Join-Path $env:USERPROFILE 'Desktop\last-installed.log')
+$SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
 If (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File
 }

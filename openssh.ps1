@@ -28,11 +28,17 @@ function executeScript {
 #--- SSH Server ---
 executeScript 'OpenSSHServer.ps1';
 
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE 'Desktop\boxstarter-failures.log')
+Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE '\Desktop\boxstarter-failures.log')
 
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
+
+$SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
+if (-not(Test-Path $SimpleLog)) {
+	New-Item -Path $SimpleLog -ItemType File
+}
+Add-Content -Path $SimpleLog -Value 'openssh'
 
 Write-Output 'Please restart your computer after exiting this script'
