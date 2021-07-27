@@ -125,6 +125,8 @@ try {
 	Ubuntu1804 run apt install nodejs -y
 	Ubuntu1804 run apt install python-numpy python-scipy -y
 	Ubuntu1804 run apt install python2.7 python-pip -y
+	Ubuntu1804 run apt install unzip -y
+	Ubuntu1804 run apt install zip -y
 	Ubuntu1804 run pip install pandas
 } catch {
 	# Skip for now
