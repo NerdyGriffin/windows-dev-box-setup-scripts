@@ -118,16 +118,27 @@ executeScript 'PythonMLTools.ps1';
 try {
 	Write-Host 'Installing tools inside the WSL distro...'
 	Ubuntu1804 run apt update -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install ansible -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install git-core -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install git-extras -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install neofetch -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install nodejs -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install python-numpy python-scipy -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install python2.7 python-pip -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install unzip -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install zip -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run pip install pandas
+	Start-Sleep -Seconds 1;
 } catch {
 	# Skip for now
 }
