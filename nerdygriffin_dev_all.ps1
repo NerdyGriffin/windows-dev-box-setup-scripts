@@ -174,6 +174,7 @@ executeScript 'GetFavoriteProjects.ps1'
 # executeScript 'WindowsTemplateStudio.ps1'; # Possibly Broken
 # executeScript 'GetUwpSamplesOffGithub.ps1'; # Possibly Broken
 
+#--- Parse Boxstarter log for failed package installs ---
 $FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
 Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 | ForEach-Object {
 	$FirstLine = $_.Context.PostContext[0]
