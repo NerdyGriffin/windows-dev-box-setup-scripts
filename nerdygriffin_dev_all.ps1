@@ -174,7 +174,15 @@ executeScript 'GetFavoriteProjects.ps1'
 # executeScript 'WindowsTemplateStudio.ps1'; # Possibly Broken
 # executeScript 'GetUwpSamplesOffGithub.ps1'; # Possibly Broken
 
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
+$FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
+Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 | ForEach-Object {
+	$FirstLine = $_.Context.PostContext[0]
+	$SplitString = $FirstLine.split()
+	$PackageName = $SplitString[2]
+	if (-not(Select-String -Pattern $PackageName -Path $FailuresLog )) {
+		Add-Content -Path $FailuresLog -Value $_.Context.PostContext
+	}
+}
 
 #--- reenabling critial items ---
 Enable-UAC
