@@ -167,7 +167,7 @@ refreshenv
 
 	#--- Update all modules ---
 	Write-Host 'Updating all modules...'
-	Update-Module
+	Update-Module -ErrorAction SilentlyContinue
 } # End of $ScriptBlock
 
 # Run the script block in PowerShell
