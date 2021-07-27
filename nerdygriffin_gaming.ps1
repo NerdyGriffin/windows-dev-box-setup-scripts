@@ -59,13 +59,13 @@ If (-not(Test-Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sys
 }
 Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLinkedConnections' -Type DWord -Value 1
 
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE '\Desktop\boxstarter-failures.log')
+Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
 
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
 
-$SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
+$SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
