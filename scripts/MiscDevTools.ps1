@@ -1,5 +1,5 @@
 #--- Assorted Dev Tools and Dependencies
-choco install -y HexEdit
+# choco install -y HexEdit # ERROR: The remote file either doesn't exist, is unauthorized, or is forbidden for url 'http://www.catch22.net/sites/default/files/hexedit-amd64-2.0.6.49.zip'.
 choco install -y androidstudio
 choco install -y arduino
 choco install -y arduino-cli
