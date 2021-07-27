@@ -117,6 +117,7 @@ executeScript 'PythonMLTools.ps1';
 
 try {
 	Write-Host 'Installing tools inside the WSL distro...'
+	Ubuntu1804 run apt update -y
 	Ubuntu1804 run apt install ansible -y
 	Ubuntu1804 run apt install git-core -y
 	Ubuntu1804 run apt install git-extras -y
