@@ -84,7 +84,7 @@ refreshenv
 		$PSReadlineProfile = @(
 			'# Customize PSReadline to make PowerShell behave more like Bash',
 			'Import-Module PSReadLine',
-			'Set-PSReadLineOption -DingTone 440 -EditMode Emacs -HistoryNoDuplicates -HistorySearchCursorMovesToEnd',
+			'Set-PSReadLineOption -EditMode Emacs -HistoryNoDuplicates -HistorySearchCursorMovesToEnd',
 			# 'Set-PSReadLineOption -BellStyle Audible -DingTone 512',
 			'# Creates an alias for ls like I use in Bash',
 			'Set-Alias -Name v -Value Get-ChildItem'
