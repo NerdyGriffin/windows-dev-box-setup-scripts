@@ -1,4 +1,4 @@
-choco install -y google-backup-and-sync
+choco install -y google-drive-file-stream
 # choco install -y megasync
 
 $NextcloudPlaceholder = Join-Path (Get-LibraryNames).Desktop 'nextcloud-placeholder'
