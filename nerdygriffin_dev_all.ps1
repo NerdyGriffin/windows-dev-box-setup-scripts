@@ -41,6 +41,8 @@ executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 
+executeScript 'YubiKey.ps1';
+
 #--- Windows Dev Essentials
 executeScript 'DotNetTools.ps1';
 # choco install -y dotpeek # Installer appears to be broken on my machine
