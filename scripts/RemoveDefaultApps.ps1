@@ -43,6 +43,7 @@ $applicationList = @(
 	'Microsoft.NetworkSpeedTest'
 	'Microsoft.FreshPaint'
 	'Microsoft.Print3D'
+	'*PicsArt*'
 	'*Autodesk*'
 	'*BubbleWitch*'
 	'king.com*'
@@ -52,6 +53,7 @@ $applicationList = @(
 	'*Keeper*'
 	'*Netflix*'
 	'*Twitter*'
+	'*Instagram*'
 	# "*Plex*"
 	'*.Duolingo-LearnLanguagesforFree'
 	'*.EclipseManager'

@@ -41,6 +41,8 @@ executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 
+executeScript 'YubiKey.ps1';
+
 #--- Windows Dev Essentials
 executeScript 'DotNetTools.ps1';
 # choco install -y dotpeek # Installer appears to be broken on my machine
@@ -117,14 +119,28 @@ executeScript 'PythonMLTools.ps1';
 
 try {
 	Write-Host 'Installing tools inside the WSL distro...'
+	Ubuntu1804 run apt update -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install ansible -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install git-core -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install git-extras -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install neofetch -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install nodejs -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install python-numpy python-scipy -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run apt install python2.7 python-pip -y
+	Start-Sleep -Seconds 1;
+	Ubuntu1804 run apt install unzip -y
+	Start-Sleep -Seconds 1;
+	Ubuntu1804 run apt install zip -y
+	Start-Sleep -Seconds 1;
 	Ubuntu1804 run pip install pandas
+	Start-Sleep -Seconds 1;
 } catch {
 	# Skip for now
 }
@@ -160,14 +176,23 @@ executeScript 'GetFavoriteProjects.ps1'
 # executeScript 'WindowsTemplateStudio.ps1'; # Possibly Broken
 # executeScript 'GetUwpSamplesOffGithub.ps1'; # Possibly Broken
 
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 >> (Join-Path $env:USERPROFILE '\Desktop\boxstarter-failures.log')
+#--- Parse Boxstarter log for failed package installs ---
+$FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
+Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 | ForEach-Object {
+	$FirstLine = $_.Context.PostContext[0]
+	$SplitString = $FirstLine.split()
+	$PackageName = $SplitString[2]
+	if (-not(Select-String -Pattern $PackageName -Path $FailuresLog )) {
+		Add-Content -Path $FailuresLog -Value $_.Context.PostContext
+	}
+}
 
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
 
-$SimpleLog = (Join-Path $env:USERPROFILE '\Desktop\last-installed.log')
+$SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }

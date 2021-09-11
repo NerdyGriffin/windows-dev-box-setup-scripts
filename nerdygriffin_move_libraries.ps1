@@ -130,7 +130,7 @@ if ("$env:Username" -like '*Public*') {
 		Invoke-Expression $MapNetworkDriveScript -ErrorAction Continue
 	}
 
-	$LibrariesToMove = @('My Music', 'My Video')
+	$LibrariesToMove = @('My Music', 'My Pictures', 'My Video')
 
 	$NewDrive = 'D:'
 	if (Test-Path "$NewDrive") {
@@ -139,19 +139,23 @@ if ("$env:Username" -like '*Public*') {
 		$PSBootDrive = Get-PSDrive C
 		# Only move the documents folder if the boot drive of this computer is smaller than the given threshold
 		if (($PSBootDrive.Used + $PSBootDrive.Free) -lt (0.5TB)) {
+			$LibrariesToMove += 'Documents'
 			$LibrariesToMove += 'Downloads'
+			$LibrariesToMove += 'Personal'
 			$LibrariesToMove += '{374DE290-123F-4565-9164-39C4925E467B}' # This is a name for the downloads library... I have no idea why it does not use an alias
 		}
 
 		$LibrariesToMove | ForEach-Object {
 			$PrevLibraryPath = ''
 			$PrevLibraryPath = (Get-LibraryNames).$_
-			if (($PrevLibraryPath) -and (Split-Path -Path "$PrevLibraryPath" -Qualifier | Select-String -NotMatch "$NewDrive")) {
+			if (($PrevLibraryPath) -and (Split-Path -Path "$PrevLibraryPath" -Qualifier | Select-String -NotMatch "$NewDrive") -and ("$PrevLibraryPath" | Select-String -SimpleMatch 'OneDrive' -NotMatch)) {
 				$NewLibraryPath = (Join-Path "$NewDrive" (Split-Path -Path $PrevLibraryPath -NoQualifier)) # Convert all the existing library paths from 'C:\' to 'D:\'
-				Write-Host "Moving library ""$_"" from ""$PrevLibraryPath"" to ""$NewLibraryPath""...";
-				Move-LibraryDirectory -libraryName $_ -newPath $NewLibraryPath -ErrorAction Continue;
-				Write-Host "Attempting to create SymLink '$PrevLibraryPath' --> '$NewLibraryPath'...";
-				New-SymbolicLink -Path $PrevLibraryPath -Value $NewLibraryPath -ErrorAction Continue;
+				if ("$NewLibraryPath" | Select-String -SimpleMatch 'OneDrive' -NotMatch) {
+					Write-Host "Moving library ""$_"" from ""$PrevLibraryPath"" to ""$NewLibraryPath""...";
+					Move-LibraryDirectory -libraryName $_ -newPath $NewLibraryPath -ErrorAction Continue;
+					Write-Host "Attempting to create SymLink '$PrevLibraryPath' --> '$NewLibraryPath'...";
+					New-SymbolicLink -Path $PrevLibraryPath -Value $NewLibraryPath -ErrorAction Continue;
+				}
 			}
 		}
 	}
