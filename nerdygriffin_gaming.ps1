@@ -31,7 +31,7 @@ executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'GameSymlinks.ps1';
 executeScript 'NvidiaGraphics.ps1';
-executeScript 'CorsairICue.ps1';
+# executeScript 'CorsairICue.ps1'; # Imcompatibility with Logitech Mouse Drivers causes instability on some computers
 executeScript 'LogitechGaming.ps1';
 executeScript 'RemoteDesktop.ps1';
 executeScript 'HardwareMonitoring.ps1';
