@@ -22,6 +22,6 @@ Set-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name Sha
 # We want Sharex to always startup BEFORE OneDrive (to prevent OneDrive from hooking the "print screen" hotkey)
 $OneDriveCommand = Get-ItemPropertyValue 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name OneDrive
 if (-not($OneDriveCommand | Select-String 'Sharex')) {
-	$MergedCommand = "$SharexCommand && $OneDriveCommand"
+	$MergedCommand = "$SharexCommand & $OneDriveCommand"
 	Set-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name OneDrive -Value $MergedCommand
 }
