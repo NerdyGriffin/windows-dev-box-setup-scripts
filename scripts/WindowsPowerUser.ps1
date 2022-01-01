@@ -17,11 +17,7 @@ $PowerToysCommand = """$env:ProgramFiles\PowerToys\PowerToys.exe"""
 Set-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name PowerToys -Value $PowerToysCommand
 
 # Add a custom registry entry for running Sharex at startup
-$SharexCommand = """$env:ProgramFiles\Sharex\sharex.exe"""
+$SharexCommand = """$env:ProgramFiles\Sharex\sharex.exe"" -silent"
 Set-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name Sharex -Value $SharexCommand
+Set-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name Sharex -Value $SharexCommand
 # We want Sharex to always startup BEFORE OneDrive (to prevent OneDrive from hooking the "print screen" hotkey)
-$OneDriveCommand = Get-ItemPropertyValue 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name OneDrive
-if (-not($OneDriveCommand | Select-String 'Sharex')) {
-	$MergedCommand = "$SharexCommand & $OneDriveCommand"
-	Set-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name OneDrive -Value $MergedCommand
-}
