@@ -105,7 +105,13 @@ Function New-LibraryLinks {
 		if (Test-Path $LinkPath) {
 			Write-Host "Path already exists: $LinkPath"
 		} elseif ("$_" | Select-String -SimpleMatch 'OneDrive') {
-			Write-Host "Skipping path containing OneDrive: $LinkPath"
+			Write-Host "Skipping path within OneDrive: $LinkPath"
+
+		} elseif ("$_" | Select-String -SimpleMatch "$DocumentsPath") {
+			Write-Host "Skipping path within Documents: $LinkPath"
+
+		} elseif ("$_" | Select-String -SimpleMatch "$DownloadsPath") {
+			Write-Host "Skipping path within Downloads: $LinkPath"
 
 		} elseif (("$_" | Select-String -SimpleMatch 'OneDrive' -NotMatch) -and ("$_" | Select-String -SimpleMatch "$DocumentsPath" -NotMatch) -and ("$_" | Select-String -SimpleMatch "$DownloadsPath" -NotMatch)) {
 			Write-Host "Creating new SymLink: '$LinkPath' --> '$Value'"
@@ -142,9 +148,9 @@ if ("$env:Username" -like '*Public*') {
 		$PSBootDrive = Get-PSDrive C
 		# Only move the documents folder if the boot drive of this computer is smaller than the given threshold
 		if (($PSBootDrive.Used + $PSBootDrive.Free) -lt (0.5TB)) {
-			# $LibrariesToMove += 'Documents'
+			$LibrariesToMove += 'Documents'
 			$LibrariesToMove += 'Downloads'
-			# $LibrariesToMove += 'Personal'
+			$LibrariesToMove += 'Personal'
 			$LibrariesToMove += '{374DE290-123F-4565-9164-39C4925E467B}' # This is a name for the downloads library... I have no idea why it does not use an alias
 		}
 
