@@ -11,3 +11,6 @@ choco install -y xournalplusplus
 #--- E-Books ---
 choco install -y calibre
 choco install -y kindle
+
+#--- Other ---
+winget install 'Microsoft Whiteboard'
