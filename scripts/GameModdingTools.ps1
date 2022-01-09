@@ -1,7 +1,7 @@
 #--- Mods & Cheats
 choco install -y cheatengine # Package no longer found
 choco install -y vortex
-choco install -y wemod # Package no longer found
+winget install wemod
 
 # Install python
 choco install -y python
