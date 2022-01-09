@@ -19,7 +19,7 @@ $applicationList = @(
 	'Microsoft.BingFinance'
 	# "Microsoft.3DBuilder"
 	'Microsoft.BingFinance'
-	'Microsoft.BingNews'
+	# 'Microsoft.BingNews'
 	'Microsoft.BingSports'
 	# "Microsoft.BingWeather"
 	# "Microsoft.CommsPhone"
@@ -33,7 +33,7 @@ $applicationList = @(
 	# "Microsoft.OneConnect"
 	# "Microsoft.WindowsPhone"
 	# "Microsoft.WindowsSoundRecorder"
-	'*Solitaire*'
+	# '*Solitaire*'
 	# "Microsoft.MicrosoftStickyNotes"
 	# "Microsoft.Office.Sway"
 	# "Microsoft.XboxApp"
