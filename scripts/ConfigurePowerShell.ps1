@@ -8,7 +8,8 @@ refreshenv
 # choco install -y firacodenf
 
 #--- Windows Terminal ---
-choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
+winget install --id=Microsoft.WindowsTerminal  -e
+# choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
 
 #--- Enable Powershell Script Execution
 Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
