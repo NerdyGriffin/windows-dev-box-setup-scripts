@@ -3,7 +3,7 @@ choco install -y adobereader
 choco install -y pdfsam
 
 #--- Office Suite ---
-winget install --id=TheDocumentFoundation.LibreOffice -e --accept-source-agreements
+choco install -y libreoffice-fresh
 
 #--- Handwritten Document & Drawing ---
 choco install -y xournalplusplus
