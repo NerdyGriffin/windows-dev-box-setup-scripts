@@ -3,8 +3,8 @@ choco install -y choco-package-list-backup
 choco install -y choco-upgrade-all-at
 
 #--- Winget Automatic Scheduled Updates ---
-$STAction = New-ScheduledTaskAction -Execute 'winget' -Argument 'upgrade --all'
-$STTrigger = New-ScheduledTaskTrigger -Daily -At 2am
+$STAction = New-ScheduledTaskAction -Execute 'winget' -Argument 'upgrade --all --accept-source-agreements'
+$STTrigger = New-ScheduledTaskTrigger -Daily -At 4am
 $STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
 $STSetings = New-ScheduledTaskSettingsSet
 

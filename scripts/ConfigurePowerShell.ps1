@@ -7,8 +7,25 @@ refreshenv
 # choco install -y cascadia-code-nerd-font
 # choco install -y firacodenf
 
+#--- Winget ---
+# Check if winget is installed (source: https://github.com/ChrisTitusTech/win10script)
+if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+	'Winget Already Installed'
+} else {
+	# Installing winget from the Microsoft Store
+	Write-Host "Winget not found, installing it now."
+	Write-Verbose "`r`n" + "`r`n" + "Installing Winget... Please Wait"
+	Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
+	$nid = (Get-Process AppInstaller).Id
+	Wait-Process -Id $nid
+	Write-Host Winget Installed
+	Write-Verbose "`r`n" + "`r`n" + "Winget Installed - Ready for Next Task"
+}
+refreshenv
+Start-Sleep -Seconds 1;
+
 #--- Windows Terminal ---
-winget install --id=Microsoft.WindowsTerminal  -e
+winget install --id=Microsoft.WindowsTerminal -e --accept-source-agreements
 # choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
 
 #--- Enable Powershell Script Execution
