@@ -39,18 +39,14 @@ refreshenv
 	#--- Install & Configure the Powerline Modules
 	try {
 		Write-Host 'Installing Posh-Git and Oh-My-Posh - [Dependencies for Powerline]'
-		if (-not(Get-Module -ListAvailable -Name posh-git)) {
-			Write-Host 'Installing Posh-Git...'
-			Install-Module posh-git -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
-		} else { Write-Host "Module 'posh-git' already installed" }
+		# if (-not(Get-Module -ListAvailable -Name posh-git)) {
+		# 	Write-Host 'Installing Posh-Git...'
+		# 	Install-Module posh-git -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
+		# } else { Write-Host "Module 'posh-git' already installed" }
 		refreshenv
 		if (-not(Get-Module -ListAvailable -Name oh-my-posh)) {
 			Write-Host 'Installing Oh-My-Posh...'
-			try {
-				Install-Module oh-my-posh -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose -AllowPrerelease
-			} catch {
-				Install-Module oh-my-posh -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
-			}
+			winget install JanDeDobbeleer.OhMyPosh
 		} else { Write-Host "Module 'oh-my-posh' already installed" }
 		refreshenv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
