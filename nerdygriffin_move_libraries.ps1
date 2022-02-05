@@ -130,13 +130,13 @@ $SMBServerName = '\\GRIFFINUNRAID\'
 $ServerMediaShare = (Join-Path $SMBServerName 'media')
 $ServerDocumentsShare = (Join-Path $SMBServerName 'personal\Documents')
 $ServerDownloadsShare = (Join-Path $SMBServerName 'personal\Downloads')
-$MapNetworkDriveScript = '\\GRIFFINUNRAID\scripts\MapNetworkDrives.ps1'
+$MountNFSShareScript = '\\GRIFFINUNRAID\scripts\MountNFSShares.ps1'
 
 if ("$env:Username" -like '*Public*') {
 	Write-Warning 'Somehow the current username is "Public"...`n  That should not be possible, so the libraries will not be moved.'
 } else {
-	if (Test-Path $MapNetworkDriveScript) {
-		Invoke-Expression $MapNetworkDriveScript -ErrorAction Continue
+	if (Test-Path $MountNFSShareScript) {
+		Invoke-Expression $MountNFSShareScript -ErrorAction Continue
 	}
 
 	$LibrariesToMove = @('My Music', 'My Pictures', 'My Video')
@@ -204,16 +204,16 @@ if ("$env:Username" -like '*Public*') {
 	}
 }
 
-$MapNetworkDriveMessage = "You must manually run the '$MapNetworkDriveScript' script again as your non-admin user in order for the mapped drives to be visible in the File Explorer"
+$MountNFSShareMessage = "You must manually run the '$MountNFSShareScript' script again as your non-admin user in order for the mapped drives to be visible in the File Explorer"
 
-if (Test-Path $MapNetworkDriveScript) {
-	Write-Host "$MapNetworkDriveMessage"
+if (Test-Path $MountNFSShareScript) {
+	Write-Host "$MountNFSShareMessage"
 }
 
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
 
-if (Test-Path $MapNetworkDriveScript) {
-	Write-Host "$MapNetworkDriveMessage"
+if (Test-Path $MountNFSShareScript) {
+	Write-Host "$MountNFSShareMessage"
 }
