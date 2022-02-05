@@ -3,7 +3,7 @@ choco install -y adobereader
 choco install -y pdfsam
 
 #--- Office Suite ---
-choco install -y libreoffice-fresh
+winget install --id=TheDocumentFoundation.LibreOffice  -e
 
 #--- Handwritten Document & Drawing ---
 choco install -y xournalplusplus
@@ -13,4 +13,4 @@ choco install -y calibre
 choco install -y kindle
 
 #--- Other ---
-winget install 'Microsoft Whiteboard'
+winget install --id=9MSPC6MP8FM4  -e # Microsoft Whiteboard
