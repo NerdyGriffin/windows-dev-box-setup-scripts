@@ -51,7 +51,7 @@ executeScript 'SQLServerManagementStudio.ps1'
 executeScript 'NetworkTools.ps1';
 executeScript 'RemoteAndLocalFileSystem.ps1';
 
-executeScript 'UnofficialChocolateyTools.ps1';
+executeScript 'PackageManagement.ps1';
 
 #--- Parse Boxstarter log for failed package installs ---
 $FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
