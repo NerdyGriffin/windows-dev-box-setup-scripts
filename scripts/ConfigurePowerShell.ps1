@@ -55,22 +55,15 @@ refreshenv
 
 	#--- Install & Configure the Powerline Modules
 	try {
-		Write-Host 'Installing Posh-Git and Oh-My-Posh - [Dependencies for Powerline]'
-		# if (-not(Get-Module -ListAvailable -Name posh-git)) {
-		# 	Write-Host 'Installing Posh-Git...'
-		# 	Install-Module posh-git -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
-		# } else { Write-Host "Module 'posh-git' already installed" }
+		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
+		winget install --id=JanDeDobbeleer.OhMyPosh -e --accept-source-agreements
 		refreshenv
-		if (-not(Get-Module -ListAvailable -Name oh-my-posh)) {
-			Write-Host 'Installing Oh-My-Posh...'
-			winget install JanDeDobbeleer.OhMyPosh
-		} else { Write-Host "Module 'oh-my-posh' already installed" }
+		[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
 		refreshenv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
 			'# Dependencies for powerline',
-			'Import-Module posh-git',
-			'Set-PoshPrompt -Theme microverse-power'
+			'oh-my-posh --init --shell pwsh --config $env:POSH_THEMES_PATH/microverse-power.omp.json | Invoke-Expression'
 		)
 		if (-not(Select-String -Pattern $PowerlineProfile[0] -Path $PROFILE )) {
 			Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
