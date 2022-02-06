@@ -33,6 +33,8 @@ executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 
+executeScript 'EnableNFS.ps1';
+
 executeScript 'YubiKey.ps1';
 
 executeScript 'ConfigureGit.ps1';
@@ -88,7 +90,7 @@ Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
 
-$MackieDriverSetupExe = '\\GRIFFINUNRAID\personal\Downloads\Mackie_USB_Driver_v4_67_0\Mackie_USB_Driver_Setup.exe'
+$MackieDriverSetupExe = '\\nfs.nerdygriffin.net\mnt\user\personal\Downloads\Mackie_USB_Driver_v4_67_0\Mackie_USB_Driver_Setup.exe'
 If (Test-Path $MackieDriverSetupExe) {
 	Write-Verbose 'Attempt installing driver for Mackie mixer board'
 	Invoke-Expression $MackieDriverSetupExe

@@ -128,8 +128,8 @@ refreshenv
 	# 	'# Boxstarter modules',
 	# 	'# Import the Chocolatey module first so that $Boxstarter properties',
 	# 	'# are initialized correctly and then import everything else.',
-	# 	'if (Test-Path("\\GRIFFINUNRAID\Boxstarter")) {',
-	# 	'	$BoxstarterInstall = "\\GRIFFINUNRAID\Boxstarter"',
+	# 	'if (Test-Path("\\nfs.nerdygriffin.net\mnt\user\Boxstarter")) {',
+	# 	'	$BoxstarterInstall = "\\nfs.nerdygriffin.net\mnt\user\Boxstarter"',
 	# 	'} elseif (Test-Path("D:\Boxstarter")) {',
 	# 	'	$BoxstarterInstall = "D:\Boxstarter"',
 	# 	'}',
@@ -189,7 +189,7 @@ if (Test-Path $WindowsTerminalSettingsDir) {
 	if ((-not(Test-Path $SymLinkPath)) -or (-not(Get-Item $SymLinkPath | Where-Object Attributes -Match ReparsePoint))) {
 		New-Item -Path $SymLinkPath -ItemType SymbolicLink -Value $WindowsTerminalSettingsDir -Force -Verbose
 	}
-	$RemoteBackup = '\\GRIFFINUNRAID\backup\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\.git'
+	$RemoteBackup = '\\nfs.nerdygriffin.net\mnt\user\backup\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\.git'
 	if ((Test-Path $RemoteBackup) -and (-not(Test-Path (Join-Path $WindowsTerminalSettingsDir '.git')))) {
 		$PrevLocation = Get-Location
 		Set-Location -Path $RemoteBackup
