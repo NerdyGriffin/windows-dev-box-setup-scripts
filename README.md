@@ -62,10 +62,11 @@ To run a recipe script, click a link in the table below from your target machine
 
 ### **NerdyGriffin Standalone installers**
 
-| Click link to run                                                                                                                                                                                     | Description                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_openssh.ps1'>OpenSSH Server</a>                           | Install OpenSSH Server                                                                  |
-| <a href='http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/cleanup_chocolatey.ps1'>Cleanup "tmp\*.tmp" Chocolatey Packages</a> | Cleanup "tmp\*.tmp" Chocolatey Packages after you are done with the boxstarter installs |
+| Click link to run                                                                                                                                                                                     | Description                                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_enable_nfs.ps1'>Enable NFS</a>                            | Enable Optional Features Required to mount NFS shares in Windows (Only available in Windows Pro) |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_openssh.ps1'>OpenSSH Server</a>                           | Install OpenSSH Server                                                                           |
+| <a href='http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/cleanup_chocolatey.ps1'>Cleanup "tmp\*.tmp" Chocolatey Packages</a> | Cleanup "tmp\*.tmp" Chocolatey Packages after you are done with the boxstarter installs          |
 
 **Notes:**
 
