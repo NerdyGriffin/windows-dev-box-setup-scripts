@@ -1,32 +1,36 @@
-choco upgrade -y powershell
-choco upgrade -y powershell-core
-refreshenv
+if (([Security.Principal.WindowsPrincipal] `
+			[Security.Principal.WindowsIdentity]::GetCurrent() `
+	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	choco upgrade -y powershell
+	choco upgrade -y powershell-core
+	refreshenv
 
-#--- Fonts ---
-# choco install -y cascadiafonts
-# choco install -y cascadia-code-nerd-font
-# choco install -y firacodenf
+	#--- Fonts ---
+	# choco install -y cascadiafonts
+	# choco install -y cascadia-code-nerd-font
+	# choco install -y firacodenf
 
-#--- Winget ---
-# Check if winget is installed (source: https://github.com/ChrisTitusTech/win10script)
-if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
-	'Winget Already Installed'
-} else {
-	# Installing winget from the Microsoft Store
-	Write-Host "Winget not found, installing it now."
-	Write-Verbose "`r`n" + "`r`n" + "Installing Winget... Please Wait"
-	Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
-	$nid = (Get-Process AppInstaller).Id
-	Wait-Process -Id $nid
-	Write-Host Winget Installed
-	Write-Verbose "`r`n" + "`r`n" + "Winget Installed - Ready for Next Task"
+	#--- Winget ---
+	# Check if winget is installed (source: https://github.com/ChrisTitusTech/win10script)
+	if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+		'Winget Already Installed'
+	} else {
+		# Installing winget from the Microsoft Store
+		Write-Host "Winget not found, installing it now."
+		Write-Verbose "`r`n" + "`r`n" + "Installing Winget... Please Wait"
+		Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
+		$nid = (Get-Process AppInstaller).Id
+		Wait-Process -Id $nid
+		Write-Host Winget Installed
+		Write-Verbose "`r`n" + "`r`n" + "Winget Installed - Ready for Next Task"
+	}
+	refreshenv
+	Start-Sleep -Seconds 1;
+
+	#--- Windows Terminal ---
+	winget install --id=Microsoft.WindowsTerminal -e --accept-source-agreements
+	# choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
 }
-refreshenv
-Start-Sleep -Seconds 1;
-
-#--- Windows Terminal ---
-winget install --id=Microsoft.WindowsTerminal -e --accept-source-agreements
-# choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
 
 #--- Enable Powershell Script Execution
 Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
@@ -55,9 +59,13 @@ refreshenv
 
 	#--- Install & Configure the Powerline Modules
 	try {
-		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-		winget install --id=JanDeDobbeleer.OhMyPosh -e --accept-source-agreements
-		refreshenv
+		if (([Security.Principal.WindowsPrincipal] `
+					[Security.Principal.WindowsIdentity]::GetCurrent() `
+			).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+			Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
+			winget install --id=JanDeDobbeleer.OhMyPosh -e --accept-source-agreements
+			refreshenv
+		}
 		[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
 		refreshenv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
@@ -108,18 +116,22 @@ refreshenv
 	}
 
 	#--- Import Chocolatey Modules
-	Write-Host 'Appending Configuration for Chocolatey to PowerShell Profile...'
-	$ChocolateyProfile = @(
-		'# Chocolatey profile',
-		'$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"',
-		'if (Test-Path($ChocolateyProfile)) {'
-		'	Import-Module "$ChocolateyProfile"'
-		'}'
-	)
-	if (-not(Select-String -Pattern $ChocolateyProfile[0] -Path $PROFILE)) {
-		Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
-		Write-Output $ChocolateyProfile | Write-Debug
-		Add-Content -Path $PROFILE -Value $ChocolateyProfile
+	if (([Security.Principal.WindowsPrincipal] `
+				[Security.Principal.WindowsIdentity]::GetCurrent() `
+		).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+		Write-Host 'Appending Configuration for Chocolatey to PowerShell Profile...'
+		$ChocolateyProfile = @(
+			'# Chocolatey profile',
+			'$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"',
+			'if (Test-Path($ChocolateyProfile)) {'
+			'	Import-Module "$ChocolateyProfile"'
+			'}'
+		)
+		if (-not(Select-String -Pattern $ChocolateyProfile[0] -Path $PROFILE)) {
+			Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
+			Write-Output $ChocolateyProfile | Write-Debug
+			Add-Content -Path $PROFILE -Value $ChocolateyProfile
+		}
 	}
 
 	# #--- Import Boxstarter Modules
