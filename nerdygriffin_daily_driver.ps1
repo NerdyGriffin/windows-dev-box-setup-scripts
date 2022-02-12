@@ -33,6 +33,8 @@ executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 
+executeScript 'EnableNFS.ps1';
+
 executeScript 'YubiKey.ps1';
 
 executeScript 'ConfigureGit.ps1';

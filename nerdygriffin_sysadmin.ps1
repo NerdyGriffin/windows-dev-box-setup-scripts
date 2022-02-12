@@ -38,6 +38,8 @@ executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 executeScript 'WindowsPowerUser.ps1';
 
+executeScript 'EnableNFS.ps1';
+
 executeScript 'YubiKey.ps1';
 
 #--- Setting up Chocolatey
