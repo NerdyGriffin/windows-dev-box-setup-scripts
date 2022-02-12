@@ -153,17 +153,28 @@ refreshenv
 
 executeScript 'EnableNFS.ps1';
 
-$NFSRootPath = '\\nfs.nerdygriffin.net\mnt\user\'
-$ServerMediaShare = (Join-Path $NFSRootPath 'media')
-$ServerDocumentsShare = (Join-Path $NFSRootPath 'personal\Documents')
-$ServerDownloadsShare = (Join-Path $NFSRootPath 'personal\Downloads')
-$MountNFSShareScript = '\\nfs.nerdygriffin.net\mnt\user\scripts\MountNFSShares.ps1'
+if ($(Get-WindowsOptionalFeature -Online -FeatureName "ServicesForNFS-ClientOnly").State) {
+	$NFSEnabled = $true
+	$ServerRootPath = '\\nfs.nerdygriffin.net\mnt\user\'
+	$MountServerSharesScript = (Join-Path $ServerRootPath 'scripts\MountNFSShares.bat')
+} else {
+	$NFSEnabled = $false
+	$ServerRootPath = '\\files.nerdygriffin.net\'
+	$MountServerSharesScript = (Join-Path $ServerRootPath 'scripts\MountSMBShares.ps1')
+}
+$ServerMediaShare = (Join-Path $ServerRootPath 'media')
+$ServerDocumentsShare = (Join-Path $ServerRootPath 'personal\Documents')
+$ServerDownloadsShare = (Join-Path $ServerRootPath 'personal\Downloads')
 
 if ("$env:Username" -like '*Public*') {
 	Write-Warning 'Somehow the current username is "Public"...`n  That should not be possible, so the libraries will not be moved.'
 } else {
-	if (Test-Path $MountNFSShareScript) {
-		Invoke-Expression $MountNFSShareScript -ErrorAction Continue
+	if (Test-Path $MountServerSharesScript) {
+		if ($NFSEnabled) {
+			cmd.exe /c $MountServerSharesScript
+		} else {
+			Invoke-Expression $MountServerSharesScript -ErrorAction Continue
+		}
 	}
 
 	$LibrariesToMove = @('My Music', 'My Pictures', 'My Video')
@@ -231,16 +242,16 @@ if ("$env:Username" -like '*Public*') {
 	}
 }
 
-$MountNFSShareMessage = "You must manually run the '$MountNFSShareScript' script again as your non-admin user in order for the mapped drives to be visible in the File Explorer"
+$MountServerShareMessage = "You must manually run the '$MountServerSharesScript' or script again as your non-admin user in order for the mapped drives to be visible in the File Explorer"
 
-if (Test-Path $MountNFSShareScript) {
-	Write-Host "$MountNFSShareMessage"
+if (Test-Path $MountServerSharesScript) {
+	Write-Host "$MountServerShareMessage"
 }
 
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
 
-if (Test-Path $MountNFSShareScript) {
-	Write-Host "$MountNFSShareMessage"
+if (Test-Path $MountServerSharesScript) {
+	Write-Host "$MountServerShareMessage"
 }

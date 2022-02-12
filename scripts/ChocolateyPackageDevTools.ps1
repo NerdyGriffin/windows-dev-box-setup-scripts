@@ -6,4 +6,6 @@ choco install -y boxstarter.chocolatey
 choco install -y Boxstarter.TestRunner
 if (Test-Path '\\nfs.nerdygriffin.net\mnt\user\Boxstarter\BuildPackages') {
 	Set-BoxStarterConfig -LocalRepo '\\nfs.nerdygriffin.net\mnt\user\Boxstarter\BuildPackages'
+} elseif (Test-Path '\\files.nerdygriffin.net\Boxstarter\BuildPackages') {
+	Set-BoxStarterConfig -LocalRepo '\\files.nerdygriffin.net\Boxstarter\BuildPackages'
 }

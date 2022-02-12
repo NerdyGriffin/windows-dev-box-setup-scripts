@@ -3,7 +3,7 @@ choco install -y freefilesync
 RefreshEnv;
 Start-Sleep -Seconds 1;
 
-$NFSProgramFilesPath = '\\nfs.nerdygriffin.net\mnt\user\programfiles'
+$NFSProgramFilesPath = '\\files.nerdygriffin.net\programfiles'
 $FreeFileSyncExe = (Join-Path $env:ProgramFiles '\FreeFileSync\FreeFileSync.exe')
 # $RealTimeSyncExe = (Join-Path $env:ProgramFiles '\FreeFileSync\RealTimeSync.exe')
 

@@ -90,7 +90,7 @@ Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
 
-$MackieDriverSetupExe = '\\nfs.nerdygriffin.net\mnt\user\personal\Downloads\Mackie_USB_Driver_v4_67_0\Mackie_USB_Driver_Setup.exe'
+$MackieDriverSetupExe = '\\files.nerdygriffin.net\personal\Downloads\Mackie_USB_Driver_v4_67_0\Mackie_USB_Driver_Setup.exe'
 If (Test-Path $MackieDriverSetupExe) {
 	Write-Verbose 'Attempt installing driver for Mackie mixer board'
 	Invoke-Expression $MackieDriverSetupExe
