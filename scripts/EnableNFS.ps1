@@ -1,3 +1,5 @@
+#Requires -RunAsAdministrator
+
 # Enable NFS in windows if necessary
 if ((Get-WindowsOptionalFeature -Online -FeatureName "ServicesForNFS-ClientOnly") -and (Get-WindowsOptionalFeature -Online -FeatureName "ClientForNFS-Infrastructure") -and (Get-WindowsOptionalFeature -Online -FeatureName "NFS-Administration")) {
 	Enable-WindowsOptionalFeature -Online -FeatureName "ServicesForNFS-ClientOnly" -All
