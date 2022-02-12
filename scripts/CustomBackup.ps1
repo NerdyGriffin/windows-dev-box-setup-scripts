@@ -3,12 +3,12 @@ choco install -y freefilesync
 RefreshEnv;
 Start-Sleep -Seconds 1;
 
-$NFSProgramFilesPath = '\\files.nerdygriffin.net\programfiles'
+$SMBProgramFilesPath = '\\files.nerdygriffin.net\programfiles'
 $FreeFileSyncExe = (Join-Path $env:ProgramFiles '\FreeFileSync\FreeFileSync.exe')
 # $RealTimeSyncExe = (Join-Path $env:ProgramFiles '\FreeFileSync\RealTimeSync.exe')
 
 try {
-	If (Test-Path $NFSProgramFilesPath) {
+	If (Test-Path $SMBProgramFilesPath) {
 		$IsLaptop = ($env:USERDOMAIN | Select-String 'LAPTOP')
 		If ($IsLaptop) {
 			$BackupFFSReal = 'BackupWindowsLaptop.ffs_real'
@@ -20,8 +20,8 @@ try {
 
 		$BackupFFSRealLocalPath = (Join-Path $env:ProgramData $BackupFFSReal)
 		$BackupFFSBatchLocalPath = (Join-Path $env:ProgramData $BackupFFSBatch)
-		$BackupFFSRealRemotePath = (Join-Path $NFSProgramFilesPath $BackupFFSReal)
-		$BackupFFSBatchRemotePath = (Join-Path $NFSProgramFilesPath $BackupFFSBatch)
+		$BackupFFSRealRemotePath = (Join-Path $SMBProgramFilesPath $BackupFFSReal)
+		$BackupFFSBatchRemotePath = (Join-Path $SMBProgramFilesPath $BackupFFSBatch)
 
 		# $BackupCommand = """$RealTimeSyncExe"" ""$BackupFFSRealLocalPath"""
 
@@ -57,8 +57,8 @@ try {
 
 		$WallpaperFFSRealLocalPath = (Join-Path $env:ProgramData $WallpaperFFSReal)
 		$WallpaperFFSBatchLocalPath = (Join-Path $env:ProgramData $WallpaperFFSBatch)
-		$WallpaperFFSRealRemotePath = (Join-Path $NFSProgramFilesPath $WallpaperFFSReal)
-		$WallpaperFFSBatchRemotePath = (Join-Path $NFSProgramFilesPath $WallpaperFFSBatch)
+		$WallpaperFFSRealRemotePath = (Join-Path $SMBProgramFilesPath $WallpaperFFSReal)
+		$WallpaperFFSBatchRemotePath = (Join-Path $SMBProgramFilesPath $WallpaperFFSBatch)
 
 		# $WallpaperCommand = """$RealTimeSyncExe"" ""$WallpaperFFSRealLocalPath"""
 
