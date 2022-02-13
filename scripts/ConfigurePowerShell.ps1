@@ -1,35 +1,32 @@
+Function Install-WinGetApp {
+	param([Parameter(Mandatory = $true, Position = 0)][string]$Id,
+		[Parameter(Mandatory = $false, Position = 1)][string]$Source)
+	#check if the app is already installed
+	$listApp = winget list --exact -q $Id
+	if (![String]::Join("", $listApp).Contains($Id)) {
+		Write-Host "Installing:" $Id
+		if ($Source -ne $null) {
+			winget install --exact --silent $Id --source $Source --accept-source-agreements
+		} else {
+			winget install --exact --silent $Id --accept-source-agreements
+		}
+		RefreshEnv;
+	} else {
+		Write-Host "Skipping Install of " $Id
+	}
+	Start-Sleep -Seconds 1;
+}
+
 if (([Security.Principal.WindowsPrincipal] `
 			[Security.Principal.WindowsIdentity]::GetCurrent() `
 	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	#--- PowerShell ---
 	choco upgrade -y powershell
 	choco upgrade -y powershell-core
 	refreshenv
 
-	#--- Fonts ---
-	# choco install -y cascadiafonts
-	# choco install -y cascadia-code-nerd-font
-	# choco install -y firacodenf
-
-	#--- Winget ---
-	# Check if winget is installed (source: https://github.com/ChrisTitusTech/win10script)
-	if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
-		'Winget Already Installed'
-	} else {
-		# Installing winget from the Microsoft Store
-		Write-Host "Winget not found, installing it now."
-		Write-Verbose "`r`n" + "`r`n" + "Installing Winget... Please Wait"
-		Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
-		$nid = (Get-Process AppInstaller).Id
-		Wait-Process -Id $nid
-		Write-Host Winget Installed
-		Write-Verbose "`r`n" + "`r`n" + "Winget Installed - Ready for Next Task"
-	}
-	refreshenv
-	Start-Sleep -Seconds 1;
-
 	#--- Windows Terminal ---
-	winget install --id=Microsoft.WindowsTerminal --exact --silent --accept-source-agreements
-	# choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
+	Install-WinGetApp -Id 'Microsoft.WindowsTerminal' -Source 'msstore'
 }
 
 #--- Enable Powershell Script Execution
