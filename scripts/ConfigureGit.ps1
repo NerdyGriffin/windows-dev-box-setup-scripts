@@ -17,11 +17,14 @@ Function Install-WinGetApp {
 	Start-Sleep -Seconds 1;
 }
 
-Install-WinGetApp -Id 'GnuPG.GnuPG'
-
-choco install -y git --package-parameters="'/GitAndUnixToolsOnPath /WindowsTerminal'"
-choco install -y gitkraken
-refreshenv
+if (([Security.Principal.WindowsPrincipal] `
+			[Security.Principal.WindowsIdentity]::GetCurrent() `
+	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	Install-WinGetApp -Id 'GnuPG.GnuPG'
+	choco install -y git --package-parameters="'/GitAndUnixToolsOnPath /WindowsTerminal'"
+	choco install -y gitkraken
+	refreshenv
+}
 
 #--- Configure Git ---
 git config --global user.name 'Christian Kunis'
