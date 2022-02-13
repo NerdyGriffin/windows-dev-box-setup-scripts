@@ -26,6 +26,7 @@ function executeScript {
 }
 
 #--- Setting up Windows ---
+executeScript 'InstallWinGet.ps1';
 executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';

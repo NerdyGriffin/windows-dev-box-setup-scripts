@@ -30,6 +30,7 @@ function executeScript {
 }
 
 #--- Setting up Windows ---
+executeScript 'InstallWinGet.ps1';
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';

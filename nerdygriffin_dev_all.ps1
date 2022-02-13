@@ -35,6 +35,7 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
 #--- Setting up Windows ---
+executeScript 'InstallWinGet.ps1';
 executeScript 'SystemConfiguration.ps1';
 executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
