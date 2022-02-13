@@ -31,21 +31,19 @@ if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
 }
 
 #--- Setting up Windows ---
-executeScript 'InstallWinGet.ps1';
 executeScript 'SystemConfiguration.ps1';
-executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
-executeScript 'CommonDevTools.ps1';
-executeScript 'WindowsPowerUser.ps1';
 
-executeScript 'EnableNFS.ps1';
-
-executeScript 'YubiKey.ps1';
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+executeScript 'PackageManagement.ps1';
 
 #--- Setting up Chocolatey
 executeScript 'ChocolateyExtensions.ps1';
 executeScript 'ChocolateyGUI.ps1';
+
+#--- YubiKey Authentication ---
+executeScript 'YubiKey.ps1';
 
 #--- Administrative Tools ---
 executeScript 'HardwareMonitoring.ps1';
@@ -54,7 +52,8 @@ executeScript 'SQLServerManagementStudio.ps1'
 executeScript 'NetworkTools.ps1';
 executeScript 'RemoteAndLocalFileSystem.ps1';
 
-executeScript 'PackageManagement.ps1';
+#--- Custom backup to file server ---
+executeScript 'CustomBackup.ps1';
 
 #--- Parse Boxstarter log for failed package installs ---
 $FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')

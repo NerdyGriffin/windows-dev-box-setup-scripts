@@ -29,13 +29,6 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
-#--- Setting up Windows ---
-executeScript 'InstallWinGet.ps1';
-executeScript 'SystemConfiguration.ps1';
-executeScript 'FileExplorerSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
-executeScript 'CommonDevTools.ps1';
-
 #--- SSH Server ---
 executeScript 'OpenSSHServer.ps1';
 
@@ -43,3 +36,9 @@ executeScript 'OpenSSHServer.ps1';
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
+
+$SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
+if (-not(Test-Path $SimpleLog)) {
+	New-Item -Path $SimpleLog -ItemType File | Out-Null
+}
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_openssh' | Out-Null

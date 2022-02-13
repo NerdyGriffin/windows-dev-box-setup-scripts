@@ -26,22 +26,37 @@ function executeScript {
 }
 
 #--- Setting up Windows ---
-executeScript 'InstallWinGet.ps1';
-executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
+executeScript 'DisableSleepIfVM.ps1';
+
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+
+#--- Create symbolic links to game install locations
 executeScript 'GameSymlinks.ps1';
+
+#--- Graphics Driver Support
 executeScript 'NvidiaGraphics.ps1';
-# executeScript 'CorsairICue.ps1'; # Imcompatibility with Logitech Mouse Drivers causes instability on some computers
+
+#--- Customization Software for Gaming Peripherals
 executeScript 'LogitechGaming.ps1';
+# executeScript 'CorsairICue.ps1'; # Imcompatibility with Logitech Mouse Drivers causes instability on some computers
+
+#--- Remote Desktop Tools
 executeScript 'RemoteDesktop.ps1';
+
+#--- Monitoring and Performance Benchmarks ---
 executeScript 'HardwareMonitoring.ps1';
 executeScript 'BenchmarkUtils.ps1';
+
+#--- Game Launchers ---
 # if ($env:USERDOMAIN | Select-String 'DESKTOP') {
 executeScript 'GameLaunchers.ps1';
 # } else {
 # 	executeScript 'MinimalGameLaunchers.ps1';
 # }
+
+#--- Game Modding Tools ---
 executeScript 'GameModdingTools.ps1';
 
 #--- Disable Sticky keys prompt ---

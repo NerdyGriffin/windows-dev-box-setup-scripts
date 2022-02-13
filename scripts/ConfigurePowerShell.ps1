@@ -6,9 +6,9 @@ Function Install-WinGetApp {
 	if (![String]::Join("", $listApp).Contains($Id)) {
 		Write-Host "Installing:" $Id
 		if ($Source -ne $null) {
-			winget install --exact --silent $Id --source $Source --accept-source-agreements
+			winget install --exact --silent $Id --source $Source --accept-package-agreements --accept-source-agreements
 		} else {
-			winget install --exact --silent $Id --accept-source-agreements
+			winget install --exact --silent $Id --accept-package-agreements --accept-source-agreements
 		}
 		RefreshEnv;
 	} else {
@@ -60,7 +60,7 @@ refreshenv
 					[Security.Principal.WindowsIdentity]::GetCurrent() `
 			).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 			Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-			winget install --id=JanDeDobbeleer.OhMyPosh --exact --silent --accept-source-agreements
+			winget install --id=JanDeDobbeleer.OhMyPosh --exact --silent --accept-package-agreements --accept-source-agreements
 			refreshenv
 		}
 		[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')

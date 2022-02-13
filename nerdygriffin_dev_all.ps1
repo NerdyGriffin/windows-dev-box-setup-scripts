@@ -35,15 +35,16 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
 #--- Setting up Windows ---
-executeScript 'InstallWinGet.ps1';
 executeScript 'SystemConfiguration.ps1';
-executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
+executeScript 'DisableSleepIfVM.ps1';
 
-executeScript 'EnableNFS.ps1';
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
 
+#--- YubiKey Authentication ---
 executeScript 'YubiKey.ps1';
 
 #--- Windows Dev Essentials

@@ -6,9 +6,9 @@ Function Install-WinGetApp {
 	if (![String]::Join("", $listApp).Contains($Id)) {
 		Write-Host "Installing:" $Id
 		if ($Source -ne $null) {
-			winget install --exact --silent $Id --source $Source --accept-source-agreements
+			winget install --exact --silent $Id --source $Source --accept-package-agreements --accept-source-agreements
 		} else {
-			winget install --exact --silent $Id --accept-source-agreements
+			winget install --exact --silent $Id --accept-package-agreements --accept-source-agreements
 		}
 		RefreshEnv;
 	} else {
