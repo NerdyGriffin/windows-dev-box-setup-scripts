@@ -1,8 +1,28 @@
+Function Install-WinGetApp {
+	param([Parameter(Mandatory = $true, Position = 0)][string]$Id,
+		[Parameter(Mandatory = $false, Position = 1)][string]$Source)
+	#check if the app is already installed
+	$listApp = winget list --exact -q $Id
+	if (![String]::Join("", $listApp).Contains($Id)) {
+		Write-Host "Installing:" $Id
+		if ($Source -ne $null) {
+			winget install --exact --silent $Id --source $Source --accept-source-agreements
+		} else {
+			winget install --exact --silent $Id --accept-source-agreements
+		}
+		RefreshEnv;
+	} else {
+		Write-Host "Skipping Install of " $Id
+	}
+	Start-Sleep -Seconds 1;
+}
+
+
 #--- Windows 10 Tools ---
 choco install -y autoruns
 # choco install -y everything
 # choco install -y mousewithoutborders
-winget install --id=Microsoft.PowerToys --exact --silent --accept-source-agreements
+Install-WinGetApp -Id 'Microsoft.PowerToys'
 choco install -y plasso --ignore-checksums # The checksums are never correct on this package, that is to be expected
 choco install -y reshack
 choco install -y shutup10

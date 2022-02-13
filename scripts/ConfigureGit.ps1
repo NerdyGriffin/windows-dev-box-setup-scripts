@@ -1,6 +1,26 @@
+Function Install-WinGetApp {
+	param([Parameter(Mandatory = $true, Position = 0)][string]$Id,
+		[Parameter(Mandatory = $false, Position = 1)][string]$Source)
+	#check if the app is already installed
+	$listApp = winget list --exact -q $Id
+	if (![String]::Join("", $listApp).Contains($Id)) {
+		Write-Host "Installing:" $Id
+		if ($Source -ne $null) {
+			winget install --exact --silent $Id --source $Source --accept-source-agreements
+		} else {
+			winget install --exact --silent $Id --accept-source-agreements
+		}
+		RefreshEnv;
+	} else {
+		Write-Host "Skipping Install of " $Id
+	}
+	Start-Sleep -Seconds 1;
+}
+
+Install-WinGetApp -Id 'GnuPG.GnuPG'
+
 choco install -y git --package-parameters="'/GitAndUnixToolsOnPath /WindowsTerminal'"
 choco install -y gitkraken
-choco install -y gpg4win
 refreshenv
 
 #--- Configure Git ---
