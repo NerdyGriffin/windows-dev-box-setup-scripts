@@ -13,4 +13,4 @@ choco install -y calibre
 choco install -y kindle
 
 #--- Other ---
-winget install --id=9MSPC6MP8FM4  -e # Microsoft Whiteboard --accept-source-agreements
+winget install --id=9MSPC6MP8FM4  --exact --silent --accept-source-agreements # Microsoft Whiteboard

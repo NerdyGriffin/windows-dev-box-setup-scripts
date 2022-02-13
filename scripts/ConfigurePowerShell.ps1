@@ -28,7 +28,7 @@ if (([Security.Principal.WindowsPrincipal] `
 	Start-Sleep -Seconds 1;
 
 	#--- Windows Terminal ---
-	winget install --id=Microsoft.WindowsTerminal -e --accept-source-agreements
+	winget install --id=Microsoft.WindowsTerminal --exact --silent --accept-source-agreements
 	# choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
 }
 
@@ -63,7 +63,7 @@ refreshenv
 					[Security.Principal.WindowsIdentity]::GetCurrent() `
 			).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 			Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-			winget install --id=JanDeDobbeleer.OhMyPosh -e --accept-source-agreements
+			winget install --id=JanDeDobbeleer.OhMyPosh --exact --silent --accept-source-agreements
 			refreshenv
 		}
 		[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
