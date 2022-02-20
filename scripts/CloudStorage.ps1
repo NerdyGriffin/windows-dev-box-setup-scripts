@@ -1,7 +1,7 @@
 choco install -y google-drive-file-stream
 # choco install -y megasync
 
-$NextcloudCheck = choco list -l nextcloud-client | Select-String -Pattern 'nextcloud-client'
+$NextcloudCheck = $(choco list -l nextcloud-client | Select-String -Pattern 'nextcloud-client')
 if (-not($NextcloudCheck)) {
 	choco install -y nextcloud-client
 }
