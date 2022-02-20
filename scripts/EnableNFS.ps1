@@ -10,3 +10,9 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Def
 nfsadmin client start
 nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
 Write-Host "NFS is now setup for user based NFS mounts"
+
+try {
+    Copy-Item -Path '\\files.nerdygriffin.net\scripts\MountNFSShares.bat' -Destination 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\'
+} catch {
+
+}
