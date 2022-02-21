@@ -27,6 +27,10 @@ if (([Security.Principal.WindowsPrincipal] `
 
 	#--- Windows Terminal ---
 	Install-WinGetApp -Id 'Microsoft.WindowsTerminal' -Source 'msstore'
+
+	#--- Oh My Posh Environment Variable ---
+	[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
+	refreshenv
 }
 
 #--- Enable Powershell Script Execution
