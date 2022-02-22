@@ -12,7 +12,9 @@ nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
 Write-Host "NFS is now setup for user based NFS mounts"
 
 try {
-    Copy-Item -Path '\\files.nerdygriffin.net\scripts\MountNFSShares.bat' -Destination 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\'
+	Invoke-Expression '\\files.nerdygriffin.net\scripts\MountNFSShares.bat'
 } catch {
-
+	try {
+		Invoke-Expression '\\files.nerdygriffin.net\scripts\MountNFSShares.ps1'
+	} catch {}
 }
