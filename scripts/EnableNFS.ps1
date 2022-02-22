@@ -19,14 +19,33 @@ try {
 	} catch {}
 }
 
-$STAction = New-ScheduledTaskAction - -Execute '\\files.nerdygriffin.net\scripts\MountNFSShares.bat'
-$STTrigger = New-ScheduledTaskTrigger -AtStartup
-$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
-$STSetings = New-ScheduledTaskSettingsSet
+$SMBScriptsPath = '\\files.nerdygriffin.net\scripts'
+try {
+	If ((Test-Path $SMBScriptsPath) -and (Test-Path '\\nfs.nerdygriffin.net\mnt\user\scripts')) {
 
-if (Get-ScheduledTask -TaskName 'MountNFSShares' -ErrorAction SilentlyContinue) {
-	Set-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
-} else {
-	Register-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+		$MountNFSBatch = 'MountNFSShares.bat'
+
+		$MountNFSBatchLocalPath = (Join-Path $env:ProgramData $MountNFSBatch)
+		$MountNFSBatchRemotePath = (Join-Path $SMBScriptsPath $MountNFSBatch)
+
+		if (Test-Path $MountNFSBatchRemotePath) {
+			Copy-Item -Path $MountNFSBatchRemotePath -Destination $MountNFSBatchLocalPath -Force
+
+			$STAction = New-ScheduledTaskAction - -Execute "$BackupFFSBatchLocalPath"
+			$STTrigger = New-ScheduledTaskTrigger -AtStartup
+			$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
+			$STSetings = New-ScheduledTaskSettingsSet
+
+			if (Get-ScheduledTask -TaskName 'MountNFSShares' -ErrorAction SilentlyContinue) {
+				Set-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+			} else {
+				Register-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+			}
+			Clear-Variable STAction, STPrin, STSetings, STTrigger
+		}
+	}
+} catch {
+	Write-Warning "An error occurred while attempting to setup NFS. This script will be skipped."
+} finally {
+
 }
-Clear-Variable STAction, STPrin, STSetings, STTrigger
