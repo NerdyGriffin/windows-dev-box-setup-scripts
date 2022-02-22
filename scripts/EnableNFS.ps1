@@ -18,3 +18,15 @@ try {
 		Invoke-Expression '\\files.nerdygriffin.net\scripts\MountNFSShares.ps1'
 	} catch {}
 }
+
+$STAction = New-ScheduledTaskAction - -Execute '\\files.nerdygriffin.net\scripts\MountNFSShares.bat'
+$STTrigger = New-ScheduledTaskTrigger -AtStartup
+$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
+$STSetings = New-ScheduledTaskSettingsSet
+
+if (Get-ScheduledTask -TaskName 'MountNFSShares' -ErrorAction SilentlyContinue) {
+	Set-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+} else {
+	Register-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+}
+Clear-Variable STAction, STPrin, STSetings, STTrigger
