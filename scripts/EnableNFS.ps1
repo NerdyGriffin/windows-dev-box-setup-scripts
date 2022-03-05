@@ -23,7 +23,7 @@ If ((Test-Path $SMBScriptsPath) -and (Test-Path '\\nfs.nerdygriffin.net\mnt\user
 		Copy-Item -Path $MountNFSBatchRemotePath -Destination $MountNFSBatchLocalPath -Force
 
 		$STAction = New-ScheduledTaskAction -Execute "$MountNFSBatchLocalPath"
-		$STTrigger = New-ScheduledTaskTrigger -AtStartup
+		$STTrigger = New-ScheduledTaskTrigger -AtLogOn
 		$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
 		$STSetings = New-ScheduledTaskSettingsSet
 
