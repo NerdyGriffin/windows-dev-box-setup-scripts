@@ -11,28 +11,28 @@ nfsadmin client start
 nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
 Write-Host "NFS is now setup for user based NFS mounts"
 
-$SMBScriptsPath = '\\files.nerdygriffin.net\scripts'
-$NFSScriptsPath = '\\nfs.nerdygriffin.net\mnt\user\scripts'
-If ((Test-Path $SMBScriptsPath) -and (Test-Path $NFSScriptsPath)) {
+# $SMBScriptsPath = '\\files.nerdygriffin.net\scripts'
+# $NFSScriptsPath = '\\nfs.nerdygriffin.net\mnt\user\scripts'
+# If ((Test-Path $SMBScriptsPath) -and (Test-Path $NFSScriptsPath)) {
 
-	$MountNFSBatch = 'MountNFSShares.bat'
+# 	$MountNFSBatch = 'MountNFSShares.bat'
 
-	# $MountNFSBatchLocalPath = (Join-Path $env:ProgramData $MountNFSBatch)
-	$MountNFSBatchRemotePath = (Join-Path $NFSScriptsPath $MountNFSBatch)
+# 	# $MountNFSBatchLocalPath = (Join-Path $env:ProgramData $MountNFSBatch)
+# 	$MountNFSBatchRemotePath = (Join-Path $NFSScriptsPath $MountNFSBatch)
 
-	If (Test-Path $MountNFSBatchRemotePath) {
-		# Copy-Item -Path $MountNFSBatchRemotePath -Destination $MountNFSBatchLocalPath -Force
+# 	If (Test-Path $MountNFSBatchRemotePath) {
+# 		# Copy-Item -Path $MountNFSBatchRemotePath -Destination $MountNFSBatchLocalPath -Force
 
-		$STAction = New-ScheduledTaskAction -Execute "$MountNFSBatchRemotePath"
-		$STTrigger = New-ScheduledTaskTrigger -AtLogOn
-		$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
-		$STSetings = New-ScheduledTaskSettingsSet
+# 		$STAction = New-ScheduledTaskAction -Execute "$MountNFSBatchRemotePath"
+# 		$STTrigger = New-ScheduledTaskTrigger -AtLogOn
+# 		$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
+# 		$STSetings = New-ScheduledTaskSettingsSet
 
-		If (Get-ScheduledTask -TaskName 'MountNFSShares' -ErrorAction SilentlyContinue) {
-			Set-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
-		} else {
-			Register-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
-		}
-		Clear-Variable STAction, STPrin, STSetings, STTrigger
-	}
-}
+# 		If (Get-ScheduledTask -TaskName 'MountNFSShares' -ErrorAction SilentlyContinue) {
+# 			Set-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+# 		} else {
+# 			Register-ScheduledTask -TaskName 'MountNFSShares' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+# 		}
+# 		Clear-Variable STAction, STPrin, STSetings, STTrigger
+# 	}
+# }
