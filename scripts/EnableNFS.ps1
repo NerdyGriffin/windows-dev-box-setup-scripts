@@ -8,7 +8,7 @@ nfsadmin client stop
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default" -Name "AnonymousUID" -Type DWord -Value 0
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default" -Name "AnonymousGID" -Type DWord -Value 0
 nfsadmin client start
-nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
+nfsadmin client localhost config mtype=hard fileaccess=755 SecFlavors=+sys -krb5 -krb5i
 Write-Host "NFS is now setup for user based NFS mounts"
 
 # $SMBScriptsPath = '\\files.nerdygriffin.net\scripts'
