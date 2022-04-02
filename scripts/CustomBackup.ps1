@@ -11,11 +11,11 @@ try {
 	If (Test-Path $SMBProgramFilesPath) {
 		# $IsLaptop = ($env:USERDOMAIN | Select-String 'LAPTOP')
 		# If ($IsLaptop) {
-			$BackupFFSReal = 'BackupWindowsLaptop.ffs_real'
-			$BackupFFSBatch = 'BackupWindowsLaptop.ffs_batch'
+		$BackupFFSReal = 'BackupWindowsLaptop.ffs_real'
+		$BackupFFSBatch = 'BackupWindowsLaptop.ffs_batch'
 		# } else {
-			# $BackupFFSReal = 'BackupWindowsDesktop.ffs_real'
-			# $BackupFFSBatch = 'BackupWindowsDesktop.ffs_batch'
+		# $BackupFFSReal = 'BackupWindowsDesktop.ffs_real'
+		# $BackupFFSBatch = 'BackupWindowsDesktop.ffs_batch'
 		# }
 
 		$BackupFFSRealLocalPath = (Join-Path $env:ProgramData $BackupFFSReal)
@@ -35,7 +35,7 @@ try {
 				$(New-ScheduledTaskTrigger -Daily -At 3pm)
 			)
 			$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
-			$STSetings = New-ScheduledTaskSettingsSet -DisallowStartOnRemoteAppSession -ExecutionTimeLimit (New-TimeSpan -Hours 8) -IdleDuration (New-TimeSpan -Minutes 10) -IdleWaitTimeout (New-TimeSpan -Hours 8) -MultipleInstances IgnoreNew -Priority 5 -RestartOnIdle -RunOnlyIfIdle -RunOnlyIfNetworkAvailable
+			$STSetings = New-ScheduledTaskSettingsSet -DisallowStartOnRemoteAppSession -ExecutionTimeLimit (New-TimeSpan -Hours 8) -IdleDuration (New-TimeSpan -Minutes 10) -IdleWaitTimeout (New-TimeSpan -Hours 8) -MultipleInstances IgnoreNew -Priority 5 -RunOnlyIfNetworkAvailable
 
 			if (Get-ScheduledTask -TaskName 'FreeFileSyncBackup' -ErrorAction SilentlyContinue) {
 				Set-ScheduledTask -TaskName 'FreeFileSyncBackup' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
@@ -73,7 +73,7 @@ try {
 				$(New-ScheduledTaskTrigger -Daily -At 12pm),
 				$(New-ScheduledTaskTrigger -Daily -At 6pm)
 			)
-			$STSetings = New-ScheduledTaskSettingsSet -DisallowStartOnRemoteAppSession -DontStopIfGoingOnBatteries -DontStopOnIdleEnd -ExecutionTimeLimit (New-TimeSpan -Hours 1) -IdleDuration (New-TimeSpan -Minutes 1) -IdleWaitTimeout (New-TimeSpan -Hours 4) -MultipleInstances IgnoreNew -Priority 5 -RestartOnIdle -RunOnlyIfNetworkAvailable
+			$STSetings = New-ScheduledTaskSettingsSet -DisallowStartOnRemoteAppSession -ExecutionTimeLimit (New-TimeSpan -Hours 1) -IdleDuration (New-TimeSpan -Minutes 1) -IdleWaitTimeout (New-TimeSpan -Hours 4) -MultipleInstances IgnoreNew -Priority 5 -RunOnlyIfNetworkAvailable
 
 			if (Get-ScheduledTask -TaskName 'FreeFileSyncWallpaper' -ErrorAction SilentlyContinue) {
 				Set-ScheduledTask -TaskName 'FreeFileSyncWallpaper' -Action $STAction -Settings $STSetings -Trigger $STTrigger
