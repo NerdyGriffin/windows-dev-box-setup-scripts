@@ -35,7 +35,7 @@ executeScript "FileExplorerSettings.ps1";
 executeScript "RemoveDefaultApps.ps1";
 executeScript 'PrivacySettings.ps1';
 executeScript "InstallWinGet.ps1";
-executeScript "WHWorkstation";
+executeScript "WHWorkstation.ps1";
 executeScript "WHEngineer.ps1"
 
 Enable-UAC
