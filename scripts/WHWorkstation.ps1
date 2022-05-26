@@ -4,5 +4,5 @@ choco install -y bitwarden
 choco install -y googlechrome
 choco install -y openoffice
 choco install -y pdfsam
+choco install -y thunderbird
 choco install -y windirstat
-choco install -y AvgAntivirusBusiness
