@@ -33,8 +33,19 @@ function executeScript {
 #--- Setting up Windows ---
 executeScript "FileExplorerSettings.ps1";
 executeScript "RemoveDefaultApps.ps1";
+
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+executeScript 'PackageManagement.ps1';
+
+#--- Setting up Chocolatey ---
+executeScript 'ChocolateyExtensions.ps1';
+executeScript 'ChocolateyGUI.ps1';
+
+#--- Windows Privacy Settings ---
 executeScript 'PrivacySettings.ps1';
-executeScript "InstallWinGet.ps1";
+
+#--- Whittet-Higgins Custom Setup ---
 executeScript "WHWorkstation.ps1";
 
 Enable-UAC
