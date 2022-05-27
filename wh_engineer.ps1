@@ -42,7 +42,7 @@ executeScript 'ChocolateyExtensions.ps1';
 executeScript 'ChocolateyGUI.ps1';
 
 #--- Windows Privacy Settings ---
-executeScript 'PrivacySettings.ps1';
+executeScript 'WHPrivacySettings.ps1';
 
 #--- Whittet-Higgins Custom Setup ---
 executeScript 'WHWorkstation.ps1';
