@@ -30,7 +30,7 @@ function executeScript {
 }
 
 #--- Setting up Windows ---
-executeScript 'FileExplorerSettings.ps1';
+executeScript 'WHFileExplorerSettings.ps1';
 executeScript 'WHRemoveDefaultApps.ps1';
 
 #--- Package Manager ---
@@ -45,6 +45,7 @@ executeScript 'ChocolateyGUI.ps1';
 executeScript 'WHPrivacySettings.ps1';
 
 #--- Whittet-Higgins Custom Setup ---
+executeScript 'WHDisableIPv6.ps1';
 executeScript 'WHWorkstation.ps1';
 executeScript "WHEngineer.ps1"
 
