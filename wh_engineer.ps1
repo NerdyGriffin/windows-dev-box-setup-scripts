@@ -31,7 +31,7 @@ function executeScript {
 
 #--- Setting up Windows ---
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
+executeScript 'WHRemoveDefaultApps.ps1';
 
 #--- Package Manager ---
 executeScript 'InstallWinGet.ps1';
