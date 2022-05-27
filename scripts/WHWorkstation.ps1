@@ -7,3 +7,5 @@ choco install -y openoffice
 choco install -y pdfsam
 choco install -y thunderbird
 choco install -y windirstat
+choco install -y winmerge
+choco install -y winmerge-7z
