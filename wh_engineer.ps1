@@ -47,7 +47,7 @@ executeScript 'WHPrivacySettings.ps1';
 #--- Whittet-Higgins Custom Setup ---
 executeScript 'WHDisableIPv6.ps1';
 executeScript 'WHWorkstation.ps1';
-executeScript "WHEngineer.ps1"
+executeScript 'WHEngineer.ps1';
 
 Enable-UAC
 Enable-MicrosoftUpdate
