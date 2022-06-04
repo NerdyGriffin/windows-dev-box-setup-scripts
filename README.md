@@ -68,13 +68,6 @@ To run a recipe script, click a link in the table below from your target machine
 | <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_openssh.ps1'>OpenSSH Server</a>                           | Install OpenSSH Server                                                                           |
 | <a href='http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/cleanup_chocolatey.ps1'>Cleanup "tmp\*.tmp" Chocolatey Packages</a> | Cleanup "tmp\*.tmp" Chocolatey Packages after you are done with the boxstarter installs          |
 
-### **Whittet-Higgins Collection**
-
-| Click link to run                                                                                                                                                                   | Description                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/wh_workstation.ps1'>Whittet-Higgins Workstations</a> | A general starter setup for most normal workstations |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/wh_engineer.ps1'>Whittet-Higgins Engineer</a>        | Includes extra programs for engineering workstations |
-
 **Notes:**
 
 1. If you are using WSL there's a followup step we recommend after running the setup script. When the script finishes you will only have a root user with a blank password. You should manually create a non-root user via `$ sudo adduser [USERNAME] sudo`
