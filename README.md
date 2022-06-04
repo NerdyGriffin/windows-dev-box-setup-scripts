@@ -78,7 +78,7 @@ To run a recipe script, click a link in the table below from your target machine
 
 - The Boxstarter ClickOnce installer does not work when using Chrome. This issue is being tracked [here](https://github.com/chocolatey/boxstarter/issues/345). Please use Edge to run the ClickOnce installer.
 - Reboot is not always logging you back in to resume the script. This is being tracked [here](https://github.com/chocolatey/boxstarter/issues/318). The workaround is to login manually and the script will continue running.
-- There have been reports of Windows 1803 not successfully launching Boxstarter via the web launcher. See this issue for details: https://github.com/chocolatey/boxstarter/issues/301
+- There have been reports of Windows 1803 not successfully launching Boxstarter via the web launcher. See this issue for details: <https://github.com/chocolatey/boxstarter/issues/301>
 
 ## Working with Chocolatey in an organization?
 
@@ -123,4 +123,4 @@ Our project is subject to the MIT License and we make no warranties, express or 
 
 # Contributing
 
-# Do you want to contribute? We would love your help. Here are our <a href="CONTRIBUTING.md">contribution guidelines</a>.
+Do you want to contribute? We would love your help. Here are our <a href="CONTRIBUTING.md">contribution guidelines</a>.
