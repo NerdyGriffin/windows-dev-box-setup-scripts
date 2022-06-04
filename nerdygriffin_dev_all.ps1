@@ -94,10 +94,6 @@ executeScript 'HyperV.ps1';
 executeScript 'WSL.ps1';
 executeScript 'Browsers.ps1';
 
-#--- Web Dev Tools ---
-code --install-extension msjsdiag.debugger-for-chrome
-code --install-extension msjsdiag.debugger-for-edge
-
 RefreshEnv;
 Start-Sleep -Seconds 1;
 
