@@ -9,14 +9,8 @@ $FreeFileSyncExe = (Join-Path $env:ProgramFiles '\FreeFileSync\FreeFileSync.exe'
 
 try {
 	If (Test-Path $SMBProgramFilesPath) {
-		# $IsLaptop = ($env:USERDOMAIN | Select-String 'LAPTOP')
-		# If ($IsLaptop) {
-		$BackupFFSReal = 'BackupWindowsLaptop.ffs_real'
-		$BackupFFSBatch = 'BackupWindowsLaptop.ffs_batch'
-		# } else {
-		# $BackupFFSReal = 'BackupWindowsDesktop.ffs_real'
-		# $BackupFFSBatch = 'BackupWindowsDesktop.ffs_batch'
-		# }
+		$BackupFFSReal = 'BackupWindows.ffs_real'
+		$BackupFFSBatch = 'BackupWindows.ffs_batch'
 
 		$BackupFFSRealLocalPath = (Join-Path $env:ProgramData $BackupFFSReal)
 		$BackupFFSBatchLocalPath = (Join-Path $env:ProgramData $BackupFFSBatch)
