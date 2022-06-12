@@ -31,6 +31,7 @@ if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
 }
 
 #--- Setting up Windows ---
+executeScript 'DisableIPv6.ps1';
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
