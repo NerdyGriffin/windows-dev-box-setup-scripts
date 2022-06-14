@@ -31,7 +31,7 @@ if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
 }
 
 #--- Setting up Windows ---
-executeScript 'DisableIPv6.ps1';
+# executeScript 'DisableIPv6.ps1';
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
 
@@ -47,6 +47,7 @@ executeScript 'ChocolateyGUI.ps1';
 executeScript 'YubiKey.ps1';
 
 #--- Administrative Tools ---
+executeScript 'RemoteServerAdministrationTools.ps1';
 executeScript 'HardwareMonitoring.ps1';
 executeScript 'FileAndStorageUtils.ps1';
 executeScript 'SQLServerManagementStudio.ps1'
