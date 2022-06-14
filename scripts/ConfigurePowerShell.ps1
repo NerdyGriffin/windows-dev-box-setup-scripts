@@ -64,7 +64,8 @@ refreshenv
 					[Security.Principal.WindowsIdentity]::GetCurrent() `
 			).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 			Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-			winget install --id=JanDeDobbeleer.OhMyPosh --exact --silent --accept-package-agreements --accept-source-agreements
+			# winget install --id=JanDeDobbeleer.OhMyPosh --exact --silent --accept-package-agreements --accept-source-agreements
+			Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
 			refreshenv
 		}
 		[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
