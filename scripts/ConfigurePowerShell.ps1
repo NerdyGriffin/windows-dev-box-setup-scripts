@@ -1,22 +1,3 @@
-Function Install-WinGetApp {
-	param([Parameter(Mandatory = $true, Position = 0)][string]$Id,
-		[Parameter(Mandatory = $false, Position = 1)][string]$Source)
-	#check if the app is already installed
-	$listApp = winget list --exact -q $Id
-	if (![String]::Join("", $listApp).Contains($Id)) {
-		Write-Host "Installing:" $Id
-		if ($Source -ne $null) {
-			winget install --exact --silent $Id --source $Source --accept-package-agreements --accept-source-agreements
-		} else {
-			winget install --exact --silent $Id --accept-package-agreements --accept-source-agreements
-		}
-		RefreshEnv;
-	} else {
-		Write-Host "Skipping Install of " $Id
-	}
-	Start-Sleep -Seconds 1;
-}
-
 if (([Security.Principal.WindowsPrincipal] `
 			[Security.Principal.WindowsIdentity]::GetCurrent() `
 	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -24,9 +5,6 @@ if (([Security.Principal.WindowsPrincipal] `
 	choco upgrade -y powershell
 	choco upgrade -y powershell-core
 	refreshenv
-
-	#--- Windows Terminal ---
-	Install-WinGetApp -Id 'Microsoft.WindowsTerminal' -Source 'msstore'
 
 	#--- Oh My Posh Environment Variable ---
 	[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
@@ -64,7 +42,6 @@ refreshenv
 					[Security.Principal.WindowsIdentity]::GetCurrent() `
 			).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 			Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-			# winget install --id=JanDeDobbeleer.OhMyPosh --exact --silent --accept-package-agreements --accept-source-agreements
 			Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
 			refreshenv
 		}
