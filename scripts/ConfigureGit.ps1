@@ -20,7 +20,8 @@ Function Install-WinGetApp {
 if (([Security.Principal.WindowsPrincipal] `
 			[Security.Principal.WindowsIdentity]::GetCurrent() `
 	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	Install-WinGetApp -Id 'GnuPG.GnuPG'
+	#Install-WinGetApp -Id 'GnuPG.GnuPG'
+	choco install -y gnupg
 	choco install -y git --package-parameters="'/GitAndUnixToolsOnPath /WindowsTerminal'"
 	choco install -y gitkraken
 	refreshenv
