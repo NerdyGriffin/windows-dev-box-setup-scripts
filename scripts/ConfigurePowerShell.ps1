@@ -176,14 +176,10 @@ if (Test-Path $WindowsTerminalSettingsDir) {
 	if ((-not(Test-Path $SymLinkPath)) -or (-not(Get-Item $SymLinkPath | Where-Object Attributes -Match ReparsePoint))) {
 		New-Item -Path $SymLinkPath -ItemType SymbolicLink -Value $WindowsTerminalSettingsDir -Force -Verbose
 	}
-	$RemoteBackup = '\\files.nerdygriffin.net\backup\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\.git'
-	if ((Test-Path $RemoteBackup) -and (-not(Test-Path (Join-Path $WindowsTerminalSettingsDir '.git')))) {
-		$PrevLocation = Get-Location
-		Set-Location -Path $RemoteBackup
-		git fetch; git pull;
-		Copy-Item -Path $RemoteBackup -Destination (Join-Path $WindowsTerminalSettingsDir '.git')
-		Set-Location -Path $PrevLocation
-	}
+	$BackupDirName = (Join-Path $env:USERPROFILE 'WindowsTerminalSettings.bak')
+	New-Item -Path $BackupDirName -ItemType Directory -Force -Verbose
+	Copy-Item -Path $WindowsTerminalSettingsDir -Destination $BackupDirName -Force -Recurse
+	Move-Item -Path $BackupDirName -Destination (Join-Path $WindowsTerminalSettingsDir $BackupDirName) -Force
 }
 
 [System.Environment]::SetEnvironmentVariable('PYTHONSTARTUP', (Join-Path $env:USERPROFILE '.pystartup'))
