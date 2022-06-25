@@ -11,9 +11,9 @@ if (([Security.Principal.WindowsPrincipal] `
 	refreshenv
 }
 
-#--- Enable Powershell Script Execution
-Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
-refreshenv
+# #--- Enable Powershell Script Execution
+# Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
+# refreshenv
 
 [ScriptBLock]$ScriptBlock = {
 	#--- Update all modules ---
