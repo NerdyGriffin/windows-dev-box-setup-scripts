@@ -1,3 +1,3 @@
 #--- Password Manager ---
 choco install -y bitwarden
-choco install -y keepass
+# choco install -y keepass
