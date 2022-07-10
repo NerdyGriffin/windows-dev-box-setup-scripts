@@ -4,6 +4,6 @@ choco install -y ChocolateyPackageUpdater
 try { choco install -y ChocolateyDeploymentUtils } catch {}
 choco install -y boxstarter.chocolatey
 choco install -y Boxstarter.TestRunner
-if (Test-Path '\\GRIFFINUNRAID\Boxstarter\BuildPackages') {
-	Set-BoxStarterConfig -LocalRepo '\\GRIFFINUNRAID\Boxstarter\BuildPackages'
+if (Test-Path '\\files.nerdygriffin.net\Boxstarter\BuildPackages') {
+	Set-BoxStarterConfig -LocalRepo '\\files.nerdygriffin.net\Boxstarter\BuildPackages'
 }

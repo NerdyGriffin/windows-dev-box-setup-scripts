@@ -52,21 +52,21 @@ To run a recipe script, click a link in the table below from your target machine
 
 ### **NerdyGriffin Collection**
 
-| Click link to run                                                                                                                                                                                   | Description                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_move_libraries.ps1'>Move Library Directories</a>        | Moves the user's library directories to D:\ drive and makes symlinks to libraries on my personal server |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_daily_driver.ps1'>NerdyGriffin's Daily Driver Setup</a> | Daily Driver (General Purpose Programs, Web Browser, Office Suite, Multimedia, etc.)                    |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_dev_all.ps1'>NerdyGriffin's Full Development Setup</a>  | Assorted Development Tools for all my projects: Git, Arduino, Desktop App, Web, and More                |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_sysadmin.ps1'>NerdyGriffin's Sysadmin Setup</a>         | Tools for Amateur System Administration                                                                 |
-| <a href='https://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_privacy.ps1'>NerdyGriffin's Privacy Tweaks</a>         | Configure Windows Privacy Options                                                                       |
-| <a href='http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_gaming.ps1'>NerdyGriffin's Gaming Setup</a>          | Gaming                                                                                                  |
+| Click link to run                                                                                                                                                                                   | Description                                                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_dev_all.ps1'>NerdyGriffin's Full Development Setup</a>  | Assorted Development Tools for all my projects: Git, Arduino, Desktop App, Web, and More |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_sysadmin.ps1'>NerdyGriffin's Sysadmin Setup</a>         | Tools for Amateur System Administration                                                  |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_daily_driver.ps1'>NerdyGriffin's Daily Driver Setup</a> | Daily Driver (General Purpose Programs, Web Browser, Office Suite, Multimedia, etc.)     |
+| <a href='http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_gaming.ps1'>NerdyGriffin's Gaming Setup</a>          | Gaming                                                                                   |
 
 ### **NerdyGriffin Standalone installers**
 
-| Click link to run                                                                                                                                                                                     | Description                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_openssh.ps1'>OpenSSH Server</a>                           | Install OpenSSH Server                                                                  |
-| <a href='http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/cleanup_chocolatey.ps1'>Cleanup "tmp\*.tmp" Chocolatey Packages</a> | Cleanup "tmp\*.tmp" Chocolatey Packages after you are done with the boxstarter installs |
+| Click link to run                                                                                                                                                                                     | Description                                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_privacy.ps1'>NerdyGriffin's Privacy Tweaks</a>            | Configure Windows Privacy Options                                                                |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_enable_nfs.ps1'>Enable NFS</a>                            | Enable Optional Features Required to mount NFS shares in Windows (Only available in Windows Pro) |
+| <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_openssh.ps1'>OpenSSH Server</a>                           | Install OpenSSH Server                                                                           |
+| <a href='http://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/cleanup_chocolatey.ps1'>Cleanup "tmp\*.tmp" Chocolatey Packages</a> | Cleanup "tmp\*.tmp" Chocolatey Packages after you are done with the boxstarter installs          |
 
 **Notes:**
 
@@ -78,7 +78,7 @@ To run a recipe script, click a link in the table below from your target machine
 
 - The Boxstarter ClickOnce installer does not work when using Chrome. This issue is being tracked [here](https://github.com/chocolatey/boxstarter/issues/345). Please use Edge to run the ClickOnce installer.
 - Reboot is not always logging you back in to resume the script. This is being tracked [here](https://github.com/chocolatey/boxstarter/issues/318). The workaround is to login manually and the script will continue running.
-- There have been reports of Windows 1803 not successfully launching Boxstarter via the web launcher. See this issue for details: https://github.com/chocolatey/boxstarter/issues/301
+- There have been reports of Windows 1803 not successfully launching Boxstarter via the web launcher. See this issue for details: <https://github.com/chocolatey/boxstarter/issues/301>
 
 ## Working with Chocolatey in an organization?
 
@@ -123,4 +123,4 @@ Our project is subject to the MIT License and we make no warranties, express or 
 
 # Contributing
 
-# Do you want to contribute? We would love your help. Here are our <a href="CONTRIBUTING.md">contribution guidelines</a>.
+Do you want to contribute? We would love your help. Here are our <a href="CONTRIBUTING.md">contribution guidelines</a>.

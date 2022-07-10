@@ -27,42 +27,32 @@ function executeScript {
 
 #--- Setting up Windows ---
 executeScript 'SystemConfiguration.ps1';
-executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
 # executeScript 'TaskbarSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
-executeScript 'CommonDevTools.ps1';
+executeScript 'DisableSleepIfVM.ps1';
 
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+
+#--- YubiKey Authentication ---
 executeScript 'YubiKey.ps1';
-
-executeScript 'ConfigureGit.ps1';
-
-#--- Configure Powershell Profile for Powerline and PSReadline ---
-executeScript 'ConfigurePowerShell.ps1';
-
-#--- Assorted PowerShellTools ---
-executeScript 'PowerShellTools.ps1';
-executeScript 'GNU.ps1';
 
 #--- Graphics Driver Support
 executeScript 'NvidiaGraphics.ps1';
 
-#--- Setting up Chocolatey
-executeScript 'ChocolateyExtensions.ps1';
-executeScript 'ChocolateyGUI.ps1';
-
 #--- Setting up programs for typical every-day use
+executeScript 'Browsers.ps1';
+executeScript 'CloudStorage.ps1';
+executeScript 'CommunicationApps.ps1';
+executeScript 'Multimedia.ps1';
+executeScript 'NordVPN.ps1';
+executeScript 'OfficeTools.ps1';
+executeScript 'PasswordManager.ps1';
+executeScript 'Scientific.ps1';
 executeScript 'WindowsPersonalization.ps1';
 executeScript 'WindowsPowerUser.ps1';
-executeScript 'PasswordManager.ps1';
-executeScript 'NordVPN.ps1';
-executeScript 'Browsers.ps1';
-executeScript 'Multimedia.ps1';
-executeScript 'CommunicationApps.ps1';
-executeScript 'OfficeTools.ps1';
-executeScript 'CloudStorage.ps1';
-executeScript 'Scientific.ps1';
 
+#--- Custom backup to file server ---
 executeScript 'CustomBackup.ps1';
 
 #--- Windows Settings ---
@@ -70,22 +60,14 @@ Disable-BingSearch
 # Disable-GameBarTips
 
 #--- Parse Boxstarter log for failed package installs ---
-$FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 | ForEach-Object {
-	$FirstLine = $_.Context.PostContext[0]
-	$SplitString = $FirstLine.split()
-	$PackageName = $SplitString[2]
-	if (-not(Select-String -Pattern $PackageName -Path $FailuresLog )) {
-		Add-Content -Path $FailuresLog -Value $_.Context.PostContext
-	}
-}
+executeScript 'ParseBoxstarterLog.ps1';
 
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
 
-$MackieDriverSetupExe = '\\GRIFFINUNRAID\personal\Downloads\Mackie_USB_Driver_v4_67_0\Mackie_USB_Driver_Setup.exe'
+$MackieDriverSetupExe = '\\files.nerdygriffin.net\personal\Downloads\Mackie_USB_Driver_v4_67_0\Mackie_USB_Driver_Setup.exe'
 If (Test-Path $MackieDriverSetupExe) {
 	Write-Verbose 'Attempt installing driver for Mackie mixer board'
 	Invoke-Expression $MackieDriverSetupExe

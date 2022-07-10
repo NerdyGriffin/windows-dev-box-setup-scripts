@@ -26,21 +26,37 @@ function executeScript {
 }
 
 #--- Setting up Windows ---
-executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
+executeScript 'DisableSleepIfVM.ps1';
+
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+
+#--- Create symbolic links to game install locations
 executeScript 'GameSymlinks.ps1';
+
+#--- Graphics Driver Support
 executeScript 'NvidiaGraphics.ps1';
-executeScript 'CorsairICue.ps1';
+
+#--- Customization Software for Gaming Peripherals
 executeScript 'LogitechGaming.ps1';
+# executeScript 'CorsairICue.ps1'; # Imcompatibility with Logitech Mouse Drivers causes instability on some computers
+
+#--- Remote Desktop Tools
 executeScript 'RemoteDesktop.ps1';
+
+#--- Monitoring and Performance Benchmarks ---
 executeScript 'HardwareMonitoring.ps1';
 executeScript 'BenchmarkUtils.ps1';
+
+#--- Game Launchers ---
 # if ($env:USERDOMAIN | Select-String 'DESKTOP') {
 executeScript 'GameLaunchers.ps1';
 # } else {
 # 	executeScript 'MinimalGameLaunchers.ps1';
 # }
+
+#--- Game Modding Tools ---
 executeScript 'GameModdingTools.ps1';
 
 #--- Disable Sticky keys prompt ---
@@ -60,15 +76,7 @@ If (-not(Test-Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sys
 Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLinkedConnections' -Type DWord -Value 1
 
 #--- Parse Boxstarter log for failed package installs ---
-$FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 | ForEach-Object {
-	$FirstLine = $_.Context.PostContext[0]
-	$SplitString = $FirstLine.split()
-	$PackageName = $SplitString[2]
-	if (-not(Select-String -Pattern $PackageName -Path $FailuresLog )) {
-		Add-Content -Path $FailuresLog -Value $_.Context.PostContext
-	}
-}
+executeScript 'ParseBoxstarterLog.ps1';
 
 Enable-UAC
 Enable-MicrosoftUpdate

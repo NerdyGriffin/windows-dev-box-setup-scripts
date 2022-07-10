@@ -31,38 +31,34 @@ if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
 }
 
 #--- Setting up Windows ---
+# executeScript 'DisableIPv6.ps1';
 executeScript 'SystemConfiguration.ps1';
-executeScript 'DisableSleepIfVM.ps1';
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
-executeScript 'CommonDevTools.ps1';
-executeScript 'WindowsPowerUser.ps1';
 
-executeScript 'YubiKey.ps1';
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+executeScript 'PackageManagement.ps1';
 
 #--- Setting up Chocolatey
 executeScript 'ChocolateyExtensions.ps1';
 executeScript 'ChocolateyGUI.ps1';
 
+#--- YubiKey Authentication ---
+executeScript 'YubiKey.ps1';
+
 #--- Administrative Tools ---
+executeScript 'RemoteServerAdministrationTools.ps1';
 executeScript 'HardwareMonitoring.ps1';
 executeScript 'FileAndStorageUtils.ps1';
 executeScript 'SQLServerManagementStudio.ps1'
 executeScript 'NetworkTools.ps1';
 executeScript 'RemoteAndLocalFileSystem.ps1';
 
-executeScript 'UnofficialChocolateyTools.ps1';
+#--- Custom backup to file server ---
+executeScript 'CustomBackup.ps1';
 
 #--- Parse Boxstarter log for failed package installs ---
-$FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log')
-Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 | ForEach-Object {
-	$FirstLine = $_.Context.PostContext[0]
-	$SplitString = $FirstLine.split()
-	$PackageName = $SplitString[2]
-	if (-not(Select-String -Pattern $PackageName -Path $FailuresLog )) {
-		Add-Content -Path $FailuresLog -Value $_.Context.PostContext
-	}
-}
+executeScript 'ParseBoxstarterLog.ps1';
 
 #--- reenabling critial items ---
 Enable-UAC

@@ -8,3 +8,6 @@ choco install -y partitionwizard
 choco install -y rufus
 choco install -y teracopy
 choco install -y tuxboot
+choco install -y windirstat
+choco install -y winmerge
+choco install -y winmerge-7z

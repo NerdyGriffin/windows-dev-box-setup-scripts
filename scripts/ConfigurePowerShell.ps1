@@ -1,18 +1,19 @@
-choco upgrade -y powershell
-choco upgrade -y powershell-core
-refreshenv
+if (([Security.Principal.WindowsPrincipal] `
+			[Security.Principal.WindowsIdentity]::GetCurrent() `
+	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	#--- PowerShell ---
+	choco upgrade -y powershell
+	choco upgrade -y powershell-core
+	refreshenv
 
-#--- Fonts ---
-# choco install -y cascadiafonts
-# choco install -y cascadia-code-nerd-font
-# choco install -y firacodenf
+	#--- Oh My Posh Environment Variable ---
+	[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
+	refreshenv
+}
 
-#--- Windows Terminal ---
-choco upgrade -y microsoft-windows-terminal; choco upgrade -y microsoft-windows-terminal # Does this twice because the first attempt often fails but leaves the install partially completed, and then it completes successfully the second time.
-
-#--- Enable Powershell Script Execution
-Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
-refreshenv
+# #--- Enable Powershell Script Execution
+# Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
+# refreshenv
 
 [ScriptBLock]$ScriptBlock = {
 	#--- Update all modules ---
@@ -37,26 +38,15 @@ refreshenv
 
 	#--- Install & Configure the Powerline Modules
 	try {
-		Write-Host 'Installing Posh-Git and Oh-My-Posh - [Dependencies for Powerline]'
-		if (-not(Get-Module -ListAvailable -Name posh-git)) {
-			Write-Host 'Installing Posh-Git...'
-			Install-Module posh-git -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
-		} else { Write-Host "Module 'posh-git' already installed" }
+		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
+		Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
 		refreshenv
-		if (-not(Get-Module -ListAvailable -Name oh-my-posh)) {
-			Write-Host 'Installing Oh-My-Posh...'
-			try {
-				Install-Module oh-my-posh -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose -AllowPrerelease
-			} catch {
-				Install-Module oh-my-posh -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
-			}
-		} else { Write-Host "Module 'oh-my-posh' already installed" }
+		[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
 		refreshenv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
 			'# Dependencies for powerline',
-			'Import-Module posh-git',
-			'Set-PoshPrompt -Theme microverse-power'
+			'oh-my-posh --init --shell pwsh --config $env:POSH_THEMES_PATH/microverse-power.omp.json | Invoke-Expression'
 		)
 		if (-not(Select-String -Pattern $PowerlineProfile[0] -Path $PROFILE )) {
 			Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
@@ -101,18 +91,22 @@ refreshenv
 	}
 
 	#--- Import Chocolatey Modules
-	Write-Host 'Appending Configuration for Chocolatey to PowerShell Profile...'
-	$ChocolateyProfile = @(
-		'# Chocolatey profile',
-		'$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"',
-		'if (Test-Path($ChocolateyProfile)) {'
-		'	Import-Module "$ChocolateyProfile"'
-		'}'
-	)
-	if (-not(Select-String -Pattern $ChocolateyProfile[0] -Path $PROFILE)) {
-		Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
-		Write-Output $ChocolateyProfile | Write-Debug
-		Add-Content -Path $PROFILE -Value $ChocolateyProfile
+	if (([Security.Principal.WindowsPrincipal] `
+				[Security.Principal.WindowsIdentity]::GetCurrent() `
+		).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+		Write-Host 'Appending Configuration for Chocolatey to PowerShell Profile...'
+		$ChocolateyProfile = @(
+			'# Chocolatey profile',
+			'$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"',
+			'if (Test-Path($ChocolateyProfile)) {'
+			'	Import-Module "$ChocolateyProfile"'
+			'}'
+		)
+		if (-not(Select-String -Pattern $ChocolateyProfile[0] -Path $PROFILE)) {
+			Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
+			Write-Output $ChocolateyProfile | Write-Debug
+			Add-Content -Path $PROFILE -Value $ChocolateyProfile
+		}
 	}
 
 	# #--- Import Boxstarter Modules
@@ -121,8 +115,8 @@ refreshenv
 	# 	'# Boxstarter modules',
 	# 	'# Import the Chocolatey module first so that $Boxstarter properties',
 	# 	'# are initialized correctly and then import everything else.',
-	# 	'if (Test-Path("\\GRIFFINUNRAID\Boxstarter")) {',
-	# 	'	$BoxstarterInstall = "\\GRIFFINUNRAID\Boxstarter"',
+	# 	'if (Test-Path("\\files.nerdygriffin.net\Boxstarter")) {',
+	# 	'	$BoxstarterInstall = "\\files.nerdygriffin.net\Boxstarter"',
 	# 	'} elseif (Test-Path("D:\Boxstarter")) {',
 	# 	'	$BoxstarterInstall = "D:\Boxstarter"',
 	# 	'}',
@@ -182,13 +176,12 @@ if (Test-Path $WindowsTerminalSettingsDir) {
 	if ((-not(Test-Path $SymLinkPath)) -or (-not(Get-Item $SymLinkPath | Where-Object Attributes -Match ReparsePoint))) {
 		New-Item -Path $SymLinkPath -ItemType SymbolicLink -Value $WindowsTerminalSettingsDir -Force -Verbose
 	}
-	$RemoteBackup = '\\GRIFFINUNRAID\backup\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\.git'
-	if ((Test-Path $RemoteBackup) -and (-not(Test-Path (Join-Path $WindowsTerminalSettingsDir '.git')))) {
-		$PrevLocation = Get-Location
-		Set-Location -Path $RemoteBackup
-		git fetch; git pull;
-		Copy-Item -Path $RemoteBackup -Destination (Join-Path $WindowsTerminalSettingsDir '.git')
-		Set-Location -Path $PrevLocation
+	$BackupDirName = 'WindowsTerminalSettings.bak'
+	$BackupDirPath = (Join-Path $env:USERPROFILE $BackupDirName)
+	if (-not(Test-Path (Join-Path $WindowsTerminalSettingsDir $BackupDirName))) {
+		New-Item -Path $BackupDirPath -ItemType Directory -Force
+		Copy-Item -Path $WindowsTerminalSettingsDir -Destination $BackupDirPath -Force -Recurse
+		Move-Item -Path $BackupDirPath -Destination (Join-Path $WindowsTerminalSettingsDir $BackupDirName) -Force
 	}
 }
 

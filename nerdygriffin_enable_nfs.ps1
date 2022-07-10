@@ -1,6 +1,6 @@
 # Description: Boxstarter Script
 # Author: Christian Kunis (NerdyGriffin)
-# Install OpenSSH Server
+# Enable NFS Optional Features
 
 If ($Boxstarter.StopOnPackageFailure) { $Boxstarter.StopOnPackageFailure = $false }
 
@@ -29,8 +29,8 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
-#--- SSH Server ---
-executeScript 'OpenSSHServer.ps1';
+#--- Enable NFS ---
+executeScript 'EnableNFS.ps1';
 
 #--- reenabling critial items ---
 Enable-UAC
@@ -41,4 +41,4 @@ $SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
-Add-Content -Path $SimpleLog -Value 'nerdygriffin_openssh' | Out-Null
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_enable_nfs' | Out-Null
