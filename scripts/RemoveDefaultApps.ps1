@@ -16,49 +16,54 @@ function removeApp {
 }
 
 $applicationList = @(
-	'Microsoft.BingFinance'
-	# "Microsoft.3DBuilder"
-	'Microsoft.BingFinance'
-	# 'Microsoft.BingNews'
-	'Microsoft.BingSports'
-	# "Microsoft.BingWeather"
-	# "Microsoft.CommsPhone"
-	# "Microsoft.Getstarted"
-	# "Microsoft.WindowsMaps"
-	'*MarchofEmpires*'
-	# "Microsoft.GetHelp"
-	# "Microsoft.Messaging"
+	"Microsoft.BingFinance"
+	"Microsoft.3DBuilder"
+	"Microsoft.BingNews"
+	"Microsoft.BingSports"
+	"Microsoft.BingWeather"
+	"Microsoft.CommsPhone"
+	"Microsoft.Getstarted"
+	"Microsoft.WindowsMaps"
+	"*MarchofEmpires*"
+	"Microsoft.GetHelp"
+	"Microsoft.Messaging"
 	# "*Minecraft*"
-	# "Microsoft.MicrosoftOfficeHub"
-	# "Microsoft.OneConnect"
-	# "Microsoft.WindowsPhone"
-	# "Microsoft.WindowsSoundRecorder"
-	# '*Solitaire*'
-	# "Microsoft.MicrosoftStickyNotes"
-	# "Microsoft.Office.Sway"
+	"Microsoft.MicrosoftOfficeHub"
+	"Microsoft.OneConnect"
+	"Microsoft.WindowsPhone"
+	"Microsoft.WindowsSoundRecorder"
+	"*Solitaire*"
+	"Microsoft.MicrosoftStickyNotes"
+	"Microsoft.Office.Sway"
 	# "Microsoft.XboxApp"
 	# "Microsoft.XboxIdentityProvider"
-	'Microsoft.ZuneMusic'
-	'Microsoft.ZuneVideo'
-	'Microsoft.NetworkSpeedTest'
-	'Microsoft.FreshPaint'
-	'Microsoft.Print3D'
-	'*PicsArt*'
-	'*Autodesk*'
-	'*BubbleWitch*'
-	'king.com*'
-	'G5*'
-	'*Dell*'
-	'*Facebook*'
-	'*Keeper*'
-	'*Netflix*'
-	'*Twitter*'
-	'*Instagram*'
+	# "Microsoft.XboxGameOverlay"
+	# "Microsoft.XboxGamingOverlay"
+	"Microsoft.ZuneMusic"
+	"Microsoft.ZuneVideo"
+	# "Microsoft.NetworkSpeedTest"
+	"Microsoft.FreshPaint"
+	"Microsoft.Print3D"
+	"Microsoft.People*"
+	"Microsoft.Microsoft3DViewer"
+	"Microsoft.MixedReality.Portal*"
+	"*Skype*"
+	"*Autodesk*"
+	"*BubbleWitch*"
+    	"king.com*"
+    	"G5*"
+	"*Dell*"
+	"*Facebook*"
+	"*Keeper*"
+	"*Netflix*"
+	"*Twitter*"
 	# "*Plex*"
-	'*.Duolingo-LearnLanguagesforFree'
-	'*.EclipseManager'
-	'ActiproSoftwareLLC.562882FEEB491' # Code Writer
-	'*.AdobePhotoshopExpress'
+	"*.Duolingo-LearnLanguagesforFree"
+	"*.EclipseManager"
+	"ActiproSoftwareLLC.562882FEEB491" # Code Writer
+	"*.AdobePhotoshopExpress"
+	'*PicsArt*'
+	'*Instagram*'
 );
 
 foreach ($app in $applicationList) {
