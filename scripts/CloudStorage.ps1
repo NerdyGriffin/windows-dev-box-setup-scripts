@@ -17,8 +17,8 @@ Function Install-WinGetApp {
 	Start-Sleep -Seconds 1;
 }
 
-choco install -y google-drive-file-stream
-Install-WinGetApp -Id 'Google.Drive'
+# choco install -y google-drive-file-stream
+# Install-WinGetApp -Id 'Google.Drive'
 # choco install -y megasync
 
 Install-WinGetApp -Id 'Nextcloud.NextcloudDesktop'
