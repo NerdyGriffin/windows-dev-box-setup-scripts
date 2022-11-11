@@ -18,8 +18,8 @@ Function Install-WinGetApp {
 }
 
 #--- Browsers ---
-Install-WinGetApp -Id 'Brave.Brave'
-# choco install -y brave
+# Install-WinGetApp -Id 'Brave.Brave'
+choco install -y brave
 choco install -y chromium
 choco install -y firefox
 choco install -y googlechrome
