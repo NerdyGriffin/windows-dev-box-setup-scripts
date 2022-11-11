@@ -31,11 +31,11 @@ try {
 			$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
 			$STSetings = New-ScheduledTaskSettingsSet -DisallowStartOnRemoteAppSession -ExecutionTimeLimit (New-TimeSpan -Hours 8) -IdleDuration (New-TimeSpan -Minutes 10) -IdleWaitTimeout (New-TimeSpan -Hours 8) -MultipleInstances IgnoreNew -Priority 5 -RunOnlyIfNetworkAvailable
 
-			if (Get-ScheduledTask -TaskName 'FreeFileSyncBackup' -ErrorAction SilentlyContinue) {
-				Set-ScheduledTask -TaskName 'FreeFileSyncBackup' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
-			} else {
-				Register-ScheduledTask -TaskName 'FreeFileSyncBackup' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
-			}
+			# if (Get-ScheduledTask -TaskName 'FreeFileSyncBackup' -ErrorAction SilentlyContinue) {
+			# 	Set-ScheduledTask -TaskName 'FreeFileSyncBackup' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+			# } else {
+			# 	Register-ScheduledTask -TaskName 'FreeFileSyncBackup' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
+			# }
 			# Export-ScheduledTask -TaskName 'FreeFileSyncBackup' #! DEBUG: This line is for debug testing
 
 			if (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name RealTimeSyncBackup -ErrorAction SilentlyContinue) {
