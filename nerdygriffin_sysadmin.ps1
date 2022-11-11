@@ -54,9 +54,6 @@ executeScript 'SQLServerManagementStudio.ps1'
 executeScript 'NetworkTools.ps1';
 executeScript 'RemoteAndLocalFileSystem.ps1';
 
-#--- Custom backup to file server ---
-executeScript 'CustomBackup.ps1';
-
 #--- Parse Boxstarter log for failed package installs ---
 executeScript 'ParseBoxstarterLog.ps1';
 

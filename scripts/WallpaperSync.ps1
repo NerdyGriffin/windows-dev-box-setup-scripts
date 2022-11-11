@@ -9,43 +9,6 @@ $FreeFileSyncExe = (Join-Path $env:ProgramFiles '\FreeFileSync\FreeFileSync.exe'
 
 try {
 	If (Test-Path $SMBProgramFilesPath) {
-		$BackupFFSReal = 'BackupWindows.ffs_real'
-		$BackupFFSBatch = 'BackupWindows.ffs_batch'
-
-		$BackupFFSRealLocalPath = (Join-Path $env:ProgramData $BackupFFSReal)
-		$BackupFFSBatchLocalPath = (Join-Path $env:ProgramData $BackupFFSBatch)
-		$BackupFFSRealRemotePath = (Join-Path $SMBProgramFilesPath $BackupFFSReal)
-		$BackupFFSBatchRemotePath = (Join-Path $SMBProgramFilesPath $BackupFFSBatch)
-
-		# $BackupCommand = """$RealTimeSyncExe"" ""$BackupFFSRealLocalPath"""
-
-		If ((Test-Path $BackupFFSRealRemotePath) -and (Test-Path $BackupFFSBatchRemotePath)) {
-			Copy-Item -Path $BackupFFSRealRemotePath -Destination $BackupFFSRealLocalPath -Force
-			Copy-Item -Path $BackupFFSBatchRemotePath -Destination $BackupFFSBatchLocalPath -Force
-
-			$STAction = New-ScheduledTaskAction -Execute "$FreeFileSyncExe" -Argument "$BackupFFSBatchLocalPath"
-			$STTrigger = @(
-				$(New-ScheduledTaskTrigger -Daily -At 3am),
-				$(New-ScheduledTaskTrigger -Daily -At 3pm)
-			)
-			$STPrin = New-ScheduledTaskPrincipal -UserId 'NT AUTHORITY\SYSTEM' -RunLevel Highest
-			$STSetings = New-ScheduledTaskSettingsSet -DisallowStartOnRemoteAppSession -ExecutionTimeLimit (New-TimeSpan -Hours 8) -IdleDuration (New-TimeSpan -Minutes 10) -IdleWaitTimeout (New-TimeSpan -Hours 8) -MultipleInstances IgnoreNew -Priority 5 -RunOnlyIfNetworkAvailable
-
-			# if (Get-ScheduledTask -TaskName 'FreeFileSyncBackup' -ErrorAction SilentlyContinue) {
-			# 	Set-ScheduledTask -TaskName 'FreeFileSyncBackup' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
-			# } else {
-			# 	Register-ScheduledTask -TaskName 'FreeFileSyncBackup' -Action $STAction -Principal $STPrin -Settings $STSetings -Trigger $STTrigger
-			# }
-			# Export-ScheduledTask -TaskName 'FreeFileSyncBackup' #! DEBUG: This line is for debug testing
-
-			if (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name RealTimeSyncBackup -ErrorAction SilentlyContinue) {
-				Write-Host "Removing deprecated registry entry for the 'RealTimeSyncBackup' script"
-				Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name RealTimeSyncBackup
-			}
-		}
-		Clear-Variable STAction, STPrin, STSetings, STTrigger
-
-
 		$WallpaperFFSReal = 'MirrorCuratedSlideshowWallpaper.ffs_real'
 		$WallpaperFFSBatch = 'MirrorCuratedSlideshowWallpaper.ffs_batch'
 
@@ -83,7 +46,7 @@ try {
 		}
 	}
 } catch {
-	Write-Warning "An error occurred while attempting to setup custom backups. This script will be skipped."
+	Write-Warning "An error occurred while attempting to setup wallpaper folder sync. This script will be skipped."
 } finally {
 
 }
