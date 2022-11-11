@@ -65,7 +65,7 @@ executeScript 'ParseBoxstarterLog.ps1';
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
+Install-WindowsUpdate
 
 $MackieDriverSetupExe = '\\files.nerdygriffin.net\personal\Downloads\Mackie_USB_Driver_v4_67_0\Mackie_USB_Driver_Setup.exe'
 If (Test-Path $MackieDriverSetupExe) {
