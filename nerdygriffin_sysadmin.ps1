@@ -61,7 +61,7 @@ executeScript 'ParseBoxstarterLog.ps1';
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
-Install-WindowsUpdate
+Install-WindowsUpdate -acceptEula
 
 $SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
