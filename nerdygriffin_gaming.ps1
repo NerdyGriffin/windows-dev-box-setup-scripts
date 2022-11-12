@@ -79,6 +79,7 @@ Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 #--- Parse Boxstarter log for failed package installs ---
 executeScript 'ParseBoxstarterLog.ps1';
 
+#--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
