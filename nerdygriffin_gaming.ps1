@@ -27,7 +27,6 @@ function executeScript {
 
 #--- Setting up Windows ---
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'DisableSleepIfVM.ps1';
 
 #--- Package Manager ---
 executeScript 'InstallWinGet.ps1';
@@ -41,7 +40,7 @@ executeScript 'NvidiaGraphics.ps1';
 #--- Customization Software for Gaming Peripherals
 winget install SignalRGB --accept-package-agreements --accept-source-agreements
 executeScript 'LogitechGaming.ps1';
-# executeScript 'CorsairICue.ps1'; # Imcompatibility with Logitech Mouse Drivers causes instability on some computers
+# executeScript 'CorsairICue.ps1'; # Incompatibility with Logitech Mouse Drivers causes instability on some computers
 
 #--- Remote Desktop Tools
 executeScript 'RemoteDesktop.ps1';
