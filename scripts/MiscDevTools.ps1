@@ -5,7 +5,7 @@ choco install -y arduino
 choco install -y arduino-cli
 choco install -y electron
 choco install -y fiddler
-choco install -y fritzing
+# choco install -y fritzing # Installer is broken
 choco install -y gitkraken
 choco install -y hxd
 choco install -y meld

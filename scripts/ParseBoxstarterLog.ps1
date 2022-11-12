@@ -3,6 +3,9 @@ $FailuresLog = (Join-Path ((Get-LibraryNames).Desktop) '\boxstarter-failures.log
 If (-not(Test-Path $FailuresLog)) {
 	New-Item -Path $FailuresLog -ItemType File | Out-Null
 }
+Write-Host '--------------------------------'
+Write-Host $Boxstarter.Log # DEBUG:
+Write-Host '--------------------------------'
 Get-Content -Path $Boxstarter.Log | Select-String -Pattern '^Failures$' -Context 0, 2 | ForEach-Object {
 	$FirstLine = $_.Context.PostContext[0]
 	$SplitString = $FirstLine.split()
