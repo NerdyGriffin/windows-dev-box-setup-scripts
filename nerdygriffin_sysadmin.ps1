@@ -34,6 +34,7 @@ if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
 # executeScript 'DisableIPv6.ps1';
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
+executeScript 'CreateBoxstarterShortcut.ps1';
 
 #--- Package Manager ---
 executeScript 'InstallWinGet.ps1';
