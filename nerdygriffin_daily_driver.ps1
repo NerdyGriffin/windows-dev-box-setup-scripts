@@ -29,7 +29,6 @@ function executeScript {
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
 # executeScript 'TaskbarSettings.ps1';
-executeScript 'DisableSleepIfVM.ps1';
 executeScript 'CreateBoxstarterShortcut.ps1';
 
 #--- Package Manager ---
