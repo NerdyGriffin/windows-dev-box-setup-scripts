@@ -53,9 +53,6 @@ executeScript 'Scientific.ps1';
 executeScript 'WindowsPersonalization.ps1';
 executeScript 'WindowsPowerUser.ps1';
 
-#--- Custom sync wallpaper folder from file server ---
-executeScript 'WallpaperSync.ps1';
-
 #--- Windows Settings ---
 Disable-BingSearch
 # Disable-GameBarTips
