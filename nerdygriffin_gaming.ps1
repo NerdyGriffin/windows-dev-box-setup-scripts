@@ -39,6 +39,7 @@ executeScript 'GameSymlinks.ps1';
 executeScript 'NvidiaGraphics.ps1';
 
 #--- Customization Software for Gaming Peripherals
+winget install SignalRGB --accept-package-agreements --accept-source-agreements
 executeScript 'LogitechGaming.ps1';
 # executeScript 'CorsairICue.ps1'; # Imcompatibility with Logitech Mouse Drivers causes instability on some computers
 
