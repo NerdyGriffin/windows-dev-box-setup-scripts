@@ -79,13 +79,13 @@ Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 #--- Parse Boxstarter log for failed package installs ---
 executeScript 'ParseBoxstarterLog.ps1';
 
-#--- reenabling critial items ---
-Enable-UAC
-Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
-
 $SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
 Add-Content -Path $SimpleLog -Value 'nerdygriffin_gaming' | Out-Null
+
+#--- reenabling critial items ---
+Enable-UAC
+Enable-MicrosoftUpdate
+Install-WindowsUpdate -acceptEula

@@ -60,6 +60,12 @@ Disable-BingSearch
 #--- Parse Boxstarter log for failed package installs ---
 executeScript 'ParseBoxstarterLog.ps1';
 
+$SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
+If (-not(Test-Path $SimpleLog)) {
+	New-Item -Path $SimpleLog -ItemType File | Out-Null
+}
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_daily_driver' | Out-Null
+
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
@@ -70,9 +76,3 @@ If (Test-Path $MackieDriverSetupExe) {
 	Write-Verbose 'Attempt installing driver for Mackie mixer board'
 	Invoke-Expression $MackieDriverSetupExe
 }
-
-$SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
-If (-not(Test-Path $SimpleLog)) {
-	New-Item -Path $SimpleLog -ItemType File | Out-Null
-}
-Add-Content -Path $SimpleLog -Value 'nerdygriffin_daily_driver' | Out-Null

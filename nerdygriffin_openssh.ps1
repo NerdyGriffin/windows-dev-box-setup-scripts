@@ -32,13 +32,13 @@ function executeScript {
 #--- SSH Server ---
 executeScript 'OpenSSHServer.ps1';
 
-#--- reenabling critial items ---
-Enable-UAC
-Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
-
 $SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
 Add-Content -Path $SimpleLog -Value 'nerdygriffin_openssh' | Out-Null
+
+#--- reenabling critial items ---
+Enable-UAC
+Enable-MicrosoftUpdate
+Install-WindowsUpdate -acceptEula
