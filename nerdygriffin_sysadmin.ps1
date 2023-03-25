@@ -30,15 +30,15 @@ if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
 	try { Enable-RemoteDesktop } catch {}
 }
 
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+executeScript 'PackageManagement.ps1';
+
 #--- Setting up Windows ---
 # executeScript 'DisableIPv6.ps1';
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
 executeScript 'CreateBoxstarterShortcut.ps1';
-
-#--- Package Manager ---
-executeScript 'InstallWinGet.ps1';
-executeScript 'PackageManagement.ps1';
 
 #--- Setting up Chocolatey
 executeScript 'ChocolateyExtensions.ps1';

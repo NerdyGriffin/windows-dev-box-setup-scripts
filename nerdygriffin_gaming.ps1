@@ -25,11 +25,11 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
-#--- Setting up Windows ---
-executeScript 'FileExplorerSettings.ps1';
-
 #--- Package Manager ---
 executeScript 'InstallWinGet.ps1';
+
+#--- Setting up Windows ---
+executeScript 'FileExplorerSettings.ps1';
 
 #--- Create symbolic links to game install locations
 executeScript 'GameSymlinks.ps1';

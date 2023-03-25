@@ -34,16 +34,16 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 #--- Powershell Module Repository
 Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
+#--- Package Manager ---
+executeScript 'InstallWinGet.ps1';
+executeScript 'PackageManagement.ps1';
+
 #--- Setting up Windows ---
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
 executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 executeScript 'CreateBoxstarterShortcut.ps1';
-
-#--- Package Manager ---
-executeScript 'InstallWinGet.ps1';
-executeScript 'PackageManagement.ps1';
 
 #--- Setting up Chocolatey
 executeScript 'ChocolateyExtensions.ps1';
