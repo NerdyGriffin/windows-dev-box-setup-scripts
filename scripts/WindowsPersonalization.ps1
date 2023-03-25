@@ -1,4 +1,4 @@
-choco install -y windynamicdesktop
+# choco install -y windynamicdesktop
 
 # DEPRECATED: This setting has been defined using active directory group policy
 # # Disable syncing themes to allow for wallpaper slideshows with more than 20 images
