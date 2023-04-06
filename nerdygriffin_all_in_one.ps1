@@ -82,6 +82,7 @@ executeScript 'RemoteAndLocalFileSystem.ps1';
 
 #--- Setting up programs for typical every-day use
 executeScript 'Browsers.ps1';
+executeScript 'CAD.ps1'
 executeScript 'CloudStorage.ps1';
 executeScript 'CommunicationApps.ps1';
 executeScript 'Multimedia.ps1';
