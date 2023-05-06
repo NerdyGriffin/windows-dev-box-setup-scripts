@@ -2,7 +2,7 @@
 choco install -y autoruns
 # choco install -y everything
 # choco install -y mousewithoutborders
-# winget install --id=Microsoft.PowerToys --exact --accept-package-agreements --accept-source-agreements
+# winget install --id=Microsoft.PowerToys --exact --silent --accept-package-agreements --accept-source-agreements
 choco install -y powertoys
 choco install -y plasso --ignore-checksums # The checksums are never correct on this package, that is to be expected
 choco install -y reshack
