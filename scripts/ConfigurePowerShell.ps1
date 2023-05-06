@@ -12,6 +12,7 @@ if (([Security.Principal.WindowsPrincipal] `
 }
 
 # #--- Enable Powershell Script Execution
+#Uncomment this line if this setting is not managed by Group Policy
 # Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
 # refreshenv
 
