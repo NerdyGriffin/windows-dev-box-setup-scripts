@@ -114,8 +114,8 @@ Start-Sleep -Seconds 1;
 # #--- Web NodeJS Tools ---
 # choco install -y nodejs-lts # Node.js LTS, Recommended for most users
 # # choco install -y nodejs # Node.js Current, Latest features
-# choco install -y visualstudio2017buildtools
-# choco install -y visualstudio2017-workload-vctools
+# choco install -y visualstudio2022buildtools
+# choco install -y visualstudio2022-workload-vctools
 # choco install -y python2 # Node.js requires Python 2 to build native modules
 
 # RefreshEnv;
@@ -165,7 +165,7 @@ Start-Sleep -Seconds 1;
 
 # #--- Gordon 360 Api Workload ---
 # choco install -y nuget.commandline
-# choco install -y visualstudio2017-workload-netweb
+# choco install -y visualstudio2022-workload-netweb
 
 # RefreshEnv;
 # Start-Sleep -Seconds 1;

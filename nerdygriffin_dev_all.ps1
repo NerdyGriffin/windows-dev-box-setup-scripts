@@ -69,21 +69,21 @@ executeScript 'OpenJDK.ps1';
 
 #--- Tools ---
 #--- Installing VS and VS Code with Git
-# See this for install args: https://chocolatey.org/packages/VisualStudio2017Community
+# See this for install args: https://chocolatey.org/packages/visualstudio2022Community
 # https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-community
 # https://docs.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio#list-of-workload-ids-and-component-ids
-# visualstudio2017community
-# visualstudio2017professional
-# visualstudio2017enterprise
+# visualstudio2022community
+# visualstudio2022professional
+# visualstudio2022enterprise
 
-choco install -y visualstudio2017community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
+choco install -y visualstudio2022community --package-parameters="'--add Microsoft.VisualStudio.Component.Git'"
 Update-SessionEnvironment #refreshing env due to Git install
 
 #--- UWP Workload and installing Windows Template Studio ---
-choco install -y visualstudio2017-workload-azure
-choco install -y visualstudio2017-workload-universal
-choco install -y visualstudio2017-workload-manageddesktop
-choco install -y visualstudio2017-workload-nativedesktop
+choco install -y visualstudio2022-workload-azure
+choco install -y visualstudio2022-workload-universal
+choco install -y visualstudio2022-workload-manageddesktop
+choco install -y visualstudio2022-workload-nativedesktop
 
 RefreshEnv;
 Start-Sleep -Seconds 1;
@@ -106,8 +106,8 @@ Start-Sleep -Seconds 1;
 #--- Web NodeJS Tools ---
 choco install -y nodejs-lts # Node.js LTS, Recommended for most users
 # choco install -y nodejs # Node.js Current, Latest features
-choco install -y visualstudio2017buildtools
-choco install -y visualstudio2017-workload-vctools
+choco install -y visualstudio2022buildtools
+choco install -y visualstudio2022-workload-vctools
 choco install -y python2 # Node.js requires Python 2 to build native modules
 
 RefreshEnv;
@@ -157,7 +157,7 @@ try {
 
 # #--- Gordon 360 Api Workload ---
 # choco install -y nuget.commandline
-# choco install -y visualstudio2017-workload-netweb
+# choco install -y visualstudio2022-workload-netweb
 
 # RefreshEnv;
 # Start-Sleep -Seconds 1;
