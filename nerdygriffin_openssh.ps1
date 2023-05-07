@@ -29,6 +29,9 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
+#--- Package Manager ---
+executeScript 'ConfigureChocolatey.ps1';
+
 #--- SSH Server ---
 executeScript 'OpenSSHServer.ps1';
 

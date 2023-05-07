@@ -26,6 +26,7 @@ function executeScript {
 }
 
 #--- Package Manager ---
+executeScript 'ConfigureChocolatey.ps1';
 executeScript 'InstallWinGet.ps1';
 
 #--- Setting up Windows ---

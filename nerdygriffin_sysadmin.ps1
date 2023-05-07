@@ -31,6 +31,7 @@ if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
 }
 
 #--- Package Manager ---
+executeScript 'ConfigureChocolatey.ps1';
 executeScript 'InstallWinGet.ps1';
 executeScript 'PackageManagement.ps1';
 
