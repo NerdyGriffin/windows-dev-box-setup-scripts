@@ -29,14 +29,13 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
-choco config set --name="commandExecutionTimeoutSeconds" --value="14400"
-
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 
 #--- Powershell Module Repository
 Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
 #--- Package Manager ---
+executeScript 'ConfigureChocolatey.ps1';
 executeScript 'InstallWinGet.ps1';
 executeScript 'PackageManagement.ps1';
 
