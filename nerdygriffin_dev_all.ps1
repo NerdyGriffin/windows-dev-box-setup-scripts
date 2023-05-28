@@ -54,7 +54,7 @@ executeScript 'DotNetTools.ps1';
 # choco install -y linqpad
 
 executeScript 'ConfigureGit.ps1';
-choco install -y lepton
+# choco install -y lepton
 
 #--- Configure Powershell Profile for Powerline and PSReadline ---
 executeScript 'ConfigurePowerShell.ps1';

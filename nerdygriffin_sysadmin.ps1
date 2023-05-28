@@ -25,7 +25,7 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
-if (-not($env:USERDOMAIN | Select-String 'LAPTOP')) {
+if (-not($env:COMPUTERNAME | Select-String 'LAPTOP')) {
 	# Do nothing if Enable-RemoteDesktop fails, because it will fail if RemoteDesktop is already enabled
 	try { Enable-RemoteDesktop } catch {}
 }

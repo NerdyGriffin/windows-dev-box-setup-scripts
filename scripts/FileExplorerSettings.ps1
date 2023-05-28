@@ -2,7 +2,7 @@
 #--- Windows Features ---
 # Show hidden files, Show protected OS files, Show file extensions
 # Show full path in title bar, Hide recent files in quick access, hide frequent folders in quick access
-Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtensions -EnableShowFullPathInTitleBar -EnableShowRibbon -DisableShowRecentFilesInQuickAccess -DisableShowFrequentFoldersInQuickAccess
+Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtensions -EnableShowFullPathInTitleBar #-EnableShowRibbon -DisableShowRecentFilesInQuickAccess -DisableShowFrequentFoldersInQuickAccess
 
 #--- File Explorer Settings ---
 # will expand explorer to the actual folder you're in

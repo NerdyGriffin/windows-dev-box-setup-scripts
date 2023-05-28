@@ -42,12 +42,12 @@ executeScript 'PackageManagement.ps1';
 #--- Setting up Windows ---
 executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
-executeScript 'RemoveDefaultApps.ps1';
+# executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 executeScript 'CreateBoxstarterShortcut.ps1';
 
 #--- Setting up Chocolatey
-executeScript 'ChocolateyExtensions.ps1';
+# executeScript 'ChocolateyExtensions.ps1';
 executeScript 'ChocolateyGUI.ps1';
 
 #--- YubiKey Authentication ---
@@ -59,7 +59,7 @@ executeScript 'DotNetTools.ps1';
 # choco install -y linqpad
 
 executeScript 'ConfigureGit.ps1';
-choco install -y lepton
+# choco install -y lepton
 
 #--- Configure Powershell Profile for Powerline and PSReadline ---
 executeScript 'ConfigurePowerShell.ps1';
@@ -91,7 +91,7 @@ executeScript 'Multimedia.ps1';
 executeScript 'NordVPN.ps1';
 executeScript 'OfficeTools.ps1';
 executeScript 'PasswordManager.ps1';
-executeScript 'Scientific.ps1';
+# executeScript 'Scientific.ps1';
 executeScript 'WindowsPersonalization.ps1';
 executeScript 'WindowsPowerUser.ps1';
 
@@ -208,7 +208,7 @@ executeScript 'HardwareMonitoring.ps1';
 executeScript 'BenchmarkUtils.ps1';
 
 #--- Game Launchers ---
-# if ($env:USERDOMAIN | Select-String 'DESKTOP') {
+# if ($env:COMPUTERNAME | Select-String 'DESKTOP') {
 executeScript 'GameLaunchers.ps1';
 # } else {
 # 	executeScript 'MinimalGameLaunchers.ps1';

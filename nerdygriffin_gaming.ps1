@@ -51,7 +51,7 @@ executeScript 'HardwareMonitoring.ps1';
 executeScript 'BenchmarkUtils.ps1';
 
 #--- Game Launchers ---
-# if ($env:USERDOMAIN | Select-String 'DESKTOP') {
+# if ($env:COMPUTERNAME | Select-String 'DESKTOP') {
 executeScript 'GameLaunchers.ps1';
 # } else {
 # 	executeScript 'MinimalGameLaunchers.ps1';

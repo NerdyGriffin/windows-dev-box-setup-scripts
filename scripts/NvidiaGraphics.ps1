@@ -1,4 +1,4 @@
-$PrevRebootState = $Boxstarter.RebootOk || $false
+$PrevRebootState = $Boxstarter.RebootOk -or $false
 $Boxstarter.RebootOk = $false
 
 #--- Nvidia Graphics ---

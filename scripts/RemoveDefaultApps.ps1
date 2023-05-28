@@ -16,6 +16,7 @@ function removeApp {
 }
 
 $applicationList = @(
+	"Clipchamp.Clipchamp"
 	"Microsoft.BingFinance"
 	"Microsoft.3DBuilder"
 	"Microsoft.BingNews"
@@ -50,8 +51,8 @@ $applicationList = @(
 	"*Skype*"
 	"*Autodesk*"
 	"*BubbleWitch*"
-    	"king.com*"
-    	"G5*"
+	"king.com*"
+	"G5*"
 	"*Dell*"
 	"*Facebook*"
 	"*Keeper*"
@@ -64,6 +65,7 @@ $applicationList = @(
 	"*.AdobePhotoshopExpress"
 	'*PicsArt*'
 	'*Instagram*'
+	"*Spotify*"
 );
 
 foreach ($app in $applicationList) {

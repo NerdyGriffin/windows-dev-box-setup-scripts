@@ -10,8 +10,8 @@ choco install -y onlyoffice
 choco install -y xournalplusplus
 
 #--- E-Books ---
-choco install -y calibre
+# choco install -y calibre
 # choco install -y kindle
 
 #--- Other ---
-winget install --id=9MSPC6MP8FM4 --exact --silent --accept-package-agreements --accept-source-agreements # Microsoft Whiteboard
+# winget install --name='Microsoft Whiteboard' --exact --silent --accept-package-agreements --accept-source-agreements
