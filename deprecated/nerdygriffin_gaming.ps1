@@ -1,7 +1,3 @@
-# Description: Boxstarter Script
-# Author: Christian Kunis (NerdyGriffin)
-# Common settings for multi-purpose development
-
 If ($Boxstarter.StopOnPackageFailure) { $Boxstarter.StopOnPackageFailure = $false }
 
 Disable-UAC
@@ -29,66 +25,15 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-
-#--- Powershell Module Repository
-Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-
 #--- Package Manager ---
-executeScript 'CreateBoxstarterShortcut.ps1';
 executeScript 'ConfigureChocolatey.ps1';
 executeScript 'InstallWinGet.ps1';
-executeScript 'PackageManagement.ps1';
 
 #--- Setting up Windows ---
-executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
-# executeScript 'RemoveDefaultApps.ps1';
-executeScript 'CommonDevTools.ps1';
 
-#--- YubiKey Authentication ---
-executeScript 'YubiKey.ps1';
-
-executeScript 'ConfigureGit.ps1';
-
-#--- Configure Powershell Profile for Powerline and PSReadline ---
-executeScript 'ConfigurePowerShell.ps1';
-
-#--- Assorted PowerShellTools ---
-executeScript 'PowerShellTools.ps1';
-executeScript 'GNU.ps1';
-
-#--- Assorted Dev Tools and Dependencies ---
-executeScript 'MiscDevTools.ps1';
-executeScript 'OpenJDK.ps1';
-
-#--- Administrative Tools ---
-executeScript 'RemoteServerAdministrationTools.ps1';
-executeScript 'FileAndStorageUtils.ps1';
-executeScript 'SQLServerManagementStudio.ps1'
-executeScript 'NetworkTools.ps1';
-
-#--- Setting up programs for typical every-day use
-executeScript '3DPrinting.ps1';
-executeScript 'Browsers.ps1';
-executeScript 'CAD.ps1'
-executeScript 'CloudStorage.ps1';
-executeScript 'CommunicationApps.ps1';
-executeScript 'Multimedia.ps1';
-executeScript 'NordVPN.ps1';
-executeScript 'OfficeTools.ps1';
-executeScript 'PasswordManager.ps1';
-executeScript 'WindowsPowerUser.ps1';
-
-RefreshEnv;
-Start-Sleep -Seconds 1;
-
-# checkout recent projects
-executeScript 'GetFavoriteProjects.ps1'
-
-#--- Windows Settings ---
-# Disable-BingSearch
-# Disable-GameBarTips
+#--- Create symbolic links to game install locations
+executeScript 'GameSymlinks.ps1';
 
 #--- Graphics Driver Support
 executeScript 'NvidiaGraphics.ps1';
@@ -106,7 +51,11 @@ executeScript 'HardwareMonitoring.ps1';
 executeScript 'BenchmarkUtils.ps1';
 
 #--- Game Launchers ---
+# if ($env:COMPUTERNAME | Select-String 'DESKTOP') {
 executeScript 'GameLaunchers.ps1';
+# } else {
+# 	executeScript 'MinimalGameLaunchers.ps1';
+# }
 
 #--- Game Modding Tools ---
 executeScript 'GameModdingTools.ps1';
@@ -134,12 +83,9 @@ $SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
-Add-Content -Path $SimpleLog -Value 'nerdygriffin_all_in_one' | Out-Null
-
-Get-ChildItem -Path (Join-Path $env:ChocolateyInstall 'lib') | Where-Object -Property Name -Like 'tmp*.tmp' | Remove-Item -Recurse -Force -Verbose -ErrorAction SilentlyContinue
-Get-ChildItem -Path (Join-Path $env:ChocolateyInstall 'lib-bad') | Where-Object -Property Name -Like 'tmp*.tmp' | Remove-Item -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_gaming' | Out-Null
 
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
-Install-WindowsUpdate #-acceptEula
+Install-WindowsUpdate -acceptEula
