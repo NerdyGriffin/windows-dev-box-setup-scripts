@@ -13,5 +13,5 @@ choco install -y obs-studio
 # choco install -y phantombot
 # choco install -y phantombot --ignore-checksums
 # choco install -y streamlabs-obs
-choco install -y vlc
+# choco install -y vlc
 choco install -y winamp

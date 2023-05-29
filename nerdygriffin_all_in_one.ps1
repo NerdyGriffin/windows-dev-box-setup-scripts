@@ -35,6 +35,7 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
 #--- Package Manager ---
+executeScript 'CreateBoxstarterShortcut.ps1';
 executeScript 'ConfigureChocolatey.ps1';
 executeScript 'InstallWinGet.ps1';
 executeScript 'PackageManagement.ps1';
@@ -44,22 +45,11 @@ executeScript 'SystemConfiguration.ps1';
 executeScript 'FileExplorerSettings.ps1';
 # executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
-executeScript 'CreateBoxstarterShortcut.ps1';
-
-#--- Setting up Chocolatey
-# executeScript 'ChocolateyExtensions.ps1';
-executeScript 'ChocolateyGUI.ps1';
 
 #--- YubiKey Authentication ---
 executeScript 'YubiKey.ps1';
 
-#--- Windows Dev Essentials
-executeScript 'DotNetTools.ps1';
-# choco install -y dotpeek # Installer appears to be broken on my machine
-# choco install -y linqpad
-
 executeScript 'ConfigureGit.ps1';
-# choco install -y lepton
 
 #--- Configure Powershell Profile for Powerline and PSReadline ---
 executeScript 'ConfigurePowerShell.ps1';
@@ -70,16 +60,13 @@ executeScript 'GNU.ps1';
 
 #--- Assorted Dev Tools and Dependencies ---
 executeScript 'MiscDevTools.ps1';
-# executeScript 'Matlab.ps1';
 executeScript 'OpenJDK.ps1';
 
 #--- Administrative Tools ---
 executeScript 'RemoteServerAdministrationTools.ps1';
-executeScript 'HardwareMonitoring.ps1';
 executeScript 'FileAndStorageUtils.ps1';
 executeScript 'SQLServerManagementStudio.ps1'
 executeScript 'NetworkTools.ps1';
-executeScript 'RemoteAndLocalFileSystem.ps1';
 
 #--- Setting up programs for typical every-day use
 executeScript '3DPrinting.ps1';
@@ -92,7 +79,7 @@ executeScript 'NordVPN.ps1';
 executeScript 'OfficeTools.ps1';
 executeScript 'PasswordManager.ps1';
 # executeScript 'Scientific.ps1';
-executeScript 'WindowsPersonalization.ps1';
+# executeScript 'WindowsPersonalization.ps1';
 executeScript 'WindowsPowerUser.ps1';
 
 RefreshEnv;
@@ -186,11 +173,11 @@ executeScript 'GetFavoriteProjects.ps1'
 # executeScript 'GetUwpSamplesOffGithub.ps1'; # Possibly Broken
 
 #--- Windows Settings ---
-Disable-BingSearch
+# Disable-BingSearch
 # Disable-GameBarTips
 
-#--- Create symbolic links to game install locations
-executeScript 'GameSymlinks.ps1';
+# #--- Create symbolic links to game install locations
+# executeScript 'GameSymlinks.ps1';
 
 #--- Graphics Driver Support
 executeScript 'NvidiaGraphics.ps1';
