@@ -41,7 +41,7 @@ if (Test-Path $python38) {
 	Start-Sleep -Seconds 1;
 }
 
-if (Get-Command bcml) {
+if (Get-Command bcml -ErrorAction SilentlyContinue) {
 	$BCMLPath = $(Resolve-Path (Get-Command bcml | Select-Object -Expand Source) | Select-Object -Expand Path)
 	if (Test-Path $BCMLPath) {
 		$BCMLShortcutDest = (Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\BCML.lnk')
