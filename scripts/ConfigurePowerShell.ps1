@@ -181,7 +181,7 @@ if (Test-Path $WindowsTerminalSettingsDir) {
 	$BackupDirPath = (Join-Path $env:USERPROFILE $BackupDirName)
 	if (-not(Test-Path (Join-Path $WindowsTerminalSettingsDir $BackupDirName))) {
 		New-Item -Path $BackupDirPath -ItemType Directory -Force
-		Copy-Item -Path $WindowsTerminalSettingsDir -Destination $BackupDirPath -Force -Recurse
+		Copy-Item -Path "$WindowsTerminalSettingsDir\*" -Destination $BackupDirPath -Force -Recurse
 		Move-Item -Path $BackupDirPath -Destination (Join-Path $WindowsTerminalSettingsDir $BackupDirName) -Force
 	}
 }
