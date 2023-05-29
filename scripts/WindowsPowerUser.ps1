@@ -8,7 +8,8 @@ choco install -y plasso --ignore-checksums # The checksums are never correct on 
 choco install -y reshack
 choco install -y shutup10
 # choco install -y sharex
-choco install -y sdio
+# choco install -y sdio --ignore-checksums
+winget install --id=GlennDelahoy.SnappyDriverInstallerOrigin --exact --silent --accept-package-agreements --accept-source-agreements
 choco install -y tcpview --ignore-checksums
 # choco install -y winaero-tweaker
 # choco install -y xyplorer
