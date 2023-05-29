@@ -9,5 +9,5 @@ choco install -y minecraft-launcher
 choco install -y steam
 choco install -y steam-cleaner
 choco install -y steamlibrarymanager.portable
-choco install -y twitch
+# choco install -y twitch # Discontinued
 choco install -y uplay
