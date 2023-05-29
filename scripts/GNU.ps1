@@ -9,7 +9,7 @@ choco install -y gperf
 choco install -y grep
 choco install -y make
 choco install -y nano
-choco install -y octave
+# choco install -y octave
 choco install -y patch
 choco install -y sed
 choco install -y wget
