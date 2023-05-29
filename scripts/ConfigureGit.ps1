@@ -33,6 +33,7 @@ git config --global alias.pl pull
 git config --global gpg.program $(Resolve-Path (Get-Command gpg | Select-Object -Expand Source) | Select-Object -Expand Path)
 
 # Make a folder for my GitHub repos and make SymbolicLinks to it
-if (-not(Test-Path 'C:\GitHub')) { New-Item -Path 'C:\GitHub' -ItemType Directory }
-if (-not(Test-Path (Join-Path $env:USERPROFILE 'GitHub'))) { New-Item -Path (Join-Path $env:USERPROFILE 'GitHub') -ItemType SymbolicLink -Value 'C:\GitHub' }
+$UserGitHubPath = (Join-Path $env:USERPROFILE 'GitHub')
+if (-not(Test-Path $UserGitHubPath)) { New-Item -Path $UserGitHubPath -ItemType Directory }
+if (-not(Test-Path 'C:\GitHub')) { New-Item -Path 'C:\GitHub' -ItemType SymbolicLink -Value $UserGitHubPath }
 # if ((Test-Path 'D:\') -and -not(Test-Path 'D:\GitHub')) { New-Item -Path 'D:\GitHub' -ItemType SymbolicLink -Value 'C:\GitHub' }
