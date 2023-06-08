@@ -1,2 +1,2 @@
 #--- NordVPN ---
-choco install -y nordvpn # Installer is possibly broken
+winget install --id=NordSecurity.NordVPN --exact --silent --accept-package-agreements --accept-source-agreements
