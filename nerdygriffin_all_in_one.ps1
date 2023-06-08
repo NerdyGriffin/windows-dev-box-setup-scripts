@@ -36,7 +36,6 @@ Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
 #--- Package Manager ---
 executeScript 'ConfigureChocolatey.ps1';
-executeScript 'PackageManagement.ps1';
 
 #--- Setting up Windows ---
 executeScript 'SystemConfiguration.ps1';
