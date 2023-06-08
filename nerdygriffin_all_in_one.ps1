@@ -35,7 +35,6 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
 #--- Package Manager ---
-executeScript 'CreateBoxstarterShortcut.ps1';
 executeScript 'ConfigureChocolatey.ps1';
 executeScript 'PackageManagement.ps1';
 
