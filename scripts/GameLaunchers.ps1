@@ -9,5 +9,4 @@ choco install -y minecraft-launcher
 choco install -y steam
 choco install -y steam-cleaner
 choco install -y steamlibrarymanager.portable
-# choco install -y twitch # Discontinued
-choco install -y uplay
+winget install --id=Ubisoft.Connect --exact --silent --accept-package-agreements --accept-source-agreements
