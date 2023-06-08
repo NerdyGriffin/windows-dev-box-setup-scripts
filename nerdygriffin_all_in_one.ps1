@@ -37,7 +37,6 @@ Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 #--- Package Manager ---
 executeScript 'CreateBoxstarterShortcut.ps1';
 executeScript 'ConfigureChocolatey.ps1';
-executeScript 'InstallWinGet.ps1';
 executeScript 'PackageManagement.ps1';
 
 #--- Setting up Windows ---
