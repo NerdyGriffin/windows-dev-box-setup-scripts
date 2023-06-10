@@ -166,9 +166,11 @@ if (([Security.Principal.WindowsPrincipal] `
 } # End of $ScriptBlock
 
 # Run the script block in PowerShell
+Write-Host 'Configuring Windows PowerShell...' -ForegroundColor 'Green'
 powershell -Command $ScriptBlock
 
 # Run the script block in PowerShell Core
+Write-Host 'Configuring PowerShell Core...' -ForegroundColor 'Green'
 pwsh -Command $ScriptBlock
 
 $WindowsTerminalSettingsDir = (Join-Path $env:LOCALAPPDATA '\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState')
