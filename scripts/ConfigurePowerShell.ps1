@@ -178,12 +178,17 @@ if (Test-Path $WindowsTerminalSettingsDir) {
 		New-Item -Path $SymLinkPath -ItemType SymbolicLink -Value $WindowsTerminalSettingsDir -Force -Verbose
 	}
 	$BackupDirName = 'WindowsTerminalSettings.bak'
-	$BackupDirPath = (Join-Path $env:USERPROFILE $BackupDirName)
-	if (-not(Test-Path (Join-Path $WindowsTerminalSettingsDir $BackupDirName))) {
-		New-Item -Path $BackupDirPath -ItemType Directory -Force
-		Copy-Item -Path "$WindowsTerminalSettingsDir\*" -Destination $BackupDirPath -Force -Recurse
-		Move-Item -Path $BackupDirPath -Destination (Join-Path $WindowsTerminalSettingsDir $BackupDirName) -Force
+	$TempBackupDirPath = (Join-Path $env:USERPROFILE $BackupDirName)
+	if (-not(Test-Path $TempBackupDirPath)) {
+		New-Item -Path $TempBackupDirPath -ItemType Directory -Force
 	}
+	Copy-Item -Path "$WindowsTerminalSettingsDir\*" -Destination $TempBackupDirPath -Force -Exclude $BackupDirName -Recurse
+	$BackupDirPath = (Join-Path $WindowsTerminalSettingsDir $BackupDirName)
+	if (-not(Test-Path $BackupDirPath)) {
+		New-Item -Path $BackupDirPath -ItemType Directory -Force
+	}
+	Move-Item -Path "$TempBackupDirPath\*" -Destination $BackupDirPath -Force -Recurse
+	Remove-Item -Path $TempBackupDirPath -Force -Recurse
 }
 
 [System.Environment]::SetEnvironmentVariable('PYTHONSTARTUP', (Join-Path $env:USERPROFILE '.pystartup'))
