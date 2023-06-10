@@ -1,12 +1,17 @@
 # Replace cura settings dir with symlink to server share
 $LocalCuraSettingsPath = (Join-Path $env:APPDATA cura)
-$RemoteCuraSettingsPath = 'P:\3D Printing\Slicer Settings Sync\cura'
+$RemoteCuraSettingsPath = (Join-Path $env:OneDrive 'Slicer Settings\cura')
+if (-Not(Test-Path $RemoteCuraSettingsPath)) {
+	New-Item -Path $RemoteCuraSettingsPath -ItemType Directory -Force
+}
 if (Test-Path $LocalCuraSettingsPath) {
-	$BackupPath = "$RemoteCuraSettingsPath-$(Get-Date -Format "yyyy-mm-dd")"
+	$BackupPath = "$RemoteCuraSettingsPath-$env:COMPUTERNAME-$(Get-Date -Format "yyyy-MM-dd")"
 	if (Test-Path $BackupPath) {
 		Remove-Item -Path $BackupPath -Recurse -Force
 	}
-	Move-Item -Path $LocalCuraSettingsPath -Destination $BackupPath -Force
+	New-Item -Path $BackupPath -ItemType Directory -Force
+	Copy-Item -Path "$LocalCuraSettingsPath\*" -Destination $BackupPath -Force -Recurse
+	Remove-Item -Path $LocalCuraSettingsPath -Recurse -Force
 }
 New-Item -Path $LocalCuraSettingsPath -ItemType SymbolicLink -Value $RemoteCuraSettingsPath -Force
 
