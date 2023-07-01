@@ -77,6 +77,7 @@ executeScript 'NordVPN.ps1';
 executeScript 'OfficeTools.ps1';
 executeScript 'PasswordManager.ps1';
 executeScript 'WindowsPowerUser.ps1';
+winget install --id=SatoshiLabs.trezor-suite --exact --silent --accept-package-agreements --accept-source-agreements
 
 RefreshEnv;
 Start-Sleep -Seconds 1;
