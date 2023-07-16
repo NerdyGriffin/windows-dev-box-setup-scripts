@@ -11,7 +11,7 @@ choco install -y hxd
 choco install -y meld
 choco install -y neovim
 choco install -y ngrok
-choco install -y notepadplusplus
+# choco install -y notepadplusplus
 choco install -y ssh-copy-id
 choco install -y vim
 choco install -y vscode-arduino
