@@ -40,6 +40,7 @@ executeScript 'ConfigureChocolatey.ps1';
 #--- Setting up Windows ---
 executeScript 'SystemConfiguration.ps1';
 # executeScript 'FileExplorerSettings.ps1';
+executeScript 'CustomFileExplorerSettings.ps1'
 # executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 executeScript 'SetTimeZone.ps1';
@@ -77,6 +78,7 @@ executeScript 'NordVPN.ps1';
 executeScript 'OfficeTools.ps1';
 executeScript 'PasswordManager.ps1';
 executeScript 'WindowsPowerUser.ps1';
+winget install --id=SatoshiLabs.trezor-suite --exact --silent --accept-package-agreements --accept-source-agreements
 
 RefreshEnv;
 Start-Sleep -Seconds 1;
