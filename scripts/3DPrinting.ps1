@@ -15,4 +15,5 @@ if (Test-Path $LocalCuraSettingsPath) {
 }
 New-Item -Path $LocalCuraSettingsPath -ItemType SymbolicLink -Value $RemoteCuraSettingsPath -Force
 
+winget install --id=OpenSCAD.OpenSCAD --exact --silent --accept-package-agreements --accept-source-agreements
 winget install --id=Ultimaker.Cura --exact --silent --accept-package-agreements --accept-source-agreements
