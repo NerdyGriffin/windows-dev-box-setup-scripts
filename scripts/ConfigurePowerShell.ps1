@@ -40,9 +40,10 @@ if (([Security.Principal.WindowsPrincipal] `
 	#--- Install & Configure the Powerline Modules
 	try {
 		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-		Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
-		refreshenv
-		[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
+		winget install JanDeDobbeleer.OhMyPosh -s winget
+		# Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+		# refreshenv
+		# [System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
 		refreshenv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
