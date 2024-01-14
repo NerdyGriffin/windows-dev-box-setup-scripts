@@ -9,6 +9,7 @@ Set-CloneLocation 'C:\GitHub'
 
 # Feel free to customize this with your own preferred projects
 Set-CloneLocation 'C:\GitHub\NerdyGriffin'
+git clone https://github.com/NerdyGriffin/Cura
 git clone https://github.com/NerdyGriffin/DSC_v2
 git clone https://github.com/NerdyGriffin/windows-dev-box-setup-scripts
 
