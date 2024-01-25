@@ -4,7 +4,7 @@ $RemoteCuraSettingsPath = (Join-Path $env:OneDrive 'Slicer Settings\cura')
 if (-Not(Test-Path $RemoteCuraSettingsPath)) {
 	New-Item -Path $RemoteCuraSettingsPath -ItemType Directory -Force
 }
-if (Test-Path $LocalCuraSettingsPath) {
+if ((Test-Path $LocalCuraSettingsPath)-and (-not(Get-Item $LocalCuraSettingsPath | Where-Object Attributes -Match ReparsePoint))) {
 	$BackupPath = "$RemoteCuraSettingsPath-$env:COMPUTERNAME-$(Get-Date -Format "yyyy-MM-dd")"
 	if (Test-Path $BackupPath) {
 		Remove-Item -Path $BackupPath -Recurse -Force
