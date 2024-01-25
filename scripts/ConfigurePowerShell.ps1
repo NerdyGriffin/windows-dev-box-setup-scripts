@@ -190,5 +190,6 @@ if ((Test-Path $LocalTermSettingsDir) -and (-not(Get-Item $LocalTermSettingsDir 
 	Remove-Item -Path $LocalTermSettingsDir -Recurse -Force
 }
 New-Item -Path $LocalTermSettingsDir -ItemType SymbolicLink -Value $RemoteTermSettingsDir -Force
+New-Item -Path (Join-Path $env:USERPROFILE 'WindowsTerminalSettings') -ItemType SymbolicLink -Value $LocalTermSettingsDir -Force
 
 [System.Environment]::SetEnvironmentVariable('PYTHONSTARTUP', (Join-Path $env:USERPROFILE '.pystartup'))
