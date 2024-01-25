@@ -36,4 +36,4 @@ git config --global gpg.program $(Resolve-Path (Get-Command gpg | Select-Object 
 $UserGitHubPath = (Join-Path $env:USERPROFILE 'GitHub')
 if (-not(Test-Path $UserGitHubPath)) { New-Item -Path $UserGitHubPath -ItemType Directory }
 if (-not(Test-Path 'C:\GitHub')) { New-Item -Path 'C:\GitHub' -ItemType SymbolicLink -Value $UserGitHubPath }
-# if ((Test-Path 'D:\') -and -not(Test-Path 'D:\GitHub')) { New-Item -Path 'D:\GitHub' -ItemType SymbolicLink -Value 'C:\GitHub' }
+# if ((Test-Path 'D:\') -and -not(Test-Path 'D:\GitHub')) { New-Item -Path 'D:\GitHub' -ItemType SymbolicLink -Value $UserGitHubPath }
