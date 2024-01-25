@@ -44,6 +44,8 @@ executeScript 'CustomFileExplorerSettings.ps1'
 # executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
 executeScript 'SetTimeZone.ps1';
+executeScript 'SetNTP.ps1';
+executeScript 'Bonjour.ps1';
 
 #--- YubiKey Authentication ---
 executeScript 'YubiKey.ps1';
