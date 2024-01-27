@@ -64,6 +64,7 @@ executeScript 'MiscDevTools.ps1';
 executeScript 'OpenJDK.ps1';
 
 #--- Administrative Tools ---
+executeScript 'WindowsADK.ps1';
 executeScript 'RemoteServerAdministrationTools.ps1';
 executeScript 'FileAndStorageUtils.ps1';
 executeScript 'SQLServerManagementStudio.ps1'
