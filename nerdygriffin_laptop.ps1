@@ -135,7 +135,7 @@ $SimpleLog = (Join-Path ((Get-LibraryNames).Desktop) '\last-installed.log')
 if (-not(Test-Path $SimpleLog)) {
 	New-Item -Path $SimpleLog -ItemType File | Out-Null
 }
-Add-Content -Path $SimpleLog -Value 'nerdygriffin_all_in_one' | Out-Null
+Add-Content -Path $SimpleLog -Value 'nerdygriffin_laptop' | Out-Null
 
 Get-ChildItem -Path (Join-Path $env:ChocolateyInstall 'lib') | Where-Object -Property Name -Like 'tmp*.tmp' | Remove-Item -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 Get-ChildItem -Path (Join-Path $env:ChocolateyInstall 'lib-bad') | Where-Object -Property Name -Like 'tmp*.tmp' | Remove-Item -Recurse -Force -Verbose -ErrorAction SilentlyContinue
