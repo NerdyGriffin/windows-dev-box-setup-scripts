@@ -146,4 +146,12 @@ Get-ChildItem -Path (Join-Path $env:ChocolateyInstall 'lib-bad') | Where-Object 
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
+try {
+	Install-WindowsUpdate -acceptEula
+} catch {
+	try {
+		Install-WindowsUpdate
+	} catch {
+		# Do nothing
+	}
+}
