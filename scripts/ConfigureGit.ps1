@@ -3,6 +3,7 @@ if (([Security.Principal.WindowsPrincipal] `
 	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	choco install -y gnupg
 	choco install -y git --package-parameters="'/GitAndUnixToolsOnPath /WindowsTerminal'"
+	winget install --id GitHub.cli --exact --silent --accept-package-agreements --accept-source-agreements
 	choco install -y gitkraken
 	refreshenv
 }

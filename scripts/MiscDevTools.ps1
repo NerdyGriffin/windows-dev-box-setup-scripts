@@ -6,6 +6,7 @@ choco install -y arduino-cli
 # choco install -y electron
 # choco install -y fiddler
 # choco install -y fritzing # Installer is broken
+winget install --id GitHub.cli --exact --silent --accept-package-agreements --accept-source-agreements
 choco install -y gitkraken
 choco install -y hxd
 choco install -y meld
