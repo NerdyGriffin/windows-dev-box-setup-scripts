@@ -13,6 +13,7 @@ choco install -y meld
 choco install -y neovim
 choco install -y ngrok
 # choco install -y notepadplusplus
+winget install --id=Rustlang.Rustup --exact --silent --accept-package-agreements --accept-source-agreements
 choco install -y ssh-copy-id
 choco install -y vim
 choco install -y vscode-arduino
