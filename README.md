@@ -52,6 +52,8 @@ To run a recipe script, click a link in the table below from your target machine
 
 ### **NerdyGriffin Collection**
 
+Before running these installers, make sure to update the **App Installer** package via the Microsoft Store, otherwise winget may fail
+
 | Click link to run                                                                                                                                                                                   | Description                                                                              |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | <a href='http://boxstarter.org/package/url?https://raw.githubusercontent.com/NerdyGriffin/windows-dev-box-setup-scripts/master/nerdygriffin_all_in_one.ps1'>NerdyGriffin's All-in-One Setup (Desktop)</a>  | Dev tool, Sysadmin tools, Daily Drive programs, and Gaming Programs (Combines the contents of the scripts below) |
