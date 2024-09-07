@@ -3,6 +3,9 @@
 choco install -y vortex
 winget install --id=WeMod.WeMod --exact --silent --accept-package-agreements --accept-source-agreements
 
+# Install Rust (dependency for bcml)
+winget install --id=Rustlang.Rustup --exact --silent --accept-package-agreements --accept-source-agreements
+
 # Install python
 choco install -y python
 
