@@ -12,10 +12,6 @@ Set-CloneLocation 'C:\GitHub'
 Set-CloneLocation 'C:\GitHub\chocolatey-community'
 git clone git@github.com:chocolatey-community/chocolatey-coreteampackages.git
 
-Set-CloneLocation 'C:\GitHub\gordon-cs'
-git clone git@github.com:gordon-cs/gordon-360-api
-git clone git@github.com:gordon-cs/gordon-360-ui
-
 Set-CloneLocation 'C:\GitHub\microsoft'
 git clone git@github.com:microsoft/winappdriver
 git clone git@github.com:microsoft/windows-dev-box-setup-scripts
