@@ -12,5 +12,4 @@ refreshenv
 # Update pip
 python -m pip install --upgrade pip
 
-# powershell -c "irm https://github.com/NiceneNerd/ukmm/releases/download/v0.15.0/ukmm-installer.ps1 | iex"
-powershell -c "irm https://github.com/NiceneNerd/ukmm/releases/download/latest/ukmm-installer.ps1 | iex"
+powershell -c "Invoke-RestMethod https://github.com/NiceneNerd/ukmm/releases/download/v0.15.0/ukmm-installer.ps1 | Invoke-Expression"
