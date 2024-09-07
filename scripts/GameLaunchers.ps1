@@ -7,7 +7,7 @@ choco install -y epicgameslauncher
 choco install -y goggalaxy
 choco install -y minecraft-launcher
 winget install --id=Mojang.MinecraftLauncher --exact --silent --accept-package-agreements --accept-source-agreements
-choco install -y steam
+winget install --id=Valve.Steam  --exact --silent --accept-package-agreements --accept-source-agreements
 choco install -y steam-cleaner
 choco install -y steamlibrarymanager.portable
 winget install --id=Ubisoft.Connect --exact --silent --accept-package-agreements --accept-source-agreements
