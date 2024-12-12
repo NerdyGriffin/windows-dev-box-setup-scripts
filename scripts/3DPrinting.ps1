@@ -1,6 +1,6 @@
 # Replace cura settings dir with symlink to server share
-$LocalCuraSettingsPath = (Join-Path $env:APPDATA cura)
-$RemoteCuraSettingsPath = (Join-Path $env:OneDrive 'Slicer Settings\cura')
+$LocalCuraSettingsPath = (Join-Path $env:APPDATA 'cura')
+$RemoteCuraSettingsPath = (Join-Path 'Z:AppData\Roaming' 'cura')
 if (-Not(Test-Path $RemoteCuraSettingsPath)) {
 	New-Item -Path $RemoteCuraSettingsPath -ItemType Directory -Force
 }
