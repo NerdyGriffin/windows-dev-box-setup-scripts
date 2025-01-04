@@ -1,1 +1,0 @@
-w32tm /config /syncfromflags:manual /manualpeerlist:"DC3.ad.nerdygriffin.net DC2.ad.nerdygriffin.net DC1.ad.nerdygriffin.net pool.ntp.org"
