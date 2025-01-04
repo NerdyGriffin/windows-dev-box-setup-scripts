@@ -1,1 +1,1 @@
-w32tm /config /syncfromflags:manual /manualpeerlist:"DC1.ad.nerdygriffin.net DC2.ad.nerdygriffin.net pfsense.nerdygriffin.net pool.ntp.org"
+w32tm /config /syncfromflags:manual /manualpeerlist:"DC3.ad.nerdygriffin.net DC2.ad.nerdygriffin.net DC1.ad.nerdygriffin.net pool.ntp.org"
