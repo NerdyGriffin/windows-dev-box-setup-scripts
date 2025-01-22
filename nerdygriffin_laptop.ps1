@@ -70,7 +70,6 @@ executeScript 'SQLServerManagementStudio.ps1'
 executeScript 'NetworkTools.ps1';
 
 #--- Setting up programs for typical every-day use
-executeScript '3DPrinting.ps1';
 executeScript 'Browsers.ps1';
 executeScript 'CAD.ps1'
 executeScript 'CloudStorage.ps1';
