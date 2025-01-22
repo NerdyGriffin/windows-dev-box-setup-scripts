@@ -187,9 +187,9 @@ powershell -Command $ScriptBlock
 Write-Host 'Configuring PowerShell Core...' -ForegroundColor 'Green'
 pwsh -Command $ScriptBlock
 
-# Replace Windows Terminal settings dir with symlink to Nextcloud
+# Replace Windows Terminal settings dir with symlink to OneDrive
 $LocalTermSettingsDir = (Join-Path $env:LOCALAPPDATA '\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState')
-$RemoteTermSettingsDir = (Join-Path $env:USERPROFILE 'Nextcloud\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState')
+$RemoteTermSettingsDir = (Join-Path $env:OneDrive 'Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState')
 if (-Not(Test-Path $RemoteTermSettingsDir)) {
 	New-Item -Path $RemoteTermSettingsDir -ItemType Directory -Force
 }
