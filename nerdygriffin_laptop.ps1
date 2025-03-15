@@ -43,8 +43,8 @@ executeScript 'SystemConfiguration.ps1';
 executeScript 'CustomFileExplorerSettings.ps1'
 # executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools.ps1';
-executeScript 'SetTimeZone.ps1';
 executeScript 'Bonjour.ps1';
+Set-TimeZone -Id "Eastern Standard Time"
 
 #--- YubiKey Authentication ---
 executeScript 'YubiKey.ps1';
