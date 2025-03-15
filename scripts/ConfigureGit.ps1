@@ -10,7 +10,7 @@ if (([Security.Principal.WindowsPrincipal] `
 
 #--- Configure Git ---
 git config --global user.name 'Christian Kunis'
-git config --global user.email 'ckunis98@gmail.com'
+git config --global user.email 'contact@nerdygriffin.net'
 if (Get-Command nano -ErrorAction SilentlyContinue) {
 	git config --global core.editor nano
 } else {
@@ -36,5 +36,3 @@ git config --global gpg.program $(Resolve-Path (Get-Command gpg | Select-Object 
 # Make a folder for my GitHub repos and make SymbolicLinks to it
 $UserGitHubPath = (Join-Path $env:USERPROFILE 'GitHub')
 if (-not(Test-Path $UserGitHubPath)) { New-Item -Path $UserGitHubPath -ItemType Directory }
-if (-not(Test-Path 'C:\GitHub')) { New-Item -Path 'C:\GitHub' -ItemType SymbolicLink -Value $UserGitHubPath }
-# if ((Test-Path 'D:\') -and -not(Test-Path 'D:\GitHub')) { New-Item -Path 'D:\GitHub' -ItemType SymbolicLink -Value $UserGitHubPath }
