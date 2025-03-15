@@ -49,6 +49,7 @@ Set-TimeZone -Id "Eastern Standard Time"
 #--- YubiKey Authentication ---
 executeScript 'YubiKey.ps1';
 
+#--- Configure Git ---
 executeScript 'ConfigureGit.ps1';
 
 #--- Configure Powershell Profile for Powerline and PSReadline ---
