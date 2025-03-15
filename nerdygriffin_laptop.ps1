@@ -93,10 +93,6 @@ winget install --id=Logitech.OptionsPlus --exact --silent --accept-package-agree
 #--- Remote Desktop Tools
 executeScript 'RemoteDesktop.ps1';
 
-#--- Monitoring and Performance Benchmarks ---
-executeScript 'HardwareMonitoring.ps1';
-# executeScript 'BenchmarkUtils.ps1';
-
 #--- Game Launchers ---
 # executeScript 'GameLaunchers.ps1';
 
