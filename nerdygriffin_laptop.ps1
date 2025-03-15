@@ -55,10 +55,6 @@ executeScript 'ConfigureGit.ps1';
 #--- Configure Powershell Profile for Powerline and PSReadline ---
 executeScript 'ConfigurePowerShell.ps1';
 
-#--- Assorted Dev Tools and Dependencies ---
-executeScript 'MiscDevTools.ps1';
-executeScript 'OpenJDK.ps1';
-
 #--- Administrative Tools ---
 executeScript 'WindowsADK.ps1';
 executeScript 'RemoteServerAdministrationTools.ps1';
