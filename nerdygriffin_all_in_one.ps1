@@ -95,9 +95,6 @@ winget install --id=Logitech.LGS --exact --silent --accept-package-agreements --
 # Incompatibility of iCUE with Logitech Mouse Drivers causes instability on some computers
 # winget install --id=Corsair.iCUE.4 --exact --silent --accept-package-agreements --accept-source-agreements
 
-#--- Remote Desktop Tools
-executeScript 'RemoteDesktop.ps1';
-
 #--- Game Launchers ---
 executeScript 'GameLaunchers.ps1';
 

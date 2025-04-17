@@ -90,9 +90,6 @@ executeScript 'GetFavoriteProjects.ps1'
 #--- Customization Software for Gaming Peripherals
 winget install --id=Logitech.OptionsPlus --exact --silent --accept-package-agreements --accept-source-agreements
 
-#--- Remote Desktop Tools
-executeScript 'RemoteDesktop.ps1';
-
 #--- Game Launchers ---
 # executeScript 'GameLaunchers.ps1';
 

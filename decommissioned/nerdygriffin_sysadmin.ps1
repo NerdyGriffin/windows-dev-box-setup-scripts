@@ -25,11 +25,6 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
-if (-not($env:COMPUTERNAME | Select-String 'LAPTOP')) {
-	# Do nothing if Enable-RemoteDesktop fails, because it will fail if RemoteDesktop is already enabled
-	try { Enable-RemoteDesktop } catch {}
-}
-
 #--- Package Manager ---
 executeScript 'ConfigureChocolatey.ps1';
 executeScript 'InstallWinGet.ps1';

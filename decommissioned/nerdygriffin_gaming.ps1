@@ -43,9 +43,6 @@ winget install --id=WhirlwindFX.SignalRgb --exact --silent --accept-package-agre
 executeScript 'LogitechGaming.ps1';
 # executeScript 'CorsairICue.ps1'; # Incompatibility with Logitech Mouse Drivers causes instability on some computers
 
-#--- Remote Desktop Tools
-executeScript 'RemoteDesktop.ps1';
-
 #--- Monitoring and Performance Benchmarks ---
 executeScript 'HardwareMonitoring.ps1';
 executeScript 'BenchmarkUtils.ps1';
