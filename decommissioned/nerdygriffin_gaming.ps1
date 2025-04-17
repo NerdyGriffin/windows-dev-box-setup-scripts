@@ -67,12 +67,6 @@ Set-ItemProperty -Path 'HKCU:\Control Panel\Accessibility\StickyKeys' -Name 'Fla
 # Disable the "Origin Client Service" to force Origin to execute downloads as Administrator of your User rather than execute under the SYSTEM user account
 Get-Service -Name 'Origin Client*' | Set-Service -StartupType Disabled
 
-# Allow the Programs, which run as administrator, to see the Mapped Network Shares
-If (-not(Test-Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System')) {
-	New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Force | Out-Null
-}
-Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLinkedConnections' -Type DWord -Value 1
-
 #--- Parse Boxstarter log for failed package installs ---
 executeScript 'ParseBoxstarterLog.ps1';
 
