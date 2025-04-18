@@ -1,3 +1,7 @@
+# Description: Boxstarter Script
+# Author: Christian Kunis (NerdyGriffin)
+# Common settings for my gaming desktop
+
 If ($Boxstarter.StopOnPackageFailure) { $Boxstarter.StopOnPackageFailure = $false }
 
 Disable-UAC
@@ -25,34 +29,58 @@ function executeScript {
 	Start-Sleep -Seconds 1;
 }
 
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+
+#--- Powershell Module Repository
+Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+
 #--- Package Manager ---
 executeScript 'ConfigureChocolatey.ps1';
-executeScript 'InstallWinGet.ps1';
 
 #--- Setting up Windows ---
-executeScript 'FileExplorerSettings.ps1';
+executeScript 'SystemConfiguration.ps1';
+# executeScript 'FileExplorerSettings.ps1';
+executeScript 'CustomFileExplorerSettings.ps1'
+# executeScript 'RemoveDefaultApps.ps1';
+executeScript 'CommonDevTools.ps1';
+executeScript 'Bonjour.ps1';
+Set-TimeZone -Id "Eastern Standard Time"
 
-#--- Create symbolic links to game install locations
-executeScript 'GameSymlinks.ps1';
+#--- YubiKey Authentication ---
+executeScript 'YubiKey.ps1';
+
+#--- Configure Git ---
+executeScript 'ConfigureGit.ps1';
+
+#--- Configure Powershell Profile for Powerline and PSReadline ---
+executeScript 'ConfigurePowerShell.ps1';
+
+#--- Setting up programs for typical every-day use
+executeScript 'Browsers.ps1';
+executeScript 'CloudStorage.ps1';
+executeScript 'CommunicationApps.ps1';
+executeScript 'Multimedia.ps1';
+winget install --id=Rem0o.FanControl --exact --silent --accept-package-agreements --accept-source-agreements
+
+RefreshEnv;
+Start-Sleep -Seconds 1;
+
+#--- Windows Settings ---
+# Disable-BingSearch
+# Disable-GameBarTips
 
 #--- Graphics Driver Support
 executeScript 'NvidiaGraphics.ps1';
 
 #--- Customization Software for Gaming Peripherals
 winget install --id=WhirlwindFX.SignalRgb --exact --silent --accept-package-agreements --accept-source-agreements
-executeScript 'LogitechGaming.ps1';
-# executeScript 'CorsairICue.ps1'; # Incompatibility with Logitech Mouse Drivers causes instability on some computers
-
-#--- Monitoring and Performance Benchmarks ---
-executeScript 'HardwareMonitoring.ps1';
-executeScript 'BenchmarkUtils.ps1';
+winget install --id=Logitech.OptionsPlus --exact --silent --accept-package-agreements --accept-source-agreements
+winget install --id=Logitech.LGS --exact --silent --accept-package-agreements --accept-source-agreements
+# Incompatibility of iCUE with Logitech Mouse Drivers causes instability on some computers
+# winget install --id=Corsair.iCUE.4 --exact --silent --accept-package-agreements --accept-source-agreements
 
 #--- Game Launchers ---
-# if ($env:COMPUTERNAME | Select-String 'DESKTOP') {
 executeScript 'GameLaunchers.ps1';
-# } else {
-# 	executeScript 'MinimalGameLaunchers.ps1';
-# }
 
 #--- Game Modding Tools ---
 executeScript 'GameModdingTools.ps1';
@@ -76,7 +104,18 @@ if (-not(Test-Path $SimpleLog)) {
 }
 Add-Content -Path $SimpleLog -Value 'nerdygriffin_gaming' | Out-Null
 
+Get-ChildItem -Path (Join-Path $env:ChocolateyInstall 'lib') | Where-Object -Property Name -Like 'tmp*.tmp' | Remove-Item -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+Get-ChildItem -Path (Join-Path $env:ChocolateyInstall 'lib-bad') | Where-Object -Property Name -Like 'tmp*.tmp' | Remove-Item -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+
 #--- reenabling critial items ---
 Enable-UAC
 Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
+try {
+	Install-WindowsUpdate -acceptEula
+} catch {
+	try {
+		Install-WindowsUpdate
+	} catch {
+		# Do nothing
+	}
+}
