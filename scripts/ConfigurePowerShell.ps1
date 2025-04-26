@@ -75,7 +75,7 @@ if (([Security.Principal.WindowsPrincipal] `
 		Write-Host 'Appending Configuration for PSReadLine to PowerShell Profile...'
 		$PSReadlineProfile = @(
 			'# Customize PSReadline to make PowerShell behave more like Bash',
-			'Import-Module PSReadLine',
+			'if (!(Get-Module PSReadLine -ErrorAction SilentlyContinue)) { Import-Module PSReadLine }',
 			'Set-PSReadLineOption -EditMode Emacs -HistoryNoDuplicates -HistorySearchCursorMovesToEnd',
 			# 'Set-PSReadLineOption -BellStyle Audible -DingTone 512',
 			'# Creates an alias for ls like I use in Bash',
