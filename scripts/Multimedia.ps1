@@ -1,7 +1,6 @@
 #--- Multimedia ---
 choco install -y audacity
 choco install -y audacity-lame
-choco install -y blender
 choco install -y foobar2000
 choco install -y freeencoderpack
 # choco install -y fsviewer
