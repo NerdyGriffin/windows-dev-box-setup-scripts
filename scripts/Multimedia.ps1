@@ -8,5 +8,5 @@ choco install -y gimp
 choco install -y inkscape
 # choco install -y k-litecodecpackfull
 choco install -y lame
-choco install -y obs-studio
-# choco install -y vlc
+# choco install -y obs-studio
+choco install -y vlc

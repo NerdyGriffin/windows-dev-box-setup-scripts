@@ -1,3 +1,8 @@
+winget install --id=Ryochan7.DS4Windows --exact --silent --accept-package-agreements --accept-source-agreements
+
+#--- Minecraft Mods
+winget install --id=PrismLauncher.PrismLauncher --exact --silent --accept-package-agreements --accept-source-agreements
+
 #--- Mods & Cheats
 # choco install -y cheatengine # Package no longer found
 choco install -y vortex
