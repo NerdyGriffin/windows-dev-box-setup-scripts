@@ -43,7 +43,6 @@ executeScript 'SystemConfiguration.ps1';
 executeScript 'CustomFileExplorerSettings.ps1'
 # executeScript 'RemoveDefaultApps.ps1';
 executeScript 'CommonDevTools-WinGet.ps1';
-executeScript 'Bonjour.ps1';
 Set-TimeZone -Id "Eastern Standard Time"
 
 #--- YubiKey Authentication ---
@@ -60,6 +59,7 @@ executeScript 'Browsers.ps1';
 executeScript 'CloudStorage.ps1';
 executeScript 'CommunicationApps.ps1';
 executeScript 'Multimedia.ps1';
+executeScript 'NordVPN.ps1';
 winget install --id=Rem0o.FanControl --exact --silent --accept-package-agreements --accept-source-agreements
 
 RefreshEnv;
