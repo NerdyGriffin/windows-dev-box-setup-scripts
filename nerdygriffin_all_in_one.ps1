@@ -53,6 +53,7 @@ executeScript 'ConfigureGit.ps1';
 
 #--- Configure Powershell Profile for Powerline and PSReadline ---
 executeScript 'ConfigurePowerShell.ps1';
+executeScript 'ConfigureWindowsTerminal.ps1';
 
 #--- Administrative Tools ---
 executeScript 'WindowsADK.ps1';

@@ -53,6 +53,7 @@ executeScript 'ConfigureGit.ps1';
 
 #--- Configure Powershell Profile for Powerline and PSReadline ---
 executeScript 'ConfigurePowerShell.ps1';
+executeScript 'ConfigureWindowsTerminal.ps1';
 
 #--- Setting up programs for typical every-day use
 executeScript 'Browsers.ps1';
