@@ -60,7 +60,7 @@ if (([Security.Principal.WindowsPrincipal] `
 		# choco install -y posh-github
 		# refreshenv
 	} catch {
-		Write-Host  'Powerline failed to install' | Write-Warning
+		Write-Host 'Powerline failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
 		# Move on if Powerline install fails due to error
 	}
@@ -87,7 +87,7 @@ if (([Security.Principal.WindowsPrincipal] `
 			Add-Content -Path $PROFILE -Value $PSReadlineProfile
 		}
 	} catch {
-		Write-Host  'PSReadline failed to install' | Write-Warning
+		Write-Host 'PSReadline failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
 		# Move on if PSReadline install fails due to errors
 	}
@@ -169,7 +169,7 @@ if (([Security.Principal.WindowsPrincipal] `
 		} else { Write-Host "Module 'CredentialManager' already installed" }
 		refreshenv
 	} catch {
-		Write-Host  'CredentialManager failed to install' | Write-Warning
+		Write-Host 'CredentialManager failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
 		# Move on if CredentialManager install fails due to errors
 	}

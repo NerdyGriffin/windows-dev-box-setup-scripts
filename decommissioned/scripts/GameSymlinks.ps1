@@ -23,14 +23,14 @@ Function New-SymbolicLink {
 	)
 
 	if ((Test-Path $Path) -and (Get-Item $Path | Where-Object Attributes -Match ReparsePoint)) {
-		Write-Host  $Path 'is already a reparse point.' | Write-Warning
+		Write-Host $Path 'is already a reparse point.' | Write-Warning
 		Return $false
 	}
 	if (Test-Path "$Path\*") {
 		# $MoveResult = (Move-Item -Path $Path\* -Destination $Value -Force -PassThru -Verbose)
 		$MoveResult = (robocopy $Path $Value /ZB /FFT)
 		if (-not($MoveResult)) {
-			Write-Host  'Something went wrong while trying to move the contents of' $Path 'to' $Value | Write-Warning
+			Write-Host 'Something went wrong while trying to move the contents of' $Path 'to' $Value | Write-Warning
 			Return $MoveResult
 		}
 		Remove-Item -Path $Path\* -Recurse -Force -ErrorAction Inquire
@@ -43,7 +43,7 @@ Function New-SymbolicLink {
 	}
 	$Result = New-Item -Path $Path -ItemType SymbolicLink -Value $Value -Force -Verbose
 	if ($Result) {
-		Write-Host  'Successfully created SymLink at' $Path 'pointing to' $Value | Write-Verbose
+		Write-Host 'Successfully created SymLink at' $Path 'pointing to' $Value | Write-Verbose
 		Return $true
 	} else {
 		Write-Host 'The following error occured while trying to make symlink: ' $Result | Write-Warning
