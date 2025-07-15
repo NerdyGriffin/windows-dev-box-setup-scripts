@@ -17,6 +17,9 @@ if (([Security.Principal.WindowsPrincipal] `
 # refreshenv
 
 [ScriptBLock]$ScriptBlock = {
+	#--- Powershell Module Repository
+	Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+
 	#--- Update all modules ---
 	Write-Host 'Updating all modules...'
 	Update-Module -ErrorAction SilentlyContinue
