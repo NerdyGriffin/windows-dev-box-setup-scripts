@@ -179,6 +179,8 @@ if (([Security.Principal.WindowsPrincipal] `
 		# Move on if CredentialManager install fails due to errors
 	}
 
+	Get-Content -Path $PROFILE | Set-Content -Path (Join-Path (Split-Path -Path $PROFILE -Parent) "Microsoft.VSCode_profile.ps1")
+
 	#--- Update all modules ---
 	Write-Host 'Updating all modules...'
 	Update-Module -ErrorAction SilentlyContinue
