@@ -17,6 +17,8 @@ if (([Security.Principal.WindowsPrincipal] `
 # refreshenv
 
 [ScriptBLock]$ScriptBlock = {
+	Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction SilentlyContinue
+
 	#--- Powershell Module Repository
 	Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
