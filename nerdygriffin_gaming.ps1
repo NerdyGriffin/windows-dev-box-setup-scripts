@@ -74,7 +74,7 @@ Start-Sleep -Seconds 1;
 executeScript 'NvidiaGraphics.ps1';
 
 #--- Customization Software for Gaming Peripherals
-winget install --id=WhirlwindFX.SignalRgb --exact --silent --accept-package-agreements --accept-source-agreements
+# winget install --id=WhirlwindFX.SignalRgb --exact --silent --accept-package-agreements --accept-source-agreements
 winget install --id=Logitech.OptionsPlus --exact --silent --accept-package-agreements --accept-source-agreements
 winget install --id=Logitech.LGS --exact --silent --accept-package-agreements --accept-source-agreements
 # Incompatibility of iCUE with Logitech Mouse Drivers causes instability on some computers
