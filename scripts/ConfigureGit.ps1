@@ -11,7 +11,7 @@ if (([Security.Principal.WindowsPrincipal] `
 
 #--- Configure Git ---
 git config --global user.name 'Christian Kunis'
-git config --global user.email 'contact@nerdygriffin.net'
+git config --global user.email 'github@nerdygriffin.net'
 if (Get-Command nano -ErrorAction SilentlyContinue) {
 	git config --global core.editor nano
 } else {
