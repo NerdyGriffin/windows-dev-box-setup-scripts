@@ -11,12 +11,16 @@ if (([Security.Principal.WindowsPrincipal] `
 	refreshenv
 }
 
-# #--- Enable Powershell Script Execution
-#Uncomment this line if this setting is not managed by Group Policy
-# Set-ExecutionPolicy Bypass -Scope CurrentUser -Force -ErrorAction Continue
-# refreshenv
+#--- Enable Powershell Script Execution
+try { Set-ExecutionPolicy Bypass -Scope CurrentUser -Force } catch {} # Do nothing if blocked from Group Policy
+refreshenv
 
 [ScriptBLock]$ScriptBlock = {
+	if ((Get-CimInstance Win32_OperatingSystem).BuildNumber -lt 17763) {
+		[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+	} else {
+		[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
+	}
 	Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction SilentlyContinue
 
 	#--- Powershell Module Repository
@@ -129,28 +133,6 @@ if (([Security.Principal.WindowsPrincipal] `
 		}
 	}
 
-	# #--- Import Boxstarter Modules
-	# Write-Host 'Appending Configuration for Boxstarter to PowerShell Profile...'
-	# $BoxstarterProfile = @(
-	# 	'# Boxstarter modules',
-	# 	'# Import the Chocolatey module first so that $Boxstarter properties',
-	# 	'# are initialized correctly and then import everything else.',
-	# 	'if (Test-Path("\\files.nerdygriffin.net\Boxstarter")) {',
-	# 	'	$BoxstarterInstall = "\\files.nerdygriffin.net\Boxstarter"',
-	# 	'} elseif (Test-Path("D:\Boxstarter")) {',
-	# 	'	$BoxstarterInstall = "D:\Boxstarter"',
-	# 	'}',
-	# 	'Import-Module $BoxstarterInstall\Boxstarter.Chocolatey\Boxstarter.Chocolatey.psd1 -DisableNameChecking -ErrorAction SilentlyContinue',
-	# 	'Resolve-Path $BoxstarterInstall\Boxstarter.*\*.psd1 |',
-	# 	'	% { Import-Module $_.ProviderPath -DisableNameChecking -ErrorAction SilentlyContinue }',
-	# 	'Import-Module $BoxstarterInstall\Boxstarter.Common\Boxstarter.Common.psd1 -Function Test-Admin'
-	# )
-	# if (-not(Select-String -Pattern $BoxstarterProfile[0] -Path $PROFILE)) {
-	# 	Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
-	# 	Write-Output $BoxstarterProfile | Write-Debug
-	# 	Add-Content -Path $PROFILE -Value $BoxstarterProfile
-	# }
-
 	#--- Install the Pipeworks Module
 	try {
 		Write-Host 'Installing Pipeworks -- [CLI Tools for PowerShell]'
@@ -184,6 +166,9 @@ if (([Security.Principal.WindowsPrincipal] `
 	#--- Update all modules ---
 	Write-Host 'Updating all modules...'
 	Update-Module -ErrorAction SilentlyContinue
+
+	#--- Reset default security protocol ---
+	[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
 } # End of $ScriptBlock
 
 # Run the script block in PowerShell
