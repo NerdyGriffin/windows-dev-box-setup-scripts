@@ -49,8 +49,8 @@ refreshenv
 	#--- Install & Configure the Powerline Modules
 	try {
 		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-		winget install JanDeDobbeleer.OhMyPosh -s winget
-		# Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+		# winget install JanDeDobbeleer.OhMyPosh -s winget
+		Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
 		# refreshenv
 		# [System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
 		refreshenv
