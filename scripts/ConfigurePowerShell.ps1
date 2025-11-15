@@ -1,3 +1,26 @@
+function Safe-RefreshEnv {
+	try {
+		$output = RefreshEnv 2>&1 | Out-String
+	} catch {
+		$output = $_ | Out-String
+	}
+
+	if ($output -and $output -match 'Import-Module') {
+		try { Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" -ErrorAction SilentlyContinue } catch {}
+		# After importing the Chocolatey profile, try refreshenv again and display its output
+		try {
+			$retryOutput = RefreshEnv 2>&1 | Out-String
+		} catch {
+			$retryOutput = $_ | Out-String
+		}
+		if ($retryOutput) { Write-Host $retryOutput.Trim() }
+	} else {
+		if ($output) { Write-Host $output.Trim() }
+	}
+
+	return $null
+}
+
 if (([Security.Principal.WindowsPrincipal] `
 			[Security.Principal.WindowsIdentity]::GetCurrent() `
 	).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -5,19 +28,43 @@ if (([Security.Principal.WindowsPrincipal] `
 	choco upgrade -y powershell
 	choco upgrade -y powershell-core
 	choco upgrade -y winget
-	refreshenv
+	Safe-RefreshEnv
 
 	# #--- Oh My Posh Environment Variable ---
 	# [System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
-	# refreshenv
+	# Safe-RefreshEnv
 }
 
 #--- Enable Powershell Script Execution
 try { Set-ExecutionPolicy Bypass -Scope CurrentUser -Force } catch {} # Do nothing if blocked from Group Policy
-refreshenv
+
+Safe-RefreshEnv
 
 [ScriptBLock]$ScriptBlock = {
-	try { refreshenv } catch { Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1 }
+	function Safe-RefreshEnv {
+		try {
+			$output = RefreshEnv 2>&1 | Out-String
+		} catch {
+			$output = $_ | Out-String
+		}
+
+		if ($output -and $output -match 'Import-Module') {
+			try { Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" -ErrorAction SilentlyContinue } catch {}
+			# After importing the Chocolatey profile, try refreshenv again and display its output
+			try {
+				$retryOutput = RefreshEnv 2>&1 | Out-String
+			} catch {
+				$retryOutput = $_ | Out-String
+			}
+			if ($retryOutput) { Write-Host $retryOutput.Trim() }
+		} else {
+			if ($output) { Write-Host $output.Trim() }
+		}
+
+		return $null
+	}
+
+	Safe-RefreshEnv
 
 	if ((Get-CimInstance Win32_OperatingSystem).BuildNumber -lt 17763) {
 		[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
@@ -32,9 +79,13 @@ refreshenv
 	#--- Update all modules ---
 	Write-Host 'Updating all modules...'
 	Update-Module -ErrorAction SilentlyContinue
-	refreshenv
+	Safe-RefreshEnv
 	Start-Sleep -Seconds 1;
 
+	#DEBUG: Delete PowerShell Profile for testing purposes
+	Remove-Item -Path $PROFILE -Force -ErrorAction SilentlyContinue
+
+	#--- Ensure PowerShell Profile Exists
 	if (-not(Test-Path $PROFILE)) {
 		Write-Verbose "`$PROFILE does not exist at $PROFILE`nCreating new `$PROFILE..."
 		New-Item -Path $PROFILE -ItemType File -Force
@@ -43,11 +94,11 @@ refreshenv
 	#--- Prepend a Custom Printed Message to the PowerShell Profile
 	Write-Host 'Prepending Custom Message to PowerShell Profile...'
 	$ProfileString = 'Write-Output "Loading Custom PowerShell Profile..."'
-	# if (-not(Select-String -Pattern $ProfileString -Path $PROFILE )) {
-	Write-Output 'Attempting to add the following line to $PROFILE :' | Write-Debug
-	Write-Output $ProfileString | Write-Debug
-	Set-Content -Path $PROFILE -Value ($ProfileString, (Get-Content $PROFILE))
-	# }
+	if (-not(Select-String -Pattern $ProfileString -Path $PROFILE )) {
+		Write-Output 'Attempting to add the following line to $PROFILE :' | Write-Debug
+		Write-Output $ProfileString | Write-Debug
+		Set-Content -Path $PROFILE -Value ($ProfileString, (Get-Content $PROFILE))
+	}
 
 	#--- Install & Configure the PSReadline Module
 	try {
@@ -55,7 +106,7 @@ refreshenv
 		if (-not(Get-Module -ListAvailable -Name PSReadLine)) {
 			Install-Module -Name PSReadLine -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
 		} else { Write-Host "Module 'PSReadLine' already installed" }
-		refreshenv
+		Safe-RefreshEnv
 		Write-Host 'Appending Configuration for PSReadLine to PowerShell Profile...'
 		$PSReadlineProfile = @(
 			'# Customize PSReadline to make PowerShell behave more like Bash',
@@ -82,7 +133,7 @@ refreshenv
 		if (-not(Get-Module -ListAvailable -Name PSWindowsUpdate)) {
 			Install-Module -Name PSWindowsUpdate -AllowClobber -SkipPublisherCheck -Force -Verbose
 		} else { Write-Host "Module 'PSWindowsUpdate' already installed" }
-		refreshenv
+		Safe-RefreshEnv
 	} catch {
 		Write-Host 'PSWindowsUpdate failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
@@ -115,7 +166,7 @@ refreshenv
 		if (-not(Get-Module -ListAvailable -Name Pipeworks)) {
 			Install-Module -Name Pipeworks -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
 		} else { Write-Host "Module 'Pipeworks' already installed" }
-		refreshenv
+		Safe-RefreshEnv
 	} catch {
 		Write-Host 'Pipeworks failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
@@ -129,7 +180,7 @@ refreshenv
 		if (-not(Get-Module -ListAvailable -Name CredentialManager)) {
 			Install-Module -Name CredentialManager
 		} else { Write-Host "Module 'CredentialManager' already installed" }
-		refreshenv
+		Safe-RefreshEnv
 	} catch {
 		Write-Host 'CredentialManager failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
@@ -144,9 +195,10 @@ refreshenv
 		} catch {
 			Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
 		}
-		refreshenv
+		Safe-RefreshEnv
 		try { oh-my-posh font install meslo } catch {}
-		refreshenv
+		try { oh-my-posh enable upgrade } catch {}
+		Safe-RefreshEnv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
 			'# Dependencies for powerline',
@@ -162,7 +214,7 @@ refreshenv
 		# Install additional Powerline-related packages via chocolatey
 		# choco install -y poshgit
 		# choco install -y posh-github
-		# refreshenv
+		# Safe-RefreshEnv
 	} catch {
 		Write-Host 'Powerline failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
