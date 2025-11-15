@@ -43,11 +43,11 @@ refreshenv
 	#--- Prepend a Custom Printed Message to the PowerShell Profile
 	Write-Host 'Prepending Custom Message to PowerShell Profile...'
 	$ProfileString = 'Write-Output "Loading Custom PowerShell Profile..."'
-	if (-not(Select-String -Pattern $ProfileString -Path $PROFILE )) {
-		Write-Output 'Attempting to add the following line to $PROFILE :' | Write-Debug
-		Write-Output $ProfileString | Write-Debug
-		Set-Content -Path $PROFILE -Value ($ProfileString, (Get-Content $PROFILE))
-	}
+	# if (-not(Select-String -Pattern $ProfileString -Path $PROFILE )) {
+	Write-Output 'Attempting to add the following line to $PROFILE :' | Write-Debug
+	Write-Output $ProfileString | Write-Debug
+	Set-Content -Path $PROFILE -Value ($ProfileString, (Get-Content $PROFILE))
+	# }
 
 	#--- Install & Configure the PSReadline Module
 	try {
