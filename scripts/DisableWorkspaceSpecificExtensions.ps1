@@ -40,11 +40,11 @@ $extensionsToDisable = @(
     'ms-toolsai.vscode-jupyter-slideshow',
 
     # C/C++ Extensions
+    'jeff-hykin.better-cpp-syntax',
+    'kriegalex.vscode-cudacpp',
     'ms-vscode.cpptools',
     'ms-vscode.cpptools-extension-pack',
     'ms-vscode.cpptools-themes',
-    'jeff-hykin.better-cpp-syntax',
-    'kriegalex.vscode-cudacpp',
 
     # C#/.NET Extensions
     'ms-dotnettools.csharp',
@@ -64,10 +64,10 @@ $extensionsToDisable = @(
 
     # Arduino/Embedded Extensions
     'jfpoilpret.fastarduino',
-    'ronaldosena.arduino-snippets',
-    'raspberry-pi.raspberry-pi-pico',
-    'paulober.pico-w-go',
     'ms-vscode.vscode-serial-monitor',
+    'paulober.pico-w-go',
+    'raspberry-pi.raspberry-pi-pico',
+    'ronaldosena.arduino-snippets',
 
     # MCU/Embedded Debug Extensions
     'marus25.cortex-debug',
@@ -91,33 +91,26 @@ $extensionsToDisable = @(
     # Docker/Container Extensions
     'docker.docker',
     'ms-azuretools.vscode-containers',
+    'ms-azuretools.vscode-docker',
     'ms-vscode-remote.remote-containers',
 
     # Kubernetes Extensions
     'ms-kubernetes-tools.vscode-kubernetes-tools',
 
     # SQL/Database Extensions
-    'ms-mssql.mssql',
     'ms-mssql.data-workspace-vscode',
+    'ms-mssql.mssql',
     'ms-mssql.sql-bindings-vscode',
     'ms-mssql.sql-database-projects-vscode',
     'mtxr.sqltools',
 
     # CMake/Make Extensions
     'ms-vscode.cmake-tools',
-    'twxs.cmake',
     'ms-vscode.makefile-tools',
+    'twxs.cmake',
 
     # LaTeX Extensions
     'james-yu.latex-workshop',
-
-    # # Remote Development Extensions
-    # 'ms-vscode-remote.remote-ssh',
-    # 'ms-vscode-remote.remote-ssh-edit',
-    # 'ms-vscode-remote.remote-wsl',
-    # 'ms-vscode-remote.vscode-remote-extensionpack',
-    # 'ms-vscode.remote-explorer',
-    # 'ms-vscode.remote-server',
 
     # Chocolatey Extensions
     'gep13.chocolatey-vscode',
@@ -139,9 +132,9 @@ $extensionsToDisable = @(
     'ionutvmi.reg',
 
     # XML/YAML Extensions (project-specific formats)
+    'redhat.vscode-commons',
     'redhat.vscode-xml',
     'redhat.vscode-yaml',
-    'redhat.vscode-commons',
 
     # ESLint (JavaScript/TypeScript linting - project specific)
     'dbaeumer.vscode-eslint',
@@ -151,10 +144,13 @@ $extensionsToDisable = @(
     'stylelint.vscode-stylelint',
 
     # Doxygen (C/C++ documentation)
-    'cschlosser.doxdocgen'
+    'cschlosser.doxdocgen',
 
-    # # SSH Config
-    # 'jamief.vscode-ssh-config-enhanced'
+    # PowerShell Extensions
+    'ms-vscode.powershell',
+
+    # Ansible Extensions
+    'redhat.ansible'
 )
 
 Write-Host "Starting to disable workspace-specific extensions..." -ForegroundColor Cyan
