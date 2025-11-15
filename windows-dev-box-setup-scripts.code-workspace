@@ -4,5 +4,11 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.powershell",
+			"gep13.chocolatey-vscode"
+		]
+	}
 }
