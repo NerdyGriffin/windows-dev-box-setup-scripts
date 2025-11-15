@@ -7,9 +7,9 @@ if (([Security.Principal.WindowsPrincipal] `
 	choco upgrade -y winget
 	refreshenv
 
-	#--- Oh My Posh Environment Variable ---
-	[System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
-	refreshenv
+	# #--- Oh My Posh Environment Variable ---
+	# [System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
+	# refreshenv
 }
 
 ## TODO: Try Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1 if refreshenv gives the output:
