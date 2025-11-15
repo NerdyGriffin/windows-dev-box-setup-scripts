@@ -49,10 +49,12 @@ refreshenv
 	#--- Install & Configure the Powerline Modules
 	try {
 		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-		# winget install JanDeDobbeleer.OhMyPosh -s winget
-		Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
-		# refreshenv
-		# [System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
+		try {
+			winget install JanDeDobbeleer.OhMyPosh --source winget
+		} catch {
+			Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+		}
+		try { oh-my-posh font install meslo } catch {}
 		refreshenv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
