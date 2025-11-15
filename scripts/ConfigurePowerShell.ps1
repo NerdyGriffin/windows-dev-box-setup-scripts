@@ -12,14 +12,13 @@ if (([Security.Principal.WindowsPrincipal] `
 	# refreshenv
 }
 
-## TODO: Try Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1 if refreshenv gives the output:
-### RefreshEnv.cmd does not work when run from this process. If you're in PowerShell, please 'Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1' and try again.
-
 #--- Enable Powershell Script Execution
 try { Set-ExecutionPolicy Bypass -Scope CurrentUser -Force } catch {} # Do nothing if blocked from Group Policy
 refreshenv
 
 [ScriptBLock]$ScriptBlock = {
+	try { refreshenv } catch { Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1 }
+
 	if ((Get-CimInstance Win32_OperatingSystem).BuildNumber -lt 17763) {
 		[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 	} else {
