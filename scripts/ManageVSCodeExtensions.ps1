@@ -153,6 +153,13 @@ $extensionsToDisable = @(
 	'redhat.ansible'
 )
 
+$extensionsToEnable = @(
+	'jamief.vscode-ssh-config-enhanced',
+	'ms-vscode.remote-explorer',
+	'ms-vscode-remote.remote-ssh-edit',
+	'ms-vscode-remote.vscode-remote-extensionpack'
+)
+
 Write-Host "Starting to disable workspace-specific extensions..." -ForegroundColor Cyan
 Write-Host "Total extensions to disable: $($extensionsToDisable.Count)" -ForegroundColor Yellow
 Write-Host ""
@@ -188,6 +195,32 @@ foreach ($extension in $extensionsToDisable) {
 	} else {
 		Write-Host "  - Not installed: $extension" -ForegroundColor DarkGray
 		$notInstalledCount++
+	}
+}
+
+foreach ($extension in $extensionsToEnable) {
+	Write-Host "Processing enable: $extension" -ForegroundColor Gray
+
+	# Check if extension is installed
+	$installed = code --list-extensions | Where-Object { $_ -eq $extension }
+
+	if ($installed) {
+		try {
+			# Enable the extension
+			$result = code --enable-extension $extension --reuse-window 2>&1
+
+			if ($LASTEXITCODE -eq 0) {
+				Write-Host "  ✓ Successfully enabled: $extension" -ForegroundColor Green
+			} else {
+				Write-Host "  ✗ Failed to enable: $extension" -ForegroundColor Red
+				Write-Host "    Error: $result" -ForegroundColor Red
+			}
+		}
+		catch {
+			Write-Host "  ✗ Error enabling: $extension - $_" -ForegroundColor Red
+		}
+	} else {
+		Write-Host "  - Not installed: $extension" -ForegroundColor DarkGray
 	}
 }
 
