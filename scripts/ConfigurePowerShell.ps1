@@ -4,6 +4,7 @@ if (([Security.Principal.WindowsPrincipal] `
 	#--- PowerShell ---
 	choco upgrade -y powershell
 	choco upgrade -y powershell-core
+	choco upgrade -y winget
 	refreshenv
 
 	#--- Oh My Posh Environment Variable ---
