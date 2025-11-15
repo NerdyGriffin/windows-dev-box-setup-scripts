@@ -7,8 +7,7 @@
 	"settings": {},
 	"extensions": {
 		"recommendations": [
-			"ms-vscode.powershell",
-			"gep13.chocolatey-vscode"
+			"ms-vscode.powershell"
 		]
 	}
 }
