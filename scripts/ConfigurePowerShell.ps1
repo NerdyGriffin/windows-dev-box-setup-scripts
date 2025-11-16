@@ -41,6 +41,14 @@ try { Set-ExecutionPolicy Bypass -Scope CurrentUser -Force } catch {} # Do nothi
 Safe-RefreshEnv
 
 [ScriptBLock]$ScriptBlock = {
+	try {
+		Set-ExecutionPolicy Bypass -Scope CurrentUser -Force
+	} catch {
+		try {
+			Set-ExecutionPolicy Bypass -Scope Process -Force
+		} catch {}
+	} # Do nothing if blocked from Group Policy
+
 	function Safe-RefreshEnv {
 		try {
 			$output = RefreshEnv 2>&1 | Out-String
