@@ -163,18 +163,18 @@ Safe-RefreshEnv
 		}
 	}
 
-	#--- Install the Pipeworks Module
+	#--- Uninstall the Pipeworks Module
 	try {
-		Write-Host 'Installing Pipeworks -- [CLI Tools for PowerShell]'
+		Write-Host 'Uninstalling Pipeworks -- [CLI Tools for PowerShell]'
 		Write-Host 'Description: PowerShell Pipeworks is a framework for writing Sites and Software Services in Windows PowerShell modules.'
-		if (-not(Get-Module -ListAvailable -Name Pipeworks)) {
-			Install-Module -Name Pipeworks -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
-		} else { Write-Host "Module 'Pipeworks' already installed" }
+		if (Get-Module -ListAvailable -Name Pipeworks) {
+			Uninstall-Module -Name Pipeworks -Force -Verbose -
+		} else { Write-Host "Module 'Pipeworks' not installed" }
 		Safe-RefreshEnv
 	} catch {
-		Write-Host 'Pipeworks failed to install' | Write-Warning
+		Write-Host 'Pipeworks failed to uninstall' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
-		# Move on if Pipeworks install fails due to errors
+		# Move on if Pipeworks uninstall fails due to errors
 	}
 
 	#--- Install the CredentialManager Module
