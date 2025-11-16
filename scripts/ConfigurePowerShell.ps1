@@ -197,7 +197,7 @@ Safe-RefreshEnv
 		try {
 			winget install JanDeDobbeleer.OhMyPosh --source winget
 		} catch {
-			Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+			try { Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1')) } catch {}
 		}
 		Safe-RefreshEnv
 		try { oh-my-posh font install meslo } catch {}
