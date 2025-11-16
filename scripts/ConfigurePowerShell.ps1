@@ -36,19 +36,11 @@ if (([Security.Principal.WindowsPrincipal] `
 }
 
 #--- Enable Powershell Script Execution
-try { Set-ExecutionPolicy Bypass -Scope CurrentUser -Force } catch {} # Do nothing if blocked from Group Policy
+try { Set-ExecutionPolicy Bypass -Scope CurrentUser -Force } catch {} # Do nothing if blocked by Group Policy
 
 Safe-RefreshEnv
 
 [ScriptBlock]$ScriptBlock = {
-	try {
-		Set-ExecutionPolicy Bypass -Scope CurrentUser -Force
-	} catch {
-		try {
-			Set-ExecutionPolicy Bypass -Scope Process -Force
-		} catch {}
-	} # Do nothing if blocked from Group Policy
-
 	function Safe-RefreshEnv {
 		try {
 			$output = RefreshEnv 2>&1 | Out-String
@@ -70,6 +62,17 @@ Safe-RefreshEnv
 		}
 
 		return $null
+	}
+
+	#--- Enable Powershell Script Execution
+	try {
+		Set-ExecutionPolicy Bypass -Scope CurrentUser -Force
+	} catch {
+		try {
+			Set-ExecutionPolicy Bypass -Scope Process -Force
+		} catch {
+			# Do nothing if blocked by Group Policy
+		}
 	}
 
 	Safe-RefreshEnv
