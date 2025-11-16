@@ -72,9 +72,11 @@ Safe-RefreshEnv
 		[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
 	}
 
-	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-		#--- Install NuGet Package Provider
-		Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction SilentlyContinue
+	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -and (Get-Command -Name Install-PackageProvider -ErrorAction SilentlyContinue)) {
+		Write-Host 'Installing NuGet Package Provider...'
+		try {
+			Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction SilentlyContinue
+		} catch {}
 	}
 
 	#--- Powershell Module Repository
