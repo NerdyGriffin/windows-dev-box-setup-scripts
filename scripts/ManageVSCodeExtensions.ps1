@@ -1,15 +1,15 @@
 <#
 .SYNOPSIS
-	Disables VS Code extensions that should only be enabled per-workspace.
+	Bulk-manages VS Code extensions: disables workspace-specific extensions globally and enables selected extensions as needed.
 
 .DESCRIPTION
-	This script disables language-specific and tool-specific VS Code extensions globally.
-	These extensions can then be re-enabled on a per-workspace basis as needed.
-	This helps keep VS Code lightweight and reduces clutter in the Extensions view.
+	ManageVSCodeExtensions.ps1 disables language-specific and tool-specific VS Code extensions globally, and enables selected extensions for your environment.
+	Use this script to keep VS Code lightweight, reduce clutter, and quickly toggle extension states for different workflows.
 
 .NOTES
 	Author: NerdyGriffin
 	Date: November 11, 2025
+	Renamed: November 15, 2025
 #>
 
 # Extensions to disable globally (enable per-workspace as needed)
@@ -160,19 +160,34 @@ $extensionsToEnable = @(
 	'ms-vscode-remote.vscode-remote-extensionpack'
 )
 
-Write-Host "Starting to disable workspace-specific extensions..." -ForegroundColor Cyan
-Write-Host "Total extensions to disable: $($extensionsToDisable.Count)" -ForegroundColor Yellow
+# Cache installed extensions to avoid calling `code --list-extensions` repeatedly
+$installedExtensionsOutput = code --list-extensions 2>&1
+$installedExtensionsExitCode = $LASTEXITCODE
+if ($installedExtensionsExitCode -ne 0) {
+    Write-Host "ERROR: Failed to run 'code --list-extensions'. Is VS Code installed and the 'code' command available in your PATH?" -ForegroundColor Red
+    Write-Host "Details: $installedExtensionsOutput" -ForegroundColor Red
+    exit 1
+}
+$installedExtensions = $installedExtensionsOutput -as [string[]]
+
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "ManageVSCodeExtensions.ps1" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Preparing to manage VS Code extensions..." -ForegroundColor Cyan
+Write-Host "  - To disable: $($extensionsToDisable.Count)" -ForegroundColor Yellow
+Write-Host "  - To enable:  $($extensionsToEnable.Count)" -ForegroundColor Yellow
 Write-Host ""
 
-$successCount = 0
-$failCount = 0
-$notInstalledCount = 0
+# Counters for disabling
+$disableSuccessCount = 0
+$disableFailCount = 0
+$disableNotInstalledCount = 0
 
 foreach ($extension in $extensionsToDisable) {
-	Write-Host "Processing: $extension" -ForegroundColor Gray
+	Write-Host "Disabling: $extension" -ForegroundColor Gray
 
 	# Check if extension is installed
-	$installed = code --list-extensions | Where-Object { $_ -eq $extension }
+	$installed = $installedExtensions -contains $extension
 
 	if ($installed) {
 		try {
@@ -180,29 +195,38 @@ foreach ($extension in $extensionsToDisable) {
 			$result = code --disable-extension $extension --reuse-window 2>&1
 
 			if ($LASTEXITCODE -eq 0) {
-				Write-Host "  ✓ Successfully disabled: $extension" -ForegroundColor Green
-				$successCount++
+				Write-Host "  OK: Successfully disabled: $extension" -ForegroundColor Green
+				$disableSuccessCount++
 			} else {
-				Write-Host "  ✗ Failed to disable: $extension" -ForegroundColor Red
+				Write-Host "  FAIL: Failed to disable: $extension" -ForegroundColor Red
 				Write-Host "    Error: $result" -ForegroundColor Red
-				$failCount++
+				$disableFailCount++
 			}
-		}
-		catch {
-			Write-Host "  ✗ Error disabling: $extension - $_" -ForegroundColor Red
-			$failCount++
+		} catch {
+			Write-Host "  FAIL: Error disabling: $extension - $_" -ForegroundColor Red
+			$disableFailCount++
 		}
 	} else {
 		Write-Host "  - Not installed: $extension" -ForegroundColor DarkGray
-		$notInstalledCount++
+		$disableNotInstalledCount++
 	}
 }
 
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Enabling selected extensions globally..." -ForegroundColor Cyan
+Write-Host "Total to enable: $($extensionsToEnable.Count)" -ForegroundColor Yellow
+Write-Host ""
+
+# Counters for enabling
+$enableSuccessCount = 0
+$enableFailCount = 0
+$enableNotInstalledCount = 0
+
 foreach ($extension in $extensionsToEnable) {
-	Write-Host "Processing enable: $extension" -ForegroundColor Gray
+	Write-Host "Enabling: $extension" -ForegroundColor Gray
 
 	# Check if extension is installed
-	$installed = code --list-extensions | Where-Object { $_ -eq $extension }
+	$installed = $installedExtensions -contains $extension
 
 	if ($installed) {
 		try {
@@ -210,27 +234,34 @@ foreach ($extension in $extensionsToEnable) {
 			$result = code --enable-extension $extension --reuse-window 2>&1
 
 			if ($LASTEXITCODE -eq 0) {
-				Write-Host "  ✓ Successfully enabled: $extension" -ForegroundColor Green
+				Write-Host "  OK: Successfully enabled: $extension" -ForegroundColor Green
+				$enableSuccessCount++
 			} else {
-				Write-Host "  ✗ Failed to enable: $extension" -ForegroundColor Red
+				Write-Host "  FAIL: Failed to enable: $extension" -ForegroundColor Red
 				Write-Host "    Error: $result" -ForegroundColor Red
+				$enableFailCount++
 			}
-		}
-		catch {
-			Write-Host "  ✗ Error enabling: $extension - $_" -ForegroundColor Red
+		} catch {
+			Write-Host "  FAIL: Error enabling: $extension - $_" -ForegroundColor Red
+			$enableFailCount++
 		}
 	} else {
 		Write-Host "  - Not installed: $extension" -ForegroundColor DarkGray
+		$enableNotInstalledCount++
 	}
 }
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "Summary:" -ForegroundColor Cyan
-Write-Host "  Successfully disabled: $successCount" -ForegroundColor Green
-Write-Host "  Failed to disable: $failCount" -ForegroundColor Red
-Write-Host "  Not installed: $notInstalledCount" -ForegroundColor DarkGray
-Write-Host "  Total processed: $($extensionsToDisable.Count)" -ForegroundColor Yellow
+Write-Host "  Successfully disabled: $disableSuccessCount" -ForegroundColor Green
+Write-Host "  Failed to disable: $disableFailCount" -ForegroundColor Red
+Write-Host "  Not installed (disable list): $disableNotInstalledCount" -ForegroundColor DarkGray
+Write-Host "  Successfully enabled: $enableSuccessCount" -ForegroundColor Green
+Write-Host "  Failed to enable: $enableFailCount" -ForegroundColor Red
+Write-Host "  Not installed (enable list): $enableNotInstalledCount" -ForegroundColor DarkGray
+Write-Host "  Total disabled: $($extensionsToDisable.Count)" -ForegroundColor Yellow
+Write-Host "  Total enabled: $($extensionsToEnable.Count)" -ForegroundColor Yellow
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Note: You may need to reload VS Code for all changes to take effect." -ForegroundColor Yellow
