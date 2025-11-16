@@ -75,14 +75,17 @@ Safe-RefreshEnv
 	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 		#--- Install NuGet Package Provider
 		Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction SilentlyContinue
-
-		#--- Powershell Module Repository
-		Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 	}
 
-	#--- Update all modules ---
-	Write-Host 'Updating all modules...'
-	Update-Module -ErrorAction SilentlyContinue
+	#--- Powershell Module Repository
+	Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+
+	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+		#--- Update all modules ---
+		Write-Host 'Updating all modules...'
+		Update-Module -ErrorAction SilentlyContinue
+	}
+
 	Safe-RefreshEnv
 	Start-Sleep -Seconds 1;
 
@@ -227,9 +230,11 @@ Safe-RefreshEnv
 
 	Get-Content -Path $PROFILE | Set-Content -Path (Join-Path (Split-Path -Path $PROFILE -Parent) "Microsoft.VSCode_profile.ps1")
 
-	#--- Update all modules ---
-	Write-Host 'Updating all modules...'
-	Update-Module -ErrorAction SilentlyContinue
+	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+		#--- Update all modules ---
+		Write-Host 'Updating all modules...'
+		Update-Module -ErrorAction SilentlyContinue
+	}
 
 	#--- Reset default security protocol ---
 	[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
