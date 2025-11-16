@@ -172,20 +172,6 @@ Safe-RefreshEnv
 		}
 	}
 
-	#--- Uninstall the Pipeworks Module
-	try {
-		Write-Host 'Uninstalling Pipeworks -- [CLI Tools for PowerShell]'
-		Write-Host 'Description: PowerShell Pipeworks is a framework for writing Sites and Software Services in Windows PowerShell modules.'
-		if (Get-Module -ListAvailable -Name Pipeworks) {
-			Uninstall-Module -Name Pipeworks -Force -Verbose -
-		} else { Write-Host "Module 'Pipeworks' not installed" }
-		Safe-RefreshEnv
-	} catch {
-		Write-Host 'Pipeworks failed to uninstall' | Write-Warning
-		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
-		# Move on if Pipeworks uninstall fails due to errors
-	}
-
 	#--- Install the CredentialManager Module
 	try {
 		Write-Host 'Installing CredentialManager'
@@ -232,6 +218,20 @@ Safe-RefreshEnv
 		Write-Host 'Powerline failed to install' | Write-Warning
 		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
 		# Move on if Powerline install fails due to error
+	}
+
+	#--- Uninstall the Pipeworks Module
+	try {
+		Write-Host 'Uninstalling Pipeworks -- [CLI Tools for PowerShell]'
+		Write-Host 'Description: PowerShell Pipeworks is a framework for writing Sites and Software Services in Windows PowerShell modules.'
+		if (Get-Module -ListAvailable -Name Pipeworks) {
+			Uninstall-Module -Name Pipeworks -Force -Verbose -
+		} else { Write-Host "Module 'Pipeworks' not installed" }
+		Safe-RefreshEnv
+	} catch {
+		Write-Host 'Pipeworks failed to uninstall' | Write-Warning
+		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
+		# Move on if Pipeworks uninstall fails due to errors
 	}
 
 	Get-Content -Path $PROFILE | Set-Content -Path (Join-Path (Split-Path -Path $PROFILE -Parent) "Microsoft.VSCode_profile.ps1")
