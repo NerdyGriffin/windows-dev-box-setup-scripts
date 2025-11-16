@@ -40,7 +40,7 @@ try { Set-ExecutionPolicy Bypass -Scope CurrentUser -Force } catch {} # Do nothi
 
 Safe-RefreshEnv
 
-[ScriptBLock]$ScriptBlock = {
+[ScriptBlock]$ScriptBlock = {
 	try {
 		Set-ExecutionPolicy Bypass -Scope CurrentUser -Force
 	} catch {
