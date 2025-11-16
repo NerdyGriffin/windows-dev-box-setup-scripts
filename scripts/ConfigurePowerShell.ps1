@@ -72,13 +72,13 @@ Safe-RefreshEnv
 		[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
 	}
 
-	#--- Install NuGet Package Provider
 	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+		#--- Install NuGet Package Provider
 		Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction SilentlyContinue
-	}
 
-	#--- Powershell Module Repository
-	Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+		#--- Powershell Module Repository
+		Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+	}
 
 	#--- Update all modules ---
 	Write-Host 'Updating all modules...'
