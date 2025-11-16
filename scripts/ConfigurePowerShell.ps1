@@ -78,7 +78,11 @@ Safe-RefreshEnv
 	}
 
 	#--- Powershell Module Repository
-	Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+	if (Get-Command -Name Set-PSRepository -ErrorAction SilentlyContinue) {
+		try {
+			Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted -ErrorAction SilentlyContinue
+		} catch {}
+	}
 
 	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 		#--- Update all modules ---
