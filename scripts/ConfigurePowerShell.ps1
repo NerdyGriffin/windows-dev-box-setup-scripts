@@ -201,9 +201,9 @@ Safe-RefreshEnv
 	try {
 		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
 		try {
-			Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+			winget install JanDeDobbeleer.OhMyPosh --source winget
 		} catch {
-			try { winget install JanDeDobbeleer.OhMyPosh --source winget } catch {}
+			try { Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1')) } catch {}
 		}
 		Safe-RefreshEnv
 		try { oh-my-posh font install meslo } catch {}
