@@ -172,9 +172,7 @@ Safe-RefreshEnv
 		$ChocolateyProfile = @(
 			'# Chocolatey profile',
 			'$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"',
-			'if (Test-Path($ChocolateyProfile)) {'
-			'    Import-Module "$ChocolateyProfile"'
-			'}'
+			'if (Test-Path($ChocolateyProfile)) { Import-Module "$ChocolateyProfile" }'
 		)
 		if (-not(Select-String -Pattern $ChocolateyProfile[0] -Path $PROFILE)) {
 			Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
