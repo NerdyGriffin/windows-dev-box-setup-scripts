@@ -235,7 +235,7 @@ Safe-RefreshEnv
 		Write-Host 'Uninstalling Pipeworks -- [CLI Tools for PowerShell]'
 		Write-Host 'Description: PowerShell Pipeworks is a framework for writing Sites and Software Services in Windows PowerShell modules.'
 		if (Get-Module -ListAvailable -Name Pipeworks) {
-			Uninstall-Module -Name Pipeworks -Force -Verbose -
+			Uninstall-Module -Name Pipeworks -Force -Verbose
 		} else { Write-Host "Module 'Pipeworks' not installed" }
 		Safe-RefreshEnv
 	} catch {
