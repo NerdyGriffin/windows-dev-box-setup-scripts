@@ -206,13 +206,14 @@ Safe-RefreshEnv
 		}
 		Safe-RefreshEnv
 		try { oh-my-posh font install meslo } catch {}
+		Safe-RefreshEnv
 		try { oh-my-posh enable upgrade } catch {}
 		Safe-RefreshEnv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
 			'# Dependencies for powerline',
 			# 'oh-my-posh --init --shell pwsh --config $env:POSH_THEMES_PATH/microverse-power.omp.json | Invoke-Expression'
-			'oh-my-posh init $(oh-my-posh get shell) --config ''microverse-power'' | Invoke-Expression'
+			'if (Get-Command -Name oh-my-posh -ErrorAction SilentlyContinue) { oh-my-posh init $(oh-my-posh get shell) --config ''microverse-power'' | Invoke-Expression }'
 			# 'oh-my-posh init $(oh-my-posh get shell) --eval --config ''microverse-power'' | Invoke-Expression'
 		)
 		if (-not(Select-String -Pattern $PowerlineProfile[0] -Path $PROFILE )) {
