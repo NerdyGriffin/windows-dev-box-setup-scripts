@@ -210,8 +210,6 @@ Safe-RefreshEnv
 		Safe-RefreshEnv
 		try { oh-my-posh font install meslo } catch {}
 		Safe-RefreshEnv
-		try { oh-my-posh enable upgrade } catch { oh-my-posh disable upgrade }
-		Safe-RefreshEnv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
 			'# Dependencies for powerline',
