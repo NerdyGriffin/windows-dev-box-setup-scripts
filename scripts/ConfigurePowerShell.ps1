@@ -198,15 +198,19 @@ Safe-RefreshEnv
 	#--- Install & Configure the Powerline Modules
 	try {
 		Write-Host 'Installing Oh-My-Posh - [Dependencies for Powerline]'
-		try {
-			winget install JanDeDobbeleer.OhMyPosh --source winget
-		} catch {
-			try { Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1')) } catch {}
+		if (Get-Command -Name oh-my-posh -ErrorAction SilentlyContinue) {
+			Write-Host "Package 'Oh-My-Posh' already installed"
+		} else {
+			try {
+				winget install JanDeDobbeleer.OhMyPosh --source winget
+			} catch {
+				try { Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1')) } catch {}
+			}
 		}
 		Safe-RefreshEnv
 		try { oh-my-posh font install meslo } catch {}
 		Safe-RefreshEnv
-		try { oh-my-posh enable upgrade } catch {}
+		try { oh-my-posh enable upgrade } catch { oh-my-posh disable upgrade }
 		Safe-RefreshEnv
 		Write-Host 'Appending Configuration for Powerline to PowerShell Profile...'
 		$PowerlineProfile = @(
@@ -236,7 +240,7 @@ Safe-RefreshEnv
 		Write-Host 'Description: PowerShell Pipeworks is a framework for writing Sites and Software Services in Windows PowerShell modules.'
 		if (Get-Module -ListAvailable -Name Pipeworks) {
 			Uninstall-Module -Name Pipeworks -Force -Verbose
-		} else { Write-Host "Module 'Pipeworks' not installed" }
+		} else { Write-Host "Module 'Pipeworks' not installed. No further action required." }
 		Safe-RefreshEnv
 	} catch {
 		Write-Host 'Pipeworks failed to uninstall' | Write-Warning
