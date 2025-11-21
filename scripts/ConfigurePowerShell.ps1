@@ -29,10 +29,6 @@ if (([Security.Principal.WindowsPrincipal] `
 	choco upgrade -y powershell-core
 	choco upgrade -y winget
 	Update-EnvironmentVariables
-
-	# #--- Oh My Posh Environment Variable ---
-	# [System.Environment]::SetEnvironmentVariable('POSH_THEMES_PATH', '~\AppData\Local\Programs\oh-my-posh\themes')
-	# Update-EnvironmentVariables
 }
 
 #--- Enable Powershell Script Execution
