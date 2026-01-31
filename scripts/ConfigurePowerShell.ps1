@@ -151,6 +151,21 @@ Update-EnvironmentVariables
 		# Move on if PSReadline install fails due to errors
 	}
 
+	#--- Install the Pester Module
+	try {
+		Write-Host 'Installing Pester'
+		if (-not(Get-Module -ListAvailable -Name Pester)) {
+			Install-Module -Name Pester -AllowClobber -SkipPublisherCheck -Force -Verbose
+		} else {
+			Update-Module -Name Pester -Force -Verbose -ErrorAction SilentlyContinue
+		}
+		Update-EnvironmentVariables
+	} catch {
+		Write-Host 'Pester failed to install' | Write-Warning
+		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
+		# Move on if Pester install fails due to errors
+	}
+
 	#--- Install the PSWindowsUpdate Module
 	try {
 		Write-Host 'Installing PSWindowsUpdate'
