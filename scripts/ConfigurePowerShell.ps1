@@ -186,7 +186,7 @@ Update-EnvironmentVariables
 		Write-Host 'Installing CredentialManager'
 		Write-Host 'Description: Provides access to credentials in the Windows Credential Manager.'
 		if (-not(Get-Module -ListAvailable -Name CredentialManager)) {
-			Install-Module -Name CredentialManager
+			Install-Module -Name CredentialManager -Scope CurrentUser -AllowClobber -SkipPublisherCheck -Force -Verbose
 		} else { Write-Host "Module 'CredentialManager' already installed" }
 		Update-EnvironmentVariables
 	} catch {
