@@ -273,12 +273,24 @@ Update-EnvironmentVariables
 	[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
 } # End of $ScriptBlock
 
-# Run the script block in PowerShell
-Write-Host 'Configuring Windows PowerShell...' -ForegroundColor 'Green'
-powershell -Command $ScriptBlock
+# Create temporary file to execute script block (avoids AV heuristics for long command lines)
+$TempScriptPath = Join-Path $env:TEMP "ConfigurePWSH_$([Guid]::NewGuid()).ps1"
+$ScriptBlock.ToString() | Out-File -FilePath $TempScriptPath -Encoding UTF8 -Force
 
-# Run the script block in PowerShell Core
-Write-Host 'Configuring PowerShell Core...' -ForegroundColor 'Green'
-pwsh -Command $ScriptBlock
+try {
+	# Run the script block in PowerShell
+	Write-Host 'Configuring Windows PowerShell...' -ForegroundColor 'Green'
+	powershell -NoProfile -ExecutionPolicy Bypass -File "$TempScriptPath"
+
+	# Run the script block in PowerShell Core
+	Write-Host 'Configuring PowerShell Core...' -ForegroundColor 'Green'
+	if (Get-Command pwsh -ErrorAction SilentlyContinue) {
+		pwsh -NoProfile -ExecutionPolicy Bypass -File "$TempScriptPath"
+	} else {
+		Write-Warning "PowerShell Core (pwsh) not found."
+	}
+} finally {
+	Remove-Item -Path $TempScriptPath -ErrorAction SilentlyContinue
+}
 
 [System.Environment]::SetEnvironmentVariable('PYTHONSTARTUP', (Join-Path $env:USERPROFILE '.pystartup'))
