@@ -85,9 +85,22 @@ Update-EnvironmentVariables
 	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -and (Get-Command -Name Install-PackageProvider -ErrorAction SilentlyContinue)) {
 		Write-Host 'Installing NuGet Package Provider...'
 		try {
-			Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Confirm:$false -ErrorAction SilentlyContinue | Out-Null
-			Import-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction SilentlyContinue | Out-Null
-		} catch {}
+			# Check if NuGet provider is already installed
+			$nugetProvider = Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue -ListAvailable | Where-Object { $_.Version -ge '2.8.5.201' }
+
+			if (-not $nugetProvider) {
+				# Install NuGet provider without prompting
+				$null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Confirm:$false -ErrorAction Stop
+				Write-Host 'NuGet Package Provider installed successfully.'
+			} else {
+				Write-Host 'NuGet Package Provider already installed.'
+			}
+
+			# Import the provider to ensure it's available
+			Import-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop | Out-Null
+		} catch {
+			Write-Warning "Failed to install NuGet Package Provider: $_"
+		}
 	}
 
 	#--- Powershell Module Repository
@@ -99,8 +112,14 @@ Update-EnvironmentVariables
 
 	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 		#--- Update all modules ---
-		Write-Host 'Updating all modules...'
-		Update-Module -ErrorAction SilentlyContinue
+		# Only attempt to update modules if NuGet provider is available
+		$nugetAvailable = Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue -ListAvailable | Where-Object { $_.Version -ge '2.8.5.201' }
+		if ($nugetAvailable) {
+			Write-Host 'Updating all modules...'
+			Update-Module -ErrorAction SilentlyContinue
+		} else {
+			Write-Warning 'Skipping Update-Module: NuGet provider not available.'
+		}
 	}
 
 	Update-EnvironmentVariables
@@ -265,8 +284,14 @@ Update-EnvironmentVariables
 
 	if (([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 		#--- Update all modules ---
-		Write-Host 'Updating all modules...'
-		Update-Module -ErrorAction SilentlyContinue
+		# Only attempt to update modules if NuGet provider is available
+		$nugetAvailable = Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue -ListAvailable | Where-Object { $_.Version -ge '2.8.5.201' }
+		if ($nugetAvailable) {
+			Write-Host 'Updating all modules...'
+			Update-Module -ErrorAction SilentlyContinue
+		} else {
+			Write-Warning 'Skipping Update-Module: NuGet provider not available.'
+		}
 	}
 
 	#--- Reset default security protocol ---
