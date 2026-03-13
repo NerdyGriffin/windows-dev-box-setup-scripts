@@ -229,43 +229,6 @@ Update-EnvironmentVariables
 		# Move on if CredentialManager install fails due to errors
 	}
 
-	#--- Install & Configure Oh-My-Posh
-	try {
-		Write-Host 'Installing Oh-My-Posh - [Powerline-style prompt for PowerShell]'
-		if (Get-Command -Name oh-my-posh -ErrorAction SilentlyContinue) {
-			Write-Host "Package 'Oh-My-Posh' already installed"
-		} else {
-			try {
-				winget install JanDeDobbeleer.OhMyPosh --source winget
-			} catch {
-				try { Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1')) } catch {}
-			}
-		}
-		Update-EnvironmentVariables
-		try { oh-my-posh font install meslo } catch {}
-		Update-EnvironmentVariables
-		Write-Host 'Appending Configuration for Oh-My-Posh to PowerShell Profile...'
-		$OhMyPoshProfile = @(
-			'# Initialize Oh-My-Posh',
-			# 'oh-my-posh --init --shell pwsh --config $env:POSH_THEMES_PATH/microverse-power.omp.json | Invoke-Expression'
-			'if (Get-Command -Name oh-my-posh -ErrorAction SilentlyContinue) { oh-my-posh init $(oh-my-posh get shell) --config ''microverse-power'' | Invoke-Expression }'
-			# 'oh-my-posh init $(oh-my-posh get shell) --eval --config ''microverse-power'' | Invoke-Expression'
-		)
-		if (-not(Select-String -Pattern $OhMyPoshProfile[0] -Path $PROFILE )) {
-			Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
-			Write-Output $OhMyPoshProfile | Write-Debug
-			Add-Content -Path $PROFILE -Value $OhMyPoshProfile
-		}
-		# Install additional Oh-My-Posh-related packages via Chocolatey
-		# choco install -y poshgit
-		# choco install -y posh-github
-		# Update-EnvironmentVariables
-	} catch {
-		Write-Host 'Oh-My-Posh failed to install' | Write-Warning
-		Write-Host ' See the log for details (' $Boxstarter.Log ').' | Write-Debug
-		# Move on if Oh-My-Posh install fails due to error
-	}
-
 	#--- Uninstall the Pipeworks Module
 	try {
 		Write-Host 'Uninstalling Pipeworks -- [CLI Tools for PowerShell]'
