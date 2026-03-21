@@ -156,8 +156,8 @@ Update-EnvironmentVariables
 			'if (!(Get-Module PSReadLine -ErrorAction SilentlyContinue)) { Import-Module PSReadLine }',
 			'Set-PSReadLineOption -EditMode Emacs -HistoryNoDuplicates -HistorySearchCursorMovesToEnd',
 			# 'Set-PSReadLineOption -BellStyle Audible -DingTone 512',
-			'# Creates an alias for ls like I use in Bash',
-			'Set-Alias -Name v -Value Get-ChildItem'
+			'# Creates a function for ls like I use in Bash (sorts output for non-NTFS filesystems)',
+			'function v { Get-ChildItem @args | Sort-Object Name }'
 		)
 		if (-not(Select-String -Pattern $PSReadlineProfile[0] -Path $PROFILE)) {
 			Write-Output 'Attempting to add the following lines to $PROFILE :' | Write-Debug
